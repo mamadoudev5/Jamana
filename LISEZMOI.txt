@@ -1,13 +1,21 @@
-JAMANA v1.2 - projet APK (fonctionne hors ligne)
+JAMANA v1.3 - projet APK (fonctionne hors ligne)
 
   www/                       appli (index.html, data/, etc.)
+  www/maj.json               mises a jour du contenu SANS recompiler l APK (voir ci-dessous)
   assets/                    icones
-  debug.keystore             cle de signature de TEST (garde la meme signature a chaque build)
-  capacitor.config.json      reglages de APK
-  package.json               dependances
+  debug.keystore             cle de signature de TEST
   .github/workflows/         compilation automatique (GitHub Actions)
 
-Version : changez APP_VERSION en haut de .github/workflows/build-apk.yml (et VERSION dans www/index.html).
-Mise a jour : remplacez les fichiers dans www/, puis git add . && git commit && git push.
-GitHub recompile et publie un nouvel APK dans la section Releases.
-La cle debug.keystore sert aux tests uniquement : pour le Play Store, il faudra une vraie cle secrete.
+VERSION : changez APP_VERSION dans .github/workflows/build-apk.yml ET VERSION dans www/index.html.
+
+MISE A JOUR DU CONTENU A DISTANCE (le depot GitHub doit etre PUBLIC) :
+  Modifiez www/maj.json sur GitHub, augmentez "version" (1 -> 2 -> 3...), puis commit.
+  Les telephones recuperent le nouveau contenu au prochain lancement avec Internet.
+  Modifier maj.json ne recompile PAS l APK. Contenu possible :
+  { "version": 2,
+    "urgences": [ { "titre": "...", "items": [ { "nom": "...", "tel": "17", "ok": true, "src": "..." } ] } ],
+    "annuaire": { "villes": [ { "nom": "Bamako", "services": [ { "t": "hopital", "nom": "...", "tel": "+223...", "ok": true } ] } ] },
+    "sources":  [ { "id": "maliactu", "nom": "MaliActu", "url": "https://.../feed/" } ] }
+  Les numeros et adresses invalides sont refuses par l appli.
+
+Cle debug.keystore : tests uniquement. Pour le Play Store il faudra une vraie cle secrete.

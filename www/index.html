@@ -92,6 +92,16 @@ details li{margin:7px 0}
 .art small{display:block;margin-top:4px;color:var(--lien);font-weight:600}
 .art span{display:block;margin-top:6px;color:var(--corps);font-size:.9rem;line-height:1.4}
 .etat{margin:12px 2px;color:var(--gris);font-size:.88rem}
+.alerte{display:flex;gap:10px;align-items:center;width:100%;margin-top:14px;padding:12px 14px;background:var(--rbg);border:1px solid var(--rbd);color:var(--rtx);border-radius:14px;text-align:left}
+a.row{text-decoration:none;color:inherit}
+.form{display:grid;gap:12px;margin-top:14px;padding:14px;background:var(--carte);border:1px solid var(--ligne);border-radius:16px}
+.form label{display:grid;gap:6px;font-weight:600;font-size:.9rem}
+.form input,.form select{min-height:46px;padding:10px 12px;border:1px solid var(--ligne);border-radius:12px;background:var(--fond);color:var(--texte);font:inherit}
+.supp{flex:none;border:0;background:none;color:var(--rtx);padding:8px}
+.gros{margin:6px 0;font-size:1.8rem;font-weight:800;letter-spacing:.02em}
+.lienbtn{border:0;background:none;color:var(--lien);font-weight:600;padding:4px 6px}
+ol.etapes{margin:0 0 14px;padding-left:22px;color:var(--corps)}
+ol.etapes li{margin:8px 0}
 nav{position:fixed;left:0;right:0;bottom:0;z-index:5;display:grid;grid-template-columns:repeat(4,1fr);padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px));background:var(--navbg);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-top:1px solid var(--ligne)}
 nav button{position:relative;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 0 4px;border:0;background:none;color:var(--gris);font-size:.72rem}
 nav button.on{color:var(--lien);font-weight:700}
@@ -136,21 +146,36 @@ sound:'<path d="M4 9v6h4l5 4V5L8 9z"/><path d="M16.5 8.5a5 5 0 010 7"/>',
 stop:'<rect x="6" y="6" width="12" height="12" rx="2"/>',
 share:'<circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8.2 10.8l7.6-3.6M8.2 13.2l7.6 3.6"/>',
 flag:'<path d="M5 21V4M5 4h12l-2 4 2 4H5"/>',
-tune:'<path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/>'};
+tune:'<path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/>',
+bell:'<path d="M6 17v-6a6 6 0 1112 0v6l1.5 2h-15z"/><path d="M10 21a2 2 0 004 0"/>',
+heart:'<path d="M12 20s-7-4.4-7-10a4 4 0 017-2.5A4 4 0 0119 10c0 5.6-7 10-7 10z"/>',
+info:'<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/>',
+trash:'<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/>',
+copy:'<rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 00-2-2H6a2 2 0 00-2 2v8a2 2 0 002 2h2"/>'};
 const svg=(n,s=24)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${I[n]}</svg>`;
 const CATIC=["doc","bus","urg","job","doc","home","doc","doc","job","pin","doc"];
 const LOGO=`<svg viewBox="0 0 64 64" role="img" aria-label="Logo Jamana"><rect width="64" height="64" rx="18" fill="#fff"/><path d="M38 14v22c0 7-4.5 11-11 11" fill="none" stroke="#0B3FA8" stroke-width="8" stroke-linecap="round"/><rect x="14" y="52" width="12" height="4" rx="2" fill="#14B53A"/><rect x="26" y="52" width="12" height="4" rx="2" fill="#FCD116"/><rect x="38" y="52" width="12" height="4" rx="2" fill="#CE1126"/></svg>`;
 
 /* ===== CONTACT ===== */
-const VERSION="1.2";
+const VERSION="1.3";
 const WA="22373065026",TEL="+22373065026",MAIL="mamadousidibee10@gmail.com";
+const RELEASES="https://github.com/mamadoudev5/Jamana/releases/latest";
+const MAJ_URL="https://raw.githubusercontent.com/mamadoudev5/Jamana/main/www/maj.json";
 
 /* ===== LANGUES =====
    Ajouter une langue : créer data/xx.js (window.DATA_XX={cats:[...],items:[{id,titre,c,s:{...}}]}),
    ajouter ses textes dans UI.xx et l'inscrire dans LANGS. Ce qui manque retombe sur le français. */
 const LANGS=[["fr","FR"],["bm","BM"],["en","EN"]];
 const UI={fr:{
- actuT:"Actualités",actuD:"Les dernières informations de la presse malienne",actuMaj:"Actualiser",actuHors:"Pas de connexion : derniers articles enregistrés",actuErr:"Impossible de charger les actualités pour le moment.",actuNav:"Dans un navigateur, certains sites bloquent la lecture. L’application Android fonctionne.",actuVide:"Aucun article pour le moment.",actuNote:"Titres fournis par les sites des journaux. Jamana n’est pas responsable de leur contenu.",charge:"Chargement…",aconf:"À confirmer",ty_utilites:"Eau et électricité",ty_mairie:"Mairies",ty_etatcivil:"Centres d’état civil",ty_commissariat:"Commissariats",ty_hopital:"Hôpitaux et centres de santé",ty_pharmacie:"Pharmacies de garde",
+ rappels:"Mes rappels",rappelsD:"Passeport, carte d’identité… : soyez prévenu avant l’expiration",rapDoc:"Document",rapDate:"Date d’expiration",rapAvant:"Me prévenir",rapMois1:"1 mois avant",rapMois3:"3 mois avant",rapMois6:"6 mois avant",rapAjout:"Ajouter le rappel",rapVide:"Aucun rappel pour le moment.",rapNotif:"Notification programmée",rapAppli:"Rappel visible dans l’appli",rapDans:"expire dans",rapJours:"jours",rapExp:"expiré depuis",rapSupp:"Supprimer",rapPh:"Passeport, carte d’identité…",rapErr:"Indiquez le document et une date valide.",rPass:"Passeport",rCni:"Carte d’identité",rPerm:"Permis de conduire",
+ jamana:"Jamana",partagerJ:"Partager Jamana",partagerJD:"Envoyer le lien de l’application sur WhatsApp",partagerTxt:"Jamana : démarches, urgences, annuaire et actualités du Mali. Gratuite et utilisable hors ligne. Télécharger :",
+ soutenir:"Soutenir Jamana",soutenirD:"Aidez à garder l’application gratuite",souIntro:"Jamana est gratuite. Si elle vous est utile, vous pouvez soutenir son hébergement, ses mises à jour et la vérification des informations. C’est facultatif.",souOrange:"Orange Money et Wave",souNum:"73 06 50 26",souNom:"Mamadou Sidibé",souCopier:"Copier le numéro",souCopie:"Copié",souEtapes:"Comment faire",souE1:"Ouvrez Orange Money ou Wave.",souE2:"Choisissez « Envoyer de l’argent » et collez le numéro.",souE3:"Vérifiez le nom du destinataire avant de valider.",souMerci:"Merci de faire vivre Jamana.",souAvert:"Pour votre sécurité : Jamana ne vous demandera jamais d’argent par message, ni vers un autre numéro que celui affiché ici.",
+ apropos:"À propos",aproposD:"Sources, avertissement, confidentialité",apVer:"Version",
+ apTitre1:"Qu’est-ce que Jamana ?",apT1:"Jamana rassemble les démarches administratives, les numéros utiles, un annuaire et des actualités du Mali. Elle fonctionne hors ligne. Elle est créée par Mamadou Sidibé.",
+ apTitre2:"Sources",apT2:"Démarches : guide des démarches administratives du Mali (document de 2021). Numéros d’urgence : plan national de numérotage (CRT, 2005) et sources indiquées dans chaque fiche. Actualités : sites des journaux concernés.",
+ apTitre3:"Avertissement",apT3:"Les informations sont données à titre indicatif. Les coûts, délais, procédures et numéros peuvent changer : vérifiez toujours auprès du service concerné. Jamana n’est pas un service de l’État.",
+ apTitre4:"Confidentialité",apT4:"Pas de compte, pas de publicité, pas de suivi. Vos favoris, cases cochées, rappels et réglages restent sur votre téléphone. Pour les actualités et les mises à jour du contenu, l’application se connecte à Internet (sites des journaux et GitHub), qui peuvent voir l’adresse IP de votre connexion.",
+ apTitre5:"Contenu mis à jour",apMaj:"Version du contenu reçu :",apMajNon:"Aucune mise à jour de contenu reçue pour le moment.",apContact:"Une erreur à signaler, une idée ?", actuT:"Actualités",actuD:"Les dernières informations de la presse malienne",actuMaj:"Actualiser",actuHors:"Pas de connexion : derniers articles enregistrés",actuErr:"Impossible de charger les actualités pour le moment.",actuNav:"Dans un navigateur, certains sites bloquent la lecture. L’application Android fonctionne.",actuVide:"Aucun article pour le moment.",actuNote:"Titres fournis par les sites des journaux. Jamana n’est pas responsable de leur contenu.",charge:"Chargement…",aconf:"À confirmer",ty_utilites:"Eau et électricité",ty_mairie:"Mairies",ty_etatcivil:"Centres d’état civil",ty_commissariat:"Commissariats",ty_hopital:"Hôpitaux et centres de santé",ty_pharmacie:"Pharmacies de garde",
  by:"Créé par",tag:"Le Mali en poche : démarches, urgences, annuaire.",search:"Rechercher une démarche, un service…",
  urg:"En cas d’urgence",urgSub:"Appel direct",police:"Police",pompiers:"Pompiers",
  services:"Services",soon:"Bientôt disponible",home:"Accueil",back:"Retour",none:"Aucun résultat pour",call:"Appeler le",
@@ -185,7 +210,15 @@ en:{
  reg:"Settings",txt:"Text size",theme:"Theme",auto:"Auto",clair:"Light",sombre:"Dark",ok:"Done",
  annVide:"No city listed yet.",servN:"services",appeler:"Call",itineraire:"Directions",
  videType:"No service listed here yet.",proposer:"Suggest a service",annNote:"Know a service that is missing, or something to correct?",
- actuT:"News",actuD:"Latest news from the Malian press",actuMaj:"Refresh",actuHors:"No connection: showing the latest saved articles",actuErr:"Unable to load the news right now.",actuNav:"In a browser, some sites block reading. The Android app works.",actuVide:"No articles for now.",actuNote:"Headlines provided by the newspapers’ websites. Jamana is not responsible for their content.",charge:"Loading…",aconf:"To be confirmed",ty_utilites:"Water and electricity",ty_mairie:"Town halls",ty_etatcivil:"Civil registry centres",ty_commissariat:"Police stations",ty_hopital:"Hospitals and health centres",ty_pharmacie:"On-duty pharmacies"
+ rappels:"My reminders",rappelsD:"Passport, ID card… get notified before they expire",rapDoc:"Document",rapDate:"Expiry date",rapAvant:"Remind me",rapMois1:"1 month before",rapMois3:"3 months before",rapMois6:"6 months before",rapAjout:"Add reminder",rapVide:"No reminders yet.",rapNotif:"Notification scheduled",rapAppli:"Reminder shown in the app",rapDans:"expires in",rapJours:"days",rapExp:"expired",rapSupp:"Delete",rapPh:"Passport, ID card…",rapErr:"Enter the document and a valid date.",rPass:"Passport",rCni:"ID card",rPerm:"Driving licence",
+ jamana:"Jamana",partagerJ:"Share Jamana",partagerJD:"Send the app link on WhatsApp",partagerTxt:"Jamana: procedures, emergencies, directory and news for Mali. Free and works offline. Download:",
+ soutenir:"Support Jamana",soutenirD:"Help keep the app free",souIntro:"Jamana is free. If it helps you, you can support its hosting, updates and the checking of information. It is optional.",souOrange:"Orange Money and Wave",souNum:"73 06 50 26",souNom:"Mamadou Sidibé",souCopier:"Copy the number",souCopie:"Copied",souEtapes:"How to do it",souE1:"Open Orange Money or Wave.",souE2:"Choose “Send money” and paste the number.",souE3:"Check the recipient’s name before confirming.",souMerci:"Thank you for keeping Jamana alive.",souAvert:"For your safety: Jamana will never ask you for money by message, or to any number other than the one shown here.",
+ apropos:"About",aproposD:"Sources, disclaimer, privacy",apVer:"Version",
+ apTitre1:"What is Jamana?",apT1:"Jamana brings together administrative procedures, useful numbers, a directory and news from Mali. It works offline. It is created by Mamadou Sidibé.",
+ apTitre2:"Sources",apT2:"Procedures: guide to administrative procedures in Mali (2021 document). Emergency numbers: national numbering plan (CRT, 2005) and the sources shown on each entry. News: the newspapers’ websites.",
+ apTitre3:"Disclaimer",apT3:"Information is provided as a guide only. Costs, timelines, procedures and numbers may change: always check with the relevant office. Jamana is not a government service.",
+ apTitre4:"Privacy",apT4:"No account, no ads, no tracking. Your favourites, ticked boxes, reminders and settings stay on your phone. For news and content updates the app connects to the Internet (newspaper sites and GitHub), which can see your connection’s IP address.",
+ apTitre5:"Content updates",apMaj:"Content version received:",apMajNon:"No content update received yet.",apContact:"An error to report, an idea?", actuT:"News",actuD:"Latest news from the Malian press",actuMaj:"Refresh",actuHors:"No connection: showing the latest saved articles",actuErr:"Unable to load the news right now.",actuNav:"In a browser, some sites block reading. The Android app works.",actuVide:"No articles for now.",actuNote:"Headlines provided by the newspapers’ websites. Jamana is not responsible for their content.",charge:"Loading…",aconf:"To be confirmed",ty_utilites:"Water and electricity",ty_mairie:"Town halls",ty_etatcivil:"Civil registry centres",ty_commissariat:"Police stations",ty_hopital:"Hospitals and health centres",ty_pharmacie:"On-duty pharmacies"
 },
 bm:{ /* Bambara : les mots marqués « à confirmer » dans le chat restent en français. Relire avec un locuteur natif. */
  by:"Dabɔbaga :",search:"Baara walima sɛbɛn ɲini…",home:"So",back:"Kɔsegin",services:"Baaraw",
@@ -211,7 +244,7 @@ function setLang(c){
 }
 
 /* ===== RÉGLAGES (mémorisés sur le téléphone) ===== */
-let S={fs:100,theme:"auto",fav:[],chk:{}};
+let S={fs:100,theme:"auto",fav:[],chk:{},rap:[]};
 try{S={...S,...JSON.parse(localStorage.getItem("jamana-s")||"{}")}}catch(e){}
 const save=()=>{try{localStorage.setItem("jamana-s",JSON.stringify(S))}catch(e){}};
 function appliquer(){
@@ -236,7 +269,8 @@ const hd=document.getElementById("hd"),app=document.getElementById("app"),nav=do
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const norm=s=>String(s).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
 const row=(go,ti,de,ic,nb)=>`<button class="row" data-go="${go}"><span class="tuile">${svg(ic,26)}</span><span class="txt"><b>${esc(ti)}${nb!==undefined&&nb!==""?`<span class="nb">${nb}</span>`:""}</b>${de?`<small>${esc(de)}</small>`:""}</span>${svg("chev",20)}</button>`;
-const pied=()=>`<div class="pied"><b>${t("by")} Mamadou Sidibé</b><div class="liens"><a href="tel:${TEL}">${svg("tel",16)}+223 73 06 50 26</a><a href="https://wa.me/${WA}" target="_blank" rel="noopener">${svg("chat",16)}WhatsApp</a></div><a href="mailto:${MAIL}">${svg("mail",16)}${MAIL}</a><small>Jamana v${VERSION}</small></div>`;
+const rowa=(href,ti,de,ic)=>`<a class="row" href="${esc(href)}" target="_blank" rel="noopener"><span class="tuile">${svg(ic,26)}</span><span class="txt"><b>${esc(ti)}</b>${de?`<small>${esc(de)}</small>`:""}</span>${svg("chev",20)}</a>`;
+const pied=()=>`<div class="pied"><b>${t("by")} Mamadou Sidibé</b><div class="liens"><a href="tel:${TEL}">${svg("tel",16)}+223 73 06 50 26</a><a href="https://wa.me/${WA}" target="_blank" rel="noopener">${svg("chat",16)}WhatsApp</a></div><a href="mailto:${MAIL}">${svg("mail",16)}${MAIL}</a><div class="liens"><button class="lienbtn" data-go="apropos">${t("apropos")}</button><button class="lienbtn" data-go="soutenir">${t("soutenir")}</button></div><small>Jamana v${VERSION}</small></div>`;
 const wa=txt=>`https://wa.me/${WA}?text=${encodeURIComponent(txt)}`;
 
 function outils(){
@@ -262,10 +296,11 @@ function liste(q){
  if(!q){
   const soon=[["job",t("emploi")],["bus",t("transport")]];
   const favs=S.fav.map(id=>all.find(x=>x.id===id)).filter(Boolean);
-  r.innerHTML=`<div class="urg"><div><b>${t("urg")}</b><small>${t("urgSub")}</small></div><a href="tel:17">${svg("tel",18)}${t("police")} 17</a><a href="tel:18">${svg("tel",18)}${t("pompiers")} 18</a></div>
+  r.innerHTML=`${echeances()}<div class="urg"><div><b>${t("urg")}</b><small>${t("urgSub")}</small></div><a href="tel:17">${svg("tel",18)}${t("police")} 17</a><a href="tel:18">${svg("tel",18)}${t("pompiers")} 18</a></div>
   ${favs.length?`<h2 class="st">${t("favs")}</h2>`+favs.map(x=>row(x.id,x.titre,C[x.c],"star")).join(""):""}
-  <h2 class="st">${t("services")}</h2>${row("demarches",t("demT"),t("demD"),"doc",all.length)}${row("urgences",t("urgences"),t("urgD"),"urg")}${row("annuaire",t("annuaire"),t("annD"),"pin")}${row("actualites",t("actu"),t("actuD"),"news")}
-  <h2 class="st">${t("soon")}</h2><div class="puces">${soon.map(([ic,l])=>`<span>${svg(ic,16)}${l}</span>`).join("")}</div>`;
+  <h2 class="st">${t("services")}</h2>${row("demarches",t("demT"),t("demD"),"doc",all.length)}${row("urgences",t("urgences"),t("urgD"),"urg")}${row("annuaire",t("annuaire"),t("annD"),"pin")}${row("actualites",t("actu"),t("actuD"),"news")}${row("rappels",t("rappels"),t("rappelsD"),"bell")}
+  <h2 class="st">${t("soon")}</h2><div class="puces">${soon.map(([ic,l])=>`<span>${svg(ic,16)}${l}</span>`).join("")}</div>
+  <h2 class="st">${t("jamana")}</h2>${rowa(wa0(),t("partagerJ"),t("partagerJD"),"share")}${row("soutenir",t("soutenir"),t("soutenirD"),"heart")}${row("apropos",t("apropos"),t("aproposD"),"info")}`;
   return;
  }
  const A=[],B=[];
@@ -420,6 +455,95 @@ async function actualites(){
   +`<button class="appel" data-go="actualites-r" style="border:0;margin:6px 0 0;font:inherit">${t("actuMaj")}</button><p class="etat">${t("actuNote")}</p>`;
 }
 
+/* ===== RAPPELS D'ÉCHÉANCE ===== */
+const wa0=()=>"https://wa.me/?text="+encodeURIComponent(t("partagerTxt")+" "+RELEASES);
+const jrs=d=>Math.round((new Date(d)-new Date())/864e5);
+const LN=()=>window.Capacitor&&Capacitor.Plugins&&Capacitor.Plugins.LocalNotifications;
+async function planifier(r){
+ const ln=LN();if(!ln)return false;
+ try{
+  const p=await ln.requestPermissions();if(p.display!=="granted")return false;
+  const q=new Date(r.date);q.setMonth(q.getMonth()-r.avant);q.setHours(9,0,0,0);
+  if(q<=new Date())return false;
+  await ln.schedule({notifications:[{id:r.nid,title:"Jamana",body:r.nom+" : "+t("rapDans")+" "+r.avant+" "+(lang==="en"?"month(s)":"mois"),schedule:{at:q}}]});
+  return true;
+ }catch(e){return false}
+}
+function echeances(){
+ return (S.rap||[]).map(r=>({r,j:jrs(r.date)})).filter(x=>x.j<=x.r.avant*30).sort((a,b)=>a.j-b.j).slice(0,3)
+  .map(x=>`<button class="alerte" data-go="rappels">${svg("bell",20)}<span><b>${esc(x.r.nom)}</b> · ${x.j>=0?t("rapDans")+" "+x.j+" "+t("rapJours"):t("rapExp")+" "+(-x.j)+" "+t("rapJours")}</span></button>`).join("");
+}
+function rappels(){
+ entete(true,t("rappels"),"");
+ const L=(S.rap||[]).slice().sort((a,b)=>new Date(a.date)-new Date(b.date));
+ app.innerHTML=`<div class="intro">${t("rappelsD")}</div>
+ <div class="form"><label>${t("rapDoc")}<input id="rn" list="rdocs" maxlength="40" placeholder="${t("rapPh")}"></label>
+ <datalist id="rdocs"><option value="${t("rPass")}"><option value="${t("rCni")}"><option value="${t("rPerm")}"></datalist>
+ <label>${t("rapDate")}<input id="rd" type="date"></label>
+ <label>${t("rapAvant")}<select id="ra"><option value="1">${t("rapMois1")}</option><option value="3" selected>${t("rapMois3")}</option><option value="6">${t("rapMois6")}</option></select></label>
+ <p class="etat" id="re" style="margin:0"></p><button class="appel" data-addr style="border:0;margin:0;font:inherit;justify-content:center">${t("rapAjout")}</button></div>
+ <h2 class="st">${t("rappels")}</h2>`+(L.length?L.map(r=>{const j=jrs(r.date);return `<div class="num"><div><b>${esc(r.nom)}</b><small>${jour(r.date)} · ${j>=0?t("rapDans")+" "+j+" "+t("rapJours"):t("rapExp")+" "+(-j)+" "+t("rapJours")}</small><small>${r.n?t("rapNotif"):t("rapAppli")}</small></div><button class="supp" data-delr="${r.id}" aria-label="${t("rapSupp")}">${svg("trash",20)}</button></div>`}).join(""):`<p class="vide">${t("rapVide")}</p>`);
+}
+async function ajoutRappel(){
+ const nom=document.getElementById("rn").value.trim().slice(0,40),date=document.getElementById("rd").value,avant=+document.getElementById("ra").value;
+ if(!nom||!/^\d{4}-\d{2}-\d{2}$/.test(date)||isNaN(new Date(date))){document.getElementById("re").textContent=t("rapErr");return}
+ const r={id:"r"+Date.now(),nom,date,avant,nid:Math.floor(Date.now()/1000)%2000000000};
+ r.n=await planifier(r);
+ S.rap=(S.rap||[]).concat(r);save();rappels();
+}
+async function suppRappel(id){
+ const r=(S.rap||[]).find(x=>x.id===id);
+ if(r&&r.n&&LN()){try{await LN().cancel({notifications:[{id:r.nid}]})}catch(e){}}
+ S.rap=(S.rap||[]).filter(x=>x.id!==id);save();rappels();
+}
+
+/* ===== SOUTENIR / À PROPOS ===== */
+function soutenir(){
+ entete(true,t("soutenir"),"");
+ app.innerHTML=`<div class="intro">${t("souIntro")}</div>
+ <div class="num" style="display:block;margin-top:14px"><b>${t("souOrange")}</b><div class="gros">${t("souNum")}</div><small>${t("souNom")}</small>
+ <button class="appel" data-copy="73065026" style="border:0;margin:12px 0 0;font:inherit">${svg("copy",18)}${t("souCopier")}</button></div>
+ <h2 class="st">${t("souEtapes")}</h2><ol class="etapes"><li>${t("souE1")}</li><li>${t("souE2")}</li><li>${t("souE3")}</li></ol>
+ <div class="note"><p>${t("souAvert")}</p><p style="margin:0"><b>${t("souMerci")}</b></p></div>`;
+}
+async function copier(b){
+ const v=b.dataset.copy;
+ try{await navigator.clipboard.writeText(v)}catch(e){const a=document.createElement("textarea");a.value=v;document.body.appendChild(a);a.select();try{document.execCommand("copy")}catch(_){}a.remove()}
+ const o=b.innerHTML;b.textContent=t("souCopie");setTimeout(()=>{b.innerHTML=o},1800);
+}
+const lireMaj=()=>{try{return JSON.parse(localStorage.getItem("jamana-maj")||"{}")||{}}catch(e){return{}}};
+function apropos(){
+ entete(true,t("apropos"),"");
+ const m=lireMaj(),bloc=i=>`<details${i===1?" open":""}><summary>${t("apTitre"+i)}</summary><p>${t("apT"+i)}</p></details>`;
+ app.innerHTML=`<div class="intro">Jamana · ${t("apVer")} ${VERSION}</div>`+[1,2,3,4].map(bloc).join("")
+  +`<details><summary>${t("apTitre5")}</summary><p>${m.version?t("apMaj")+" "+m.version:t("apMajNon")}</p></details>
+  <div class="note"><p>${t("apContact")}</p><div class="boutons"><a class="appel" href="https://wa.me/${WA}" target="_blank" rel="noopener">${svg("chat",18)}WhatsApp</a><a class="appel" href="mailto:${MAIL}">${svg("mail",18)}E-mail</a></div></div>`;
+}
+
+/* ===== MISE À JOUR DU CONTENU À DISTANCE (urgences, annuaire, sources d'actualités) ===== */
+const okTel=s=>/^\+?[0-9 ]{2,16}$/.test(String(s)),okStr=s=>typeof s==="string"&&s.length<200;
+const okU=a=>Array.isArray(a)&&a.every(g=>g&&okStr(g.titre)&&Array.isArray(g.items)&&g.items.every(x=>x&&okStr(x.nom)&&okTel(x.tel)));
+const okA=a=>a&&Array.isArray(a.villes)&&a.villes.every(v=>v&&okStr(v.nom)&&Array.isArray(v.services)&&v.services.every(s=>s&&okStr(s.t)&&okStr(s.nom)&&(!s.tel||okTel(s.tel))&&(!s.autres||(Array.isArray(s.autres)&&s.autres.every(okTel)))&&(s.lat==null||typeof s.lat==="number")&&(s.lng==null||typeof s.lng==="number")));
+const okS=a=>Array.isArray(a)&&a.every(s=>s&&okStr(s.id)&&okStr(s.nom)&&/^https:\/\//.test(s.url));
+function appliquerMaj(m){
+ if(!m||typeof m!=="object")return;
+ if(okU(m.urgences))window.URGENCES=m.urgences;
+ if(okA(m.annuaire))window.ANNUAIRE=m.annuaire;
+ if(okS(m.sources))window.SOURCES=m.sources;
+}
+async function verifierMaj(){
+ try{
+  const c=new AbortController(),to=setTimeout(()=>c.abort(),8000);
+  const r=await fetch(MAJ_URL+"?t="+Date.now(),{signal:c.signal});clearTimeout(to);
+  if(!r.ok)return;
+  const m=JSON.parse(await r.text()),cur=lireMaj();
+  if(typeof m.version!=="number"||m.version<=(cur.version||0))return;
+  localStorage.setItem("jamana-maj",JSON.stringify(m));appliquerMaj(m);
+  const x=location.hash.slice(1);
+  if(x===""||x==="urgences"||x==="annuaire"||x==="actualites"||/^v\d/.test(x))route();
+ }catch(e){}
+}
+
 /* ===== NAVIGATION ===== */
 function route(){
  stopLire();
@@ -437,6 +561,9 @@ function route(){
  else if(id==="annuaire"){villes();tab=id}
  else if(id==="actualites"){actualites()}
  else if(id==="actualites-r"){location.hash="actualites"}
+ else if(id==="rappels"){rappels()}
+ else if(id==="soutenir"){soutenir()}
+ else if(id==="apropos"){apropos()}
  else if(m=id.match(/^v(\d+)t(\d+)$/)){listeType(+m[1],+m[2]);tab="annuaire"}
  else if(m=id.match(/^v(\d+)$/)){typesVille(+m[1]);tab="annuaire"}
  else accueil();
@@ -454,6 +581,9 @@ document.addEventListener("click",e=>{
  if(b=g("[data-th]")){S.theme=b.dataset.th;save();appliquer();return reglages()}
  if(b=g("[data-fav]"))return favori(b.dataset.fav);
  if(b=g("[data-lire]"))return lire(b.dataset.lire);
+ if(g("[data-addr]"))return ajoutRappel();
+ if(b=g("[data-delr]"))return suppRappel(b.dataset.delr);
+ if(b=g("[data-copy]"))return copier(b);
  if(b=g("[data-go]"))location.hash=b.dataset.go;
 });
 document.addEventListener("change",e=>{
@@ -463,7 +593,9 @@ document.addEventListener("change",e=>{
  const p=document.getElementById("prog");if(p)p.textContent=S.chk[id].length+" / "+p.dataset.n+" "+t("prets");
 });
 window.addEventListener("hashchange",route);
+appliquerMaj(lireMaj());
 route();
+verifierMaj();
 if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js").catch(()=>{});
 </script>
 </body>
