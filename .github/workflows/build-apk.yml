@@ -8,6 +8,9 @@ on:
 permissions:
   contents: write
 
+env:
+  APP_VERSION: "1.2"
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -33,6 +36,16 @@ jobs:
         run: npx capacitor-assets generate --android
         continue-on-error: true
 
+      - name: Fixer la version de appli
+        run: |
+          sed -i -E "s/versionCode [0-9]+/versionCode ${{ github.run_number }}/; s/versionName \"[^\"]*\"/versionName \"${APP_VERSION}\"/" android/app/build.gradle
+          grep -n "versionCode\|versionName" android/app/build.gradle
+
+      - name: Cle de signature stable
+        run: |
+          mkdir -p ~/.android
+          cp debug.keystore ~/.android/debug.keystore
+
       - name: Copier appli dans Android
         run: npx cap sync android
 
@@ -43,11 +56,11 @@ jobs:
           ./gradlew assembleDebug
 
       - name: Renommer APK
-        run: cp android/app/build/outputs/apk/debug/app-debug.apk Jamana.apk
+        run: cp android/app/build/outputs/apk/debug/app-debug.apk Jamana-v${APP_VERSION}.apk
 
       - name: Publier APK
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: apk-${{ github.run_number }}
-          name: Jamana APK ${{ github.run_number }}
-          files: Jamana.apk
+          tag_name: v${{ env.APP_VERSION }}-build${{ github.run_number }}
+          name: Jamana v${{ env.APP_VERSION }} (build ${{ github.run_number }})
+          files: Jamana-v${{ env.APP_VERSION }}.apk

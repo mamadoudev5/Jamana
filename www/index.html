@@ -87,6 +87,11 @@ details li{margin:7px 0}
 .aconf{display:inline-block;margin:2px 0 0 6px;padding:1px 8px;border-radius:999px;background:var(--rbg);border:1px solid var(--rbd);color:var(--rtx);font-size:.72rem;font-weight:700;vertical-align:middle}
 .num .aconf{margin-left:0}
 .gn{margin:-4px 4px 10px;color:var(--gris);font-size:.88rem}
+.art{display:block;margin:0 0 10px;padding:14px;background:var(--carte);border:1px solid var(--ligne);border-radius:16px;text-decoration:none;color:var(--texte)}
+.art b{display:block;line-height:1.35}
+.art small{display:block;margin-top:4px;color:var(--lien);font-weight:600}
+.art span{display:block;margin-top:6px;color:var(--corps);font-size:.9rem;line-height:1.4}
+.etat{margin:12px 2px;color:var(--gris);font-size:.88rem}
 nav{position:fixed;left:0;right:0;bottom:0;z-index:5;display:grid;grid-template-columns:repeat(4,1fr);padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px));background:var(--navbg);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-top:1px solid var(--ligne)}
 nav button{position:relative;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 0 4px;border:0;background:none;color:var(--gris);font-size:.72rem}
 nav button.on{color:var(--lien);font-weight:700}
@@ -110,6 +115,7 @@ nav button.on::before{content:"";position:absolute;top:-7px;width:28px;height:3p
 <script src="data/fr.js" onerror="window.FRERR=1"></script>
 <script src="data/annuaire.js"></script>
 <script src="data/urgences.js"></script>
+<script src="data/actualites.js"></script>
 <script>
 /* ===== ICÔNES ===== */
 const I={
@@ -136,6 +142,7 @@ const CATIC=["doc","bus","urg","job","doc","home","doc","doc","job","pin","doc"]
 const LOGO=`<svg viewBox="0 0 64 64" role="img" aria-label="Logo Jamana"><rect width="64" height="64" rx="18" fill="#fff"/><path d="M38 14v22c0 7-4.5 11-11 11" fill="none" stroke="#0B3FA8" stroke-width="8" stroke-linecap="round"/><rect x="14" y="52" width="12" height="4" rx="2" fill="#14B53A"/><rect x="26" y="52" width="12" height="4" rx="2" fill="#FCD116"/><rect x="38" y="52" width="12" height="4" rx="2" fill="#CE1126"/></svg>`;
 
 /* ===== CONTACT ===== */
+const VERSION="1.2";
 const WA="22373065026",TEL="+22373065026",MAIL="mamadousidibee10@gmail.com";
 
 /* ===== LANGUES =====
@@ -143,7 +150,7 @@ const WA="22373065026",TEL="+22373065026",MAIL="mamadousidibee10@gmail.com";
    ajouter ses textes dans UI.xx et l'inscrire dans LANGS. Ce qui manque retombe sur le français. */
 const LANGS=[["fr","FR"],["bm","BM"],["en","EN"]];
 const UI={fr:{
- aconf:"À confirmer",ty_utilites:"Eau et électricité",ty_mairie:"Mairies",ty_etatcivil:"Centres d’état civil",ty_commissariat:"Commissariats",ty_hopital:"Hôpitaux et centres de santé",ty_pharmacie:"Pharmacies de garde",
+ actuT:"Actualités",actuD:"Les dernières informations de la presse malienne",actuMaj:"Actualiser",actuHors:"Pas de connexion : derniers articles enregistrés",actuErr:"Impossible de charger les actualités pour le moment.",actuNav:"Dans un navigateur, certains sites bloquent la lecture. L’application Android fonctionne.",actuVide:"Aucun article pour le moment.",actuNote:"Titres fournis par les sites des journaux. Jamana n’est pas responsable de leur contenu.",charge:"Chargement…",aconf:"À confirmer",ty_utilites:"Eau et électricité",ty_mairie:"Mairies",ty_etatcivil:"Centres d’état civil",ty_commissariat:"Commissariats",ty_hopital:"Hôpitaux et centres de santé",ty_pharmacie:"Pharmacies de garde",
  by:"Créé par",tag:"Le Mali en poche : démarches, urgences, annuaire.",search:"Rechercher une démarche, un service…",
  urg:"En cas d’urgence",urgSub:"Appel direct",police:"Police",pompiers:"Pompiers",
  services:"Services",soon:"Bientôt disponible",home:"Accueil",back:"Retour",none:"Aucun résultat pour",call:"Appeler le",
@@ -178,7 +185,7 @@ en:{
  reg:"Settings",txt:"Text size",theme:"Theme",auto:"Auto",clair:"Light",sombre:"Dark",ok:"Done",
  annVide:"No city listed yet.",servN:"services",appeler:"Call",itineraire:"Directions",
  videType:"No service listed here yet.",proposer:"Suggest a service",annNote:"Know a service that is missing, or something to correct?",
- aconf:"To be confirmed",ty_utilites:"Water and electricity",ty_mairie:"Town halls",ty_etatcivil:"Civil registry centres",ty_commissariat:"Police stations",ty_hopital:"Hospitals and health centres",ty_pharmacie:"On-duty pharmacies"
+ actuT:"News",actuD:"Latest news from the Malian press",actuMaj:"Refresh",actuHors:"No connection: showing the latest saved articles",actuErr:"Unable to load the news right now.",actuNav:"In a browser, some sites block reading. The Android app works.",actuVide:"No articles for now.",actuNote:"Headlines provided by the newspapers’ websites. Jamana is not responsible for their content.",charge:"Loading…",aconf:"To be confirmed",ty_utilites:"Water and electricity",ty_mairie:"Town halls",ty_etatcivil:"Civil registry centres",ty_commissariat:"Police stations",ty_hopital:"Hospitals and health centres",ty_pharmacie:"On-duty pharmacies"
 },
 bm:{ /* Bambara : les mots marqués « à confirmer » dans le chat restent en français. Relire avec un locuteur natif. */
  by:"Dabɔbaga :",search:"Baara walima sɛbɛn ɲini…",home:"So",back:"Kɔsegin",services:"Baaraw",
@@ -229,7 +236,7 @@ const hd=document.getElementById("hd"),app=document.getElementById("app"),nav=do
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const norm=s=>String(s).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
 const row=(go,ti,de,ic,nb)=>`<button class="row" data-go="${go}"><span class="tuile">${svg(ic,26)}</span><span class="txt"><b>${esc(ti)}${nb!==undefined&&nb!==""?`<span class="nb">${nb}</span>`:""}</b>${de?`<small>${esc(de)}</small>`:""}</span>${svg("chev",20)}</button>`;
-const pied=()=>`<div class="pied"><b>${t("by")} Mamadou Sidibé</b><div class="liens"><a href="tel:${TEL}">${svg("tel",16)}+223 73 06 50 26</a><a href="https://wa.me/${WA}" target="_blank" rel="noopener">${svg("chat",16)}WhatsApp</a></div><a href="mailto:${MAIL}">${svg("mail",16)}${MAIL}</a></div>`;
+const pied=()=>`<div class="pied"><b>${t("by")} Mamadou Sidibé</b><div class="liens"><a href="tel:${TEL}">${svg("tel",16)}+223 73 06 50 26</a><a href="https://wa.me/${WA}" target="_blank" rel="noopener">${svg("chat",16)}WhatsApp</a></div><a href="mailto:${MAIL}">${svg("mail",16)}${MAIL}</a><small>Jamana v${VERSION}</small></div>`;
 const wa=txt=>`https://wa.me/${WA}?text=${encodeURIComponent(txt)}`;
 
 function outils(){
@@ -253,11 +260,11 @@ function liste(q){
  const r=document.getElementById("res");q=norm(q.trim());
  const all=items(),C=cats();
  if(!q){
-  const soon=[["job",t("emploi")],["news",t("actu")],["bus",t("transport")]];
+  const soon=[["job",t("emploi")],["bus",t("transport")]];
   const favs=S.fav.map(id=>all.find(x=>x.id===id)).filter(Boolean);
   r.innerHTML=`<div class="urg"><div><b>${t("urg")}</b><small>${t("urgSub")}</small></div><a href="tel:17">${svg("tel",18)}${t("police")} 17</a><a href="tel:18">${svg("tel",18)}${t("pompiers")} 18</a></div>
   ${favs.length?`<h2 class="st">${t("favs")}</h2>`+favs.map(x=>row(x.id,x.titre,C[x.c],"star")).join(""):""}
-  <h2 class="st">${t("services")}</h2>${row("demarches",t("demT"),t("demD"),"doc",all.length)}${row("urgences",t("urgences"),t("urgD"),"urg")}${row("annuaire",t("annuaire"),t("annD"),"pin")}
+  <h2 class="st">${t("services")}</h2>${row("demarches",t("demT"),t("demD"),"doc",all.length)}${row("urgences",t("urgences"),t("urgD"),"urg")}${row("annuaire",t("annuaire"),t("annD"),"pin")}${row("actualites",t("actu"),t("actuD"),"news")}
   <h2 class="st">${t("soon")}</h2><div class="puces">${soon.map(([ic,l])=>`<span>${svg(ic,16)}${l}</span>`).join("")}</div>`;
   return;
  }
@@ -377,6 +384,42 @@ function listeType(i,j){
  app.innerHTML=`<div class="intro">${esc(v.nom)}</div>`+(L.length?L.map(s=>`<details><summary><span>${esc(s.nom)}${s.quartier?`<span class="nb">${esc(s.quartier)}</span>`:""}${aconf(s.ok)}</span></summary>${s.horaires?`<p>${esc(s.horaires)}</p>`:""}${s.src?`<p><small>${esc(s.src)}</small></p>`:""}<div class="boutons">${[s.tel].concat(s.autres||[]).filter(Boolean).map(tel).join("")}<a class="appel" href="${carte(s)}" target="_blank" rel="noopener">${svg("pin",18)}${t("itineraire")}</a></div></details>`).join(""):`<p class="vide">${t("videType")}</p>`)+proposer(v.nom+" – "+t("ty_"+T[0]));
 }
 
+/* ===== ACTUALITÉS (flux RSS) ===== */
+const inert=s=>new DOMParser().parseFromString(String(s||""),"text/html").body.textContent.replace(/\s+/g," ").trim();
+const nlire=()=>{try{return JSON.parse(localStorage.getItem("jamana-news")||"{}")}catch(e){return{}}};
+const nsave=o=>{try{localStorage.setItem("jamana-news",JSON.stringify(o))}catch(e){}};
+function parseFeed(x){
+ const d=new DOMParser().parseFromString(x,"text/xml");
+ if(d.querySelector("parsererror"))throw new Error("xml");
+ return [...d.querySelectorAll("item, entry")].slice(0,15).map(e=>{
+  const g=s=>{const n=e.querySelector(s);return n?n.textContent:""},lk=e.querySelector("link");
+  const l=((lk&&(lk.getAttribute("href")||lk.textContent))||"").trim();
+  return {t:inert(g("title")),l,d:g("pubDate")||g("published")||g("updated"),r:inert(g("description")||g("summary")).slice(0,150)};
+ }).filter(a=>a.t&&/^https?:\/\//.test(a.l));
+}
+async function charger(s){
+ const c=new AbortController(),to=setTimeout(()=>c.abort(),12000);
+ try{const r=await fetch(s.url,{signal:c.signal});if(!r.ok)throw new Error(r.status);return parseFeed(await r.text())}
+ finally{clearTimeout(to)}
+}
+const jour=d=>{const x=new Date(d);return isNaN(x)?"":x.toLocaleDateString(lang==="en"?"en-GB":"fr-FR",{day:"numeric",month:"short",year:"numeric"})};
+async function actualites(){
+ entete(true,t("actuT"),"");
+ app.innerHTML=`<div class="intro">${t("actuD")}</div><div id="nw"><p class="etat">${t("charge")}</p></div>`;
+ const box=document.getElementById("nw"),cache=nlire();
+ const res=await Promise.all((window.SOURCES||[]).map(async s=>{
+  try{const a=await charger(s);cache[s.id]={a,ts:Date.now()};return{s,a,ok:true}}
+  catch(e){const c=cache[s.id];return{s,a:c?c.a:[],ok:false,ts:c&&c.ts}}
+ }));
+ nsave(cache);
+ if(document.getElementById("nw")!==box)return;
+ const tous=res.flatMap(r=>r.a.map(a=>({...a,src:r.s.nom}))).sort((a,b)=>(new Date(b.d)||0)-(new Date(a.d)||0));
+ const hors=res.some(r=>!r.ok),ts=Math.max(0,...res.map(r=>r.ts||0));
+ box.innerHTML=(hors?`<p class="etat">${tous.length?t("actuHors")+(ts?" ("+jour(ts)+")":""):t("actuErr")+" "+t("actuNav")}</p>`:"")
+  +(tous.length?tous.map(a=>`<a class="art" href="${esc(a.l)}" target="_blank" rel="noopener"><b>${esc(a.t)}</b><small>${esc(a.src)}${jour(a.d)?" · "+jour(a.d):""}</small>${a.r?`<span>${esc(a.r)}</span>`:""}</a>`).join(""):(hors?"":`<p class="vide">${t("actuVide")}</p>`))
+  +`<button class="appel" data-go="actualites-r" style="border:0;margin:6px 0 0;font:inherit">${t("actuMaj")}</button><p class="etat">${t("actuNote")}</p>`;
+}
+
 /* ===== NAVIGATION ===== */
 function route(){
  stopLire();
@@ -392,6 +435,8 @@ function route(){
  else if(/^d\d+$/.test(id)){detail(id);tab="demarches"}
  else if(id==="urgences"){urgences();tab=id}
  else if(id==="annuaire"){villes();tab=id}
+ else if(id==="actualites"){actualites()}
+ else if(id==="actualites-r"){location.hash="actualites"}
  else if(m=id.match(/^v(\d+)t(\d+)$/)){listeType(+m[1],+m[2]);tab="annuaire"}
  else if(m=id.match(/^v(\d+)$/)){typesVille(+m[1]);tab="annuaire"}
  else accueil();

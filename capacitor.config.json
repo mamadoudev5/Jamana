@@ -2,5 +2,8 @@
   "appId": "com.mamadousidibe.jamana",
   "appName": "Jamana",
   "webDir": "www",
-  "server": { "androidScheme": "https" }
+  "server": { "androidScheme": "https" },
+  "plugins": {
+    "CapacitorHttp": { "enabled": true }
+  }
 }
