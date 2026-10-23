@@ -1,0 +1,10 @@
+JAMANA - projet APK (fonctionne hors ligne)
+
+  www/                       appli (index.html, data/, etc.)
+  assets/                    icones
+  capacitor.config.json      reglages de APK
+  package.json               dependances
+  .github/workflows/         compilation automatique (GitHub Actions)
+
+Mise a jour : remplacez les fichiers dans www/, puis envoyez sur GitHub (git push).
+GitHub recompile et publie un nouvel APK dans la section Releases.

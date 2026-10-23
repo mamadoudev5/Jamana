@@ -1,0 +1,6 @@
+{
+  "appId": "com.mamadousidibe.jamana",
+  "appName": "Jamana",
+  "webDir": "www",
+  "server": { "androidScheme": "https" }
+}

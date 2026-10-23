@@ -1,0 +1,53 @@
+name: Construire APK
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Installer les dependances
+        run: npm install
+
+      - name: Creer le projet Android
+        run: npx cap add android
+
+      - name: Generer les icones
+        run: npx capacitor-assets generate --android
+        continue-on-error: true
+
+      - name: Copier appli dans Android
+        run: npx cap sync android
+
+      - name: Compiler APK
+        run: |
+          cd android
+          chmod +x gradlew
+          ./gradlew assembleDebug
+
+      - name: Renommer APK
+        run: cp android/app/build/outputs/apk/debug/app-debug.apk Jamana.apk
+
+      - name: Publier APK
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: apk-${{ github.run_number }}
+          name: Jamana APK ${{ github.run_number }}
+          files: Jamana.apk

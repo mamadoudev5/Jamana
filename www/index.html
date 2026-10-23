@@ -1,0 +1,425 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#08194D">
+<title>Jamana – Le Mali en poche</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.svg">
+<style>
+:root{--bleu:#0B3FA8;--elec:#1D5BFF;--nuit:#08194D;--lien:#0B3FA8;--ciel:#EEF3FF;--fond:#F6F8FE;--carte:#fff;--ligne:#DCE5F8;--texte:#0F1B3D;--gris:#5A6A8A;--corps:#34456B;--ombre:rgba(11,63,168,.2);--navbg:rgba(255,255,255,.93);--rbg:#FFF1F2;--rbd:#FAD1D5;--rtx:#B0101F}
+:root[data-theme=dark]{--lien:#7FA8FF;--ciel:#17285A;--fond:#081026;--carte:#101B3E;--ligne:#243564;--texte:#EAF0FF;--gris:#9FB1D9;--corps:#C6D3F2;--ombre:rgba(0,0,0,.5);--navbg:rgba(10,18,44,.94);--rbg:#3A1520;--rbd:#6B2233;--rtx:#FF8A96}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{font-size:var(--fs,100%)}
+body{margin:0;background:var(--fond);color:var(--texte);font:1rem/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+button{font:inherit;color:inherit;cursor:pointer}
+#hd{position:relative;overflow:hidden;color:#fff;background:linear-gradient(165deg,var(--nuit),var(--bleu) 78%);padding:calc(env(safe-area-inset-top,0px) + 28px) 22px 70px}
+#hd::before{content:"";position:absolute;inset:0;pointer-events:none;
+background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56' viewBox='0 0 56 56' fill='none' stroke='white' stroke-opacity='.16' stroke-width='2'%3E%3Cpath d='M28 6l22 22-22 22L6 28z'/%3E%3Cpath d='M28 18l10 10-10 10-10-10z'/%3E%3Ccircle cx='0' cy='0' r='3'/%3E%3Ccircle cx='56' cy='0' r='3'/%3E%3Ccircle cx='0' cy='56' r='3'/%3E%3Ccircle cx='56' cy='56' r='3'/%3E%3C/svg%3E");
+-webkit-mask-image:linear-gradient(180deg,#000,transparent 92%);mask-image:linear-gradient(180deg,#000,transparent 92%)}
+#hd>*{position:relative}
+.marque{display:flex;align-items:center;gap:14px}
+.marque svg{width:64px;height:64px;flex:none;filter:drop-shadow(0 8px 16px rgba(0,0,0,.35))}
+.salut{display:block;font-size:.95rem;color:#BFD2FF}
+h1{margin:0;font-size:2.7rem;line-height:1;font-weight:800;letter-spacing:-.035em}
+#hd p{margin:16px 0 0;color:#D6E2FF;max-width:30ch}
+#hd.compact{display:flex;align-items:center;gap:4px;padding:calc(env(safe-area-inset-top,0px) + 14px) 14px 56px}
+#hd.compact h1{font-size:1.3rem;line-height:1.2;letter-spacing:-.01em}
+.retour{display:grid;place-items:center;width:44px;height:44px;flex:none;border:0;border-radius:50%;background:rgba(255,255,255,.14);color:#fff}
+.retour svg{transform:rotate(180deg)}
+.outils{position:absolute;top:calc(env(safe-area-inset-top,0px) + 14px);right:14px;display:flex;gap:8px;align-items:center}
+.reglage{display:grid;place-items:center;width:38px;height:38px;border:0;border-radius:50%;background:rgba(255,255,255,.14);color:#fff}
+.langues{display:flex;gap:2px;padding:3px;border-radius:999px;background:rgba(255,255,255,.14)}
+.langues button{border:0;background:none;color:#D6E2FF;padding:6px 11px;border-radius:999px;font-size:.8rem;font-weight:700}
+.langues button.on{background:#fff;color:var(--bleu)}
+main{position:relative;max-width:640px;margin:-36px auto 0;padding:0 18px 120px}
+.rech,.intro{display:flex;align-items:center;gap:10px;background:var(--carte);border-radius:16px;padding:0 16px;box-shadow:0 12px 32px var(--ombre);color:var(--lien)}
+.rech input{flex:1;min-width:0;height:54px;border:0;outline:0;background:none;font:inherit;color:var(--texte)}
+.rech input::placeholder{color:var(--gris)}
+.intro{padding:14px 16px;color:var(--gris)}
+.st{margin:24px 4px 10px;font-size:1.05rem;font-weight:700}
+.row{display:flex;align-items:center;gap:14px;width:100%;margin:0 0 10px;padding:14px;text-align:left;background:var(--carte);border:1px solid var(--ligne);border-radius:16px;transition:transform .12s}
+.row:active{transform:scale(.98)}
+.row>svg{color:var(--gris);flex:none}
+.tuile{display:grid;place-items:center;width:50px;height:50px;flex:none;border-radius:14px;color:#fff;background:linear-gradient(145deg,var(--elec),var(--bleu))}
+.txt{flex:1;min-width:0}
+.txt b{display:block;font-size:1.02rem}
+.txt small{display:block;color:var(--gris);line-height:1.35}
+.nb{display:inline-block;margin-left:6px;padding:1px 8px;border-radius:999px;background:var(--ciel);color:var(--lien);font-size:.78rem;font-weight:700}
+.urg{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px;padding:14px;background:var(--carte);border:1px solid var(--ligne);border-radius:16px}
+.urg div{flex-basis:100%}
+.urg b{display:block}
+.urg small{color:var(--gris)}
+.urg a{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px;border-radius:12px;background:var(--rbg);border:1px solid var(--rbd);color:var(--rtx);font-weight:700;text-decoration:none}
+.puces{display:flex;flex-wrap:wrap;gap:8px}
+.puces span{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border:1px dashed var(--ligne);border-radius:999px;color:var(--gris);font-size:.92rem}
+.actions{display:flex;gap:8px;margin:14px 0 2px}
+.act{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 4px;border:1px solid var(--ligne);border-radius:14px;background:var(--carte);color:var(--lien);font-size:.78rem;font-weight:600;text-decoration:none}
+.act.on{background:var(--bleu);border-color:var(--bleu);color:#fff}
+details{margin:12px 0 0;background:var(--carte);border:1px solid var(--ligne);border-radius:16px;padding:0 16px}
+summary{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:16px 0;font-weight:600;cursor:pointer;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"";flex:none;width:9px;height:9px;border-right:2px solid var(--lien);border-bottom:2px solid var(--lien);transform:rotate(45deg);transition:transform .15s}
+details[open] summary::after{transform:rotate(-135deg)}
+details p{margin:0 0 14px;color:var(--corps)}
+details ul{margin:0 0 14px;padding-left:20px;color:var(--corps)}
+details li{margin:7px 0}
+.chk{display:flex;gap:10px;align-items:flex-start;padding:8px 0;color:var(--corps)}
+.chk input{flex:none;width:22px;height:22px;margin:2px 0 0;accent-color:var(--bleu)}
+.prog{font-weight:700;color:var(--lien)!important}
+.appel{display:inline-flex;align-items:center;gap:8px;margin:0 0 16px;padding:11px 16px;background:var(--bleu);color:#fff;border-radius:12px;text-decoration:none;font-weight:700}
+.boutons{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 16px}
+.boutons .appel{margin:0}
+.note{margin-top:18px;padding:14px 16px;border:1px dashed var(--ligne);border-radius:16px;color:var(--gris);font-size:.9rem}
+.note p{margin:0 0 12px}
+.note .appel{margin:0}
+.vide{padding:28px 8px;text-align:center;color:var(--gris)}
+.pied{margin:34px 0 0;padding:18px 0 0;border-top:1px solid var(--ligne);display:flex;flex-direction:column;align-items:center;gap:8px;font-size:.88rem;color:var(--gris);text-align:center}
+.pied b{color:var(--texte);font-size:.95rem}
+.pied .liens{display:flex;gap:16px;flex-wrap:wrap;justify-content:center}
+.pied a{display:inline-flex;align-items:center;gap:6px;color:var(--lien);text-decoration:none;font-weight:600;word-break:break-all}
+.num{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 10px;padding:12px 14px;background:var(--carte);border:1px solid var(--ligne);border-radius:16px}
+.num div{min-width:0}
+.num b{display:block}
+.num small{display:block;color:var(--gris);font-size:.78rem;line-height:1.3}
+.num .appel{margin:0;flex:none}
+.aconf{display:inline-block;margin:2px 0 0 6px;padding:1px 8px;border-radius:999px;background:var(--rbg);border:1px solid var(--rbd);color:var(--rtx);font-size:.72rem;font-weight:700;vertical-align:middle}
+.num .aconf{margin-left:0}
+.gn{margin:-4px 4px 10px;color:var(--gris);font-size:.88rem}
+nav{position:fixed;left:0;right:0;bottom:0;z-index:5;display:grid;grid-template-columns:repeat(4,1fr);padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px));background:var(--navbg);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-top:1px solid var(--ligne)}
+nav button{position:relative;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 0 4px;border:0;background:none;color:var(--gris);font-size:.72rem}
+nav button.on{color:var(--lien);font-weight:700}
+nav button.on::before{content:"";position:absolute;top:-7px;width:28px;height:3px;border-radius:0 0 3px 3px;background:var(--lien)}
+#reg{position:fixed;inset:0;z-index:20;display:flex;align-items:flex-end;background:rgba(0,0,0,.5)}
+#reg[hidden]{display:none}
+.feuille{width:100%;max-width:640px;margin:0 auto;padding:20px 20px calc(22px + env(safe-area-inset-bottom,0px));background:var(--carte);border-radius:22px 22px 0 0}
+.opts{display:flex;gap:8px;margin:8px 0 18px}
+.opts button{flex:1;padding:12px 4px;border:1px solid var(--ligne);border-radius:12px;background:var(--fond);color:var(--texte);font-weight:600}
+.opts button.on{background:var(--bleu);border-color:var(--bleu);color:#fff}
+:focus-visible{outline:3px solid var(--elec);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header id="hd"></header>
+<main id="app"></main>
+<nav id="nav" aria-label="Navigation principale"></nav>
+<div id="reg" hidden></div>
+
+<script src="data/fr.js" onerror="window.FRERR=1"></script>
+<script src="data/annuaire.js"></script>
+<script src="data/urgences.js"></script>
+<script>
+/* ===== ICÔNES ===== */
+const I={
+doc:'<path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 13h6M10 17h6"/>',
+urg:'<circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/>',
+pin:'<path d="M12 21s7-6.2 7-11a7 7 0 10-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/>',
+job:'<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5h6v2M3 13h18"/>',
+news:'<path d="M4 10v4h3l8 4V6L7 10z"/><path d="M18 9a4 4 0 010 6"/>',
+bus:'<rect x="4" y="4" width="16" height="14" rx="3"/><path d="M4 12h16M8 18v2M16 18v2"/>',
+home:'<path d="M4 11l8-7 8 7v9h-5v-6H9v6H4z"/>',
+tel:'<path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/>',
+chev:'<path d="M9 6l6 6-6 6"/>',
+search:'<circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/>',
+mail:'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/>',
+chat:'<path d="M4 20l1.3-4A8 8 0 118 19z"/>',
+star:'<path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/>',
+sound:'<path d="M4 9v6h4l5 4V5L8 9z"/><path d="M16.5 8.5a5 5 0 010 7"/>',
+stop:'<rect x="6" y="6" width="12" height="12" rx="2"/>',
+share:'<circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8.2 10.8l7.6-3.6M8.2 13.2l7.6 3.6"/>',
+flag:'<path d="M5 21V4M5 4h12l-2 4 2 4H5"/>',
+tune:'<path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/>'};
+const svg=(n,s=24)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${I[n]}</svg>`;
+const CATIC=["doc","bus","urg","job","doc","home","doc","doc","job","pin","doc"];
+const LOGO=`<svg viewBox="0 0 64 64" role="img" aria-label="Logo Jamana"><rect width="64" height="64" rx="18" fill="#fff"/><path d="M38 14v22c0 7-4.5 11-11 11" fill="none" stroke="#0B3FA8" stroke-width="8" stroke-linecap="round"/><rect x="14" y="52" width="12" height="4" rx="2" fill="#14B53A"/><rect x="26" y="52" width="12" height="4" rx="2" fill="#FCD116"/><rect x="38" y="52" width="12" height="4" rx="2" fill="#CE1126"/></svg>`;
+
+/* ===== CONTACT ===== */
+const WA="22373065026",TEL="+22373065026",MAIL="mamadousidibee10@gmail.com";
+
+/* ===== LANGUES =====
+   Ajouter une langue : créer data/xx.js (window.DATA_XX={cats:[...],items:[{id,titre,c,s:{...}}]}),
+   ajouter ses textes dans UI.xx et l'inscrire dans LANGS. Ce qui manque retombe sur le français. */
+const LANGS=[["fr","FR"],["bm","BM"],["en","EN"]];
+const UI={fr:{
+ aconf:"À confirmer",ty_utilites:"Eau et électricité",ty_mairie:"Mairies",ty_etatcivil:"Centres d’état civil",ty_commissariat:"Commissariats",ty_hopital:"Hôpitaux et centres de santé",ty_pharmacie:"Pharmacies de garde",
+ by:"Créé par",tag:"Le Mali en poche : démarches, urgences, annuaire.",search:"Rechercher une démarche, un service…",
+ urg:"En cas d’urgence",urgSub:"Appel direct",police:"Police",pompiers:"Pompiers",
+ services:"Services",soon:"Bientôt disponible",home:"Accueil",back:"Retour",none:"Aucun résultat pour",call:"Appeler le",
+ dem:"Démarches",demT:"Démarches administratives",demD:"Pièces, coûts, lieux et délais",nb:"démarches",
+ urgences:"Urgences",urgD:"Numéros utiles et premiers réflexes",
+ annuaire:"Annuaire",annD:"Mairies, état civil, commissariats, hôpitaux, pharmacies",
+ emploi:"Emploi et stages",actu:"Actualités et alertes",transport:"Transport",
+ s_intro:"Présentation",s_description:"Présentation",s_documents:"Documents à fournir",s_cout:"Coût",s_delai:"Délai d’obtention",
+ s_procedure:"Procédure et lieux de délivrance",s_services:"Services à contacter",s_enligne:"Service en ligne et formulaire",s_references:"Références légales",
+ uPolice:["Police","Numéro d’urgence de la police."],uPomp:["Pompiers / Protection civile","Incendie, accident, secours."],
+ favs:"Mes favoris",fav:"Favori",enreg:"Enregistré",ecouter:"Écouter",arreter:"Arrêter",partager:"Partager",
+ signaler:"Signaler une erreur",prets:"prêts",
+ noteSrc:"Source : guide des démarches administratives (document de 2021). Les coûts et procédures ont pu changer : vérifiez auprès du service concerné avant de vous déplacer.",
+ reg:"Réglages",txt:"Taille du texte",theme:"Thème",auto:"Auto",clair:"Clair",sombre:"Sombre",ok:"Terminé",
+ annVide:"Aucune ville enregistrée pour le moment.",servN:"services",appeler:"Appeler",itineraire:"Itinéraire",
+ videType:"Aucun service enregistré ici pour le moment.",proposer:"Proposer un service",annNote:"Vous connaissez un service qui manque ou une information à corriger ?"
+},
+en:{
+ by:"Created by",tag:"Mali in your pocket: procedures, emergencies, directory.",search:"Search for a procedure or service…",
+ urg:"In an emergency",urgSub:"Direct call",police:"Police",pompiers:"Fire brigade",
+ services:"Services",soon:"Coming soon",home:"Home",back:"Back",none:"No results for",call:"Call",
+ dem:"Procedures",demT:"Administrative procedures",demD:"Documents, costs, places and timelines",nb:"procedures",
+ urgences:"Emergencies",urgD:"Useful numbers and first steps",
+ annuaire:"Directory",annD:"Town halls, civil registry, police stations, hospitals, pharmacies",
+ emploi:"Jobs and internships",actu:"News and alerts",transport:"Transport",
+ s_intro:"Overview",s_description:"Overview",s_documents:"Required documents",s_cout:"Cost",s_delai:"Processing time",
+ s_procedure:"Procedure and where to apply",s_services:"Services to contact",s_enligne:"Online service and form",s_references:"Legal references",
+ uPolice:["Police","Police emergency number."],uPomp:["Fire brigade / Civil protection","Fire, accidents, rescue."],
+ favs:"My favourites",fav:"Favourite",enreg:"Saved",ecouter:"Listen",arreter:"Stop",partager:"Share",
+ signaler:"Report an error",prets:"ready",
+ noteSrc:"Source: guide to administrative procedures (2021 document). Costs and procedures may have changed: check with the relevant office before you go.",
+ reg:"Settings",txt:"Text size",theme:"Theme",auto:"Auto",clair:"Light",sombre:"Dark",ok:"Done",
+ annVide:"No city listed yet.",servN:"services",appeler:"Call",itineraire:"Directions",
+ videType:"No service listed here yet.",proposer:"Suggest a service",annNote:"Know a service that is missing, or something to correct?",
+ aconf:"To be confirmed",ty_utilites:"Water and electricity",ty_mairie:"Town halls",ty_etatcivil:"Civil registry centres",ty_commissariat:"Police stations",ty_hopital:"Hospitals and health centres",ty_pharmacie:"On-duty pharmacies"
+},
+bm:{ /* Bambara : les mots marqués « à confirmer » dans le chat restent en français. Relire avec un locuteur natif. */
+ by:"Dabɔbaga :",search:"Baara walima sɛbɛn ɲini…",home:"So",back:"Kɔsegin",services:"Baaraw",
+ none:"Foyi ma sɔrɔ",call:"Wele",appeler:"Wele",itineraire:"Sira yirali",ecouter:"Lamɛn",arreter:"Jɔ",partager:"Tilatila",
+ police:"Polisi",pompiers:"Pɔmpiye",dem:"Sɛbɛnw",demT:"Sɛbɛnko baaraw",annuaire:"Tɔgɔsɛbɛn",
+ s_cout:"Sɔngɔ",s_delai:"Sɔrɔli tuma",s_procedure:"Sɛbɛnsɔrɔ cogo ni a bɛ sɔrɔ yɔrɔ minw",s_services:"Baarayɔrɔw",
+ ty_mairie:"Mɛriw",ty_commissariat:"Komisariyaw",ty_hopital:"Lopitaliw",ty_pharmacie:"Farimasi min bɛ baara la su fɛ"
+}};
+let lang="fr";
+try{const s=localStorage.getItem("jamana-lang");if(s&&UI[s])lang=s}catch(e){}
+const t=k=>(UI[lang]&&UI[lang][k])||UI.fr[k];
+const LD=()=>window["DATA_"+lang.toUpperCase()];
+const cats=()=>(LD()&&LD().cats)||DATA_FR.cats;
+function items(){
+ const l=LD();if(!l||lang==="fr")return DATA_FR.items;
+ const m=new Map(l.items.map(x=>[x.id,x]));
+ return DATA_FR.items.map(x=>{const y=m.get(x.id);return y?{...x,...y,s:{...x.s,...y.s}}:x});
+}
+function setLang(c){
+ const go=()=>{lang=c;try{localStorage.setItem("jamana-lang",c)}catch(e){}route()};
+ if(c==="fr"||LD()||window["DATA_"+c.toUpperCase()])return go();
+ const s=document.createElement("script");s.src="data/"+c+".js";s.onload=go;s.onerror=go;document.head.appendChild(s);
+}
+
+/* ===== RÉGLAGES (mémorisés sur le téléphone) ===== */
+let S={fs:100,theme:"auto",fav:[],chk:{}};
+try{S={...S,...JSON.parse(localStorage.getItem("jamana-s")||"{}")}}catch(e){}
+const save=()=>{try{localStorage.setItem("jamana-s",JSON.stringify(S))}catch(e){}};
+function appliquer(){
+ const r=document.documentElement;
+ r.style.setProperty("--fs",S.fs+"%");
+ const sombre=S.theme==="dark"||(S.theme==="auto"&&matchMedia("(prefers-color-scheme: dark)").matches);
+ r.dataset.theme=sombre?"dark":"light";
+}
+appliquer();
+try{matchMedia("(prefers-color-scheme: dark)").addEventListener("change",appliquer)}catch(e){}
+function reglages(){
+ const r=document.getElementById("reg");r.hidden=false;
+ const o=(att,val,l)=>`<button data-${att}="${val}" class="${(att==="fs"?S.fs==val:S.theme===val)?"on":""}">${l}</button>`;
+ r.innerHTML=`<div class="feuille" role="dialog" aria-label="${t("reg")}"><h2 style="margin:0 0 14px">${t("reg")}</h2>
+ <b>${t("txt")}</b><div class="opts">${[[90,"A−"],[100,"A"],[115,"A+"],[130,"A++"]].map(([v,l])=>o("fs",v,l)).join("")}</div>
+ <b>${t("theme")}</b><div class="opts">${[["auto",t("auto")],["light",t("clair")],["dark",t("sombre")]].map(([v,l])=>o("th",v,l)).join("")}</div>
+ <button class="appel" data-fermer style="width:100%;justify-content:center;border:0;margin:0">${t("ok")}</button></div>`;
+}
+
+/* ===== OUTILS ===== */
+const hd=document.getElementById("hd"),app=document.getElementById("app"),nav=document.getElementById("nav");
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const norm=s=>String(s).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+const row=(go,ti,de,ic,nb)=>`<button class="row" data-go="${go}"><span class="tuile">${svg(ic,26)}</span><span class="txt"><b>${esc(ti)}${nb!==undefined&&nb!==""?`<span class="nb">${nb}</span>`:""}</b>${de?`<small>${esc(de)}</small>`:""}</span>${svg("chev",20)}</button>`;
+const pied=()=>`<div class="pied"><b>${t("by")} Mamadou Sidibé</b><div class="liens"><a href="tel:${TEL}">${svg("tel",16)}+223 73 06 50 26</a><a href="https://wa.me/${WA}" target="_blank" rel="noopener">${svg("chat",16)}WhatsApp</a></div><a href="mailto:${MAIL}">${svg("mail",16)}${MAIL}</a></div>`;
+const wa=txt=>`https://wa.me/${WA}?text=${encodeURIComponent(txt)}`;
+
+function outils(){
+ const ok=LANGS.filter(([c])=>UI[c]);
+ return `<div class="outils"><button class="reglage" data-reg aria-label="${t("reg")}">${svg("tune",20)}</button>${ok.length>1?`<div class="langues" role="group" aria-label="Langue">${ok.map(([c,l])=>`<button data-lang="${c}" class="${c===lang?"on":""}">${l}</button>`).join("")}</div>`:""}</div>`;
+}
+function entete(compact,titre,retour){
+ hd.className=compact?"compact":"";
+ hd.innerHTML=compact?`<button class="retour" data-go="${retour}" aria-label="${t("back")}">${svg("chev",22)}</button><h1>${esc(titre)}</h1>`
+  :`<div class="marque">${LOGO}<div><span class="salut">I ni ce</span><h1>Jamana</h1></div></div><p>${t("tag")}</p>${outils()}`;
+}
+
+/* ===== ACCUEIL ===== */
+function accueil(){
+ entete(false);
+ app.innerHTML=`<label class="rech">${svg("search",20)}<input id="q" type="search" placeholder="${t("search")}" aria-label="${t("search")}"></label><div id="res"></div>`;
+ document.getElementById("q").addEventListener("input",e=>liste(e.target.value));
+ liste("");
+}
+function liste(q){
+ const r=document.getElementById("res");q=norm(q.trim());
+ const all=items(),C=cats();
+ if(!q){
+  const soon=[["job",t("emploi")],["news",t("actu")],["bus",t("transport")]];
+  const favs=S.fav.map(id=>all.find(x=>x.id===id)).filter(Boolean);
+  r.innerHTML=`<div class="urg"><div><b>${t("urg")}</b><small>${t("urgSub")}</small></div><a href="tel:17">${svg("tel",18)}${t("police")} 17</a><a href="tel:18">${svg("tel",18)}${t("pompiers")} 18</a></div>
+  ${favs.length?`<h2 class="st">${t("favs")}</h2>`+favs.map(x=>row(x.id,x.titre,C[x.c],"star")).join(""):""}
+  <h2 class="st">${t("services")}</h2>${row("demarches",t("demT"),t("demD"),"doc",all.length)}${row("urgences",t("urgences"),t("urgD"),"urg")}${row("annuaire",t("annuaire"),t("annD"),"pin")}
+  <h2 class="st">${t("soon")}</h2><div class="puces">${soon.map(([ic,l])=>`<span>${svg(ic,16)}${l}</span>`).join("")}</div>`;
+  return;
+ }
+ const A=[],B=[];
+ all.forEach(it=>{
+  if(norm(it.titre).includes(q))A.push(it);
+  else if(norm(Object.values(it.s).flat().join(" ")).includes(q))B.push(it);
+ });
+ const res=A.concat(B).slice(0,40);
+ r.innerHTML=res.length?`<div style="margin-top:18px">${res.map(it=>row(it.id,it.titre,C[it.c],CATIC[it.c]||"doc")).join("")}</div>`:`<p class="vide">${t("none")} « ${esc(q)} ».</p>`;
+}
+
+/* ===== DÉMARCHES ===== */
+function categories(){
+ entete(true,t("demT"),"");
+ const C=cats(),all=items();
+ app.innerHTML=`<div class="intro">${t("demD")}</div><div style="margin-top:14px">`+C.map((c,i)=>row("c"+i,c,"",CATIC[i]||"doc",all.filter(x=>x.c===i).length)).join("")+"</div>";
+}
+function categorie(i){
+ const C=cats(),L=items().filter(x=>x.c==i);entete(true,C[i]||"","demarches");
+ app.innerHTML=`<div class="intro">${L.length} ${t("nb")}</div><div style="margin-top:14px">`+L.map(x=>row(x.id,x.titre,"",CATIC[i]||"doc")).join("")+"</div>";
+}
+function blocs(a){
+ let h="",ul="";
+ const fin=()=>{if(ul){h+="<ul>"+ul+"</ul>";ul=""}};
+ a.forEach(s=>{if(s[0]==="•")ul+="<li>"+esc(s.slice(2))+"</li>";else{fin();h+="<p>"+esc(s)+"</p>"}});
+ fin();return h;
+}
+function docs(it){
+ const on=S.chk[it.id]||[];let n=0,h="";
+ it.s.documents.forEach(s=>{
+  if(s[0]==="•"){h+=`<label class="chk"><input type="checkbox" data-chk="${it.id}|${n}"${on.includes(n)?" checked":""}><span>${esc(s.slice(2))}</span></label>`;n++}
+  else h+="<p>"+esc(s)+"</p>";
+ });
+ return n?`<p class="prog" id="prog" data-n="${n}">${on.length} / ${n} ${t("prets")}</p>`+h:h;
+}
+const favBtn=f=>svg("star",22).replace('fill="none"',f?'fill="currentColor"':'fill="none"')+`<span>${t(f?"enreg":"fav")}</span>`;
+function partage(it){
+ const cut=(a,n)=>a.map(x=>x.replace(/^• /,"")).join(" ").slice(0,n);
+ const L=["📄 "+it.titre];
+ if(it.s.documents)L.push("\nDocuments :\n"+it.s.documents.map(x=>x.replace(/^• /,"– ")).join("\n").slice(0,500));
+ if(it.s.cout)L.push("\nCoût : "+cut(it.s.cout,200));
+ if(it.s.delai)L.push("Délai : "+cut(it.s.delai,150));
+ L.push("\nVia Jamana – Le Mali en poche");
+ return "https://wa.me/?text="+encodeURIComponent(L.join("\n"));
+}
+const ORDRE=["intro","description","documents","cout","delai","procedure","services","enligne","references"];
+function detail(id){
+ const it=items().find(x=>x.id===id);
+ if(!it)return accueil();
+ entete(true,it.titre,"c"+it.c);
+ const taille=JSON.stringify(it.s).length,ouvre=k=>taille<5000&&["documents","cout","delai"].includes(k),fav=S.fav.includes(id);
+ app.innerHTML=`<div class="intro">${esc(cats()[it.c]||"")}</div>
+ <div class="actions"><button class="act${fav?" on":""}" data-fav="${id}">${favBtn(fav)}</button><button class="act" id="bl" data-lire="${id}">${svg("sound",22)}<span>${t("ecouter")}</span></button><a class="act" href="${partage(it)}" target="_blank" rel="noopener">${svg("share",22)}<span>${t("partager")}</span></a></div>`
+ +ORDRE.filter(k=>it.s[k]).map(k=>`<details${ouvre(k)?" open":""}><summary>${t("s_"+k)}</summary>${k==="documents"?docs(it):blocs(it.s[k])}</details>`).join("")
+ +`<div class="note"><p>${t("noteSrc")}</p><a class="appel" href="${wa("Jamana – erreur à corriger\nDémarche : "+it.titre+"\nProblème : ")}" target="_blank" rel="noopener">${svg("flag",18)}${t("signaler")}</a></div>`;
+ const b=document.getElementById("bl");
+ if(b&&b.style&&!("speechSynthesis" in window))b.style.display="none";
+}
+function favori(id){
+ S.fav=S.fav.includes(id)?S.fav.filter(x=>x!==id):[id,...S.fav];save();
+ const b=document.querySelector("[data-fav]"),f=S.fav.includes(id);
+ if(b){b.className="act"+(f?" on":"");b.innerHTML=favBtn(f)}
+}
+
+/* ===== LECTURE À VOIX HAUTE ===== */
+function stopLire(){
+ try{if("speechSynthesis" in window)speechSynthesis.cancel()}catch(e){}
+ const b=document.getElementById("bl");
+ if(b&&b.querySelector)b.innerHTML=svg("sound",22)+`<span>${t("ecouter")}</span>`;
+}
+function lire(id){
+ if(!("speechSynthesis" in window))return;
+ if(speechSynthesis.speaking){stopLire();return}
+ const it=items().find(x=>x.id===id);if(!it)return;
+ const txt=[it.titre].concat(["documents","cout","delai","procedure"].flatMap(k=>it.s[k]?[t("s_"+k)].concat(it.s[k].map(x=>x.replace(/^• /,""))):[])).join(". ");
+ const parts=(txt.match(/[^.!?]+[.!?]?/g)||[txt]).map(x=>x.trim()).filter(Boolean);
+ const trad=LD()&&LD().items&&LD().items.find(x=>x.id===id&&x.s&&x.s.documents),voix=(lang==="en"&&trad)?"en-US":"fr-FR";
+ const b=document.getElementById("bl");
+ if(b)b.innerHTML=svg("stop",22)+`<span>${t("arreter")}</span>`;
+ parts.forEach((p,i)=>{
+  const u=new SpeechSynthesisUtterance(p.slice(0,220));u.lang=voix;
+  if(i===parts.length-1)u.onend=()=>stopLire();
+  speechSynthesis.speak(u);
+ });
+}
+
+/* ===== URGENCES ===== */
+const fmt=n=>{const d=String(n).replace(/\D/g,"").replace(/^223(?=\d{8}$)/,"");return d.length===8?d.replace(/(\d\d)(?=\d)/g,"$1 "):String(n)};
+const aconf=ok=>ok?"":`<span class="aconf">${t("aconf")}</span>`;
+function urgences(){
+ entete(true,t("urgences"),"");
+ const G=window.URGENCES||[];
+ app.innerHTML=`<div class="intro">${t("urgD")}</div>`+G.map(g=>`<h2 class="st">${esc(g.titre)}</h2>${g.note?`<p class="gn">${esc(g.note)}</p>`:""}`+g.items.map(x=>`<div class="num"><div><b>${esc(x.nom)}</b>${aconf(x.ok)}${x.src?`<small>${esc(x.src)}</small>`:""}</div><a class="appel" href="tel:${esc(x.tel)}">${svg("tel",18)}${fmt(x.tel)}</a></div>`).join("")).join("");
+}
+
+/* ===== ANNUAIRE ===== */
+const TYPES=[["mairie"],["etatcivil"],["commissariat"],["hopital"],["pharmacie"],["utilites"]];
+const VILLES=()=>(window.ANNUAIRE&&window.ANNUAIRE.villes)||[];
+const proposer=ctx=>`<div class="note"><p>${t("annNote")}</p><a class="appel" href="${wa("Jamana – annuaire\n"+ctx+"\nService / information : ")}" target="_blank" rel="noopener">${svg("chat",18)}${t("proposer")}</a></div>`;
+function villes(){
+ entete(true,t("annuaire"),"");
+ const V=VILLES();
+ app.innerHTML=`<div class="intro">${t("annD")}</div><div style="margin-top:14px">`+(V.length?V.map((v,i)=>row("v"+i,v.nom,"","pin",(v.services||[]).length)).join(""):`<p class="vide">${t("annVide")}</p>`)+"</div>"+proposer("");
+}
+function typesVille(i){
+ const v=VILLES()[i];if(!v)return villes();
+ entete(true,v.nom,"annuaire");
+ app.innerHTML=`<div class="intro">${t("annD")}</div><div style="margin-top:14px">`+TYPES.map(([k],j)=>row("v"+i+"t"+j,t("ty_"+k),"","pin",(v.services||[]).filter(s=>s.t===k).length)).join("")+"</div>";
+}
+function listeType(i,j){
+ const v=VILLES()[i],T=TYPES[j];if(!v||!T)return villes();
+ entete(true,t("ty_"+T[0]),"v"+i);
+ const L=(v.services||[]).filter(s=>s.t===T[0]);
+ const carte=s=>s.lat!=null&&s.lng!=null?`https://www.google.com/maps/dir/?api=1&destination=${s.lat},${s.lng}`:`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(s.nom+" "+v.nom)}`;
+ const tel=n=>`<a class="appel" href="tel:${esc(n)}">${svg("tel",18)}${fmt(n)}</a>`;
+ app.innerHTML=`<div class="intro">${esc(v.nom)}</div>`+(L.length?L.map(s=>`<details><summary><span>${esc(s.nom)}${s.quartier?`<span class="nb">${esc(s.quartier)}</span>`:""}${aconf(s.ok)}</span></summary>${s.horaires?`<p>${esc(s.horaires)}</p>`:""}${s.src?`<p><small>${esc(s.src)}</small></p>`:""}<div class="boutons">${[s.tel].concat(s.autres||[]).filter(Boolean).map(tel).join("")}<a class="appel" href="${carte(s)}" target="_blank" rel="noopener">${svg("pin",18)}${t("itineraire")}</a></div></details>`).join(""):`<p class="vide">${t("videType")}</p>`)+proposer(v.nom+" – "+t("ty_"+T[0]));
+}
+
+/* ===== NAVIGATION ===== */
+function route(){
+ stopLire();
+ try{document.documentElement.lang=lang}catch(e){}
+ if(!window.DATA_FR){
+  entete(true,window.FRERR?"Fichier manquant":"Fichier abîmé","");
+  app.innerHTML='<div class="intro"><span>'+(window.FRERR?'Le fichier <b>data/fr.js</b> est introuvable (erreur 404). Vérifiez qu’il est dans un dossier nommé <b>data</b>, à côté de index.html.':'Le fichier <b>data/fr.js</b> a été trouvé mais il est abîmé ou incomplet. Remplacez-le par l’original téléchargé depuis le chat, sans le modifier.')+'</span></div>';
+  nav.innerHTML="";return;
+ }
+ const id=location.hash.slice(1);let tab="",m;
+ if(id==="demarches"){categories();tab="demarches"}
+ else if(/^c\d+$/.test(id)){categorie(+id.slice(1));tab="demarches"}
+ else if(/^d\d+$/.test(id)){detail(id);tab="demarches"}
+ else if(id==="urgences"){urgences();tab=id}
+ else if(id==="annuaire"){villes();tab=id}
+ else if(m=id.match(/^v(\d+)t(\d+)$/)){listeType(+m[1],+m[2]);tab="annuaire"}
+ else if(m=id.match(/^v(\d+)$/)){typesVille(+m[1]);tab="annuaire"}
+ else accueil();
+ app.insertAdjacentHTML("beforeend",pied());
+ nav.innerHTML=[["","home",t("home")],["demarches","doc",t("dem")],["urgences","urg",t("urgences")],["annuaire","pin",t("annuaire")]].map(([h,ic,l])=>`<button data-go="${h}" class="${h===tab?"on":""}">${svg(ic,24)}<span>${l}</span></button>`).join("");
+ window.scrollTo(0,0);
+}
+
+document.addEventListener("click",e=>{
+ const g=s=>e.target.closest(s);let b;
+ if(b=g("[data-lang]"))return setLang(b.dataset.lang);
+ if(g("[data-reg]"))return reglages();
+ if(e.target.id==="reg"||g("[data-fermer]")){document.getElementById("reg").hidden=true;return}
+ if(b=g("[data-fs]")){S.fs=+b.dataset.fs;save();appliquer();return reglages()}
+ if(b=g("[data-th]")){S.theme=b.dataset.th;save();appliquer();return reglages()}
+ if(b=g("[data-fav]"))return favori(b.dataset.fav);
+ if(b=g("[data-lire]"))return lire(b.dataset.lire);
+ if(b=g("[data-go]"))location.hash=b.dataset.go;
+});
+document.addEventListener("change",e=>{
+ const c=e.target.closest("[data-chk]");if(!c)return;
+ const [id,i]=c.dataset.chk.split("|"),n=+i,a=S.chk[id]||[];
+ S.chk[id]=c.checked?[...new Set([...a,n])]:a.filter(x=>x!==n);save();
+ const p=document.getElementById("prog");if(p)p.textContent=S.chk[id].length+" / "+p.dataset.n+" "+t("prets");
+});
+window.addEventListener("hashchange",route);
+route();
+if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js").catch(()=>{});
+</script>
+</body>
+</html>
