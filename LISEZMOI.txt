@@ -1,4 +1,4 @@
-JAMANA v1.3 - projet APK (fonctionne hors ligne)
+JAMANA v1.4 - projet APK (fonctionne hors ligne)
 
   www/                       appli (index.html, data/, etc.)
   www/maj.json               mises a jour du contenu SANS recompiler l APK (voir ci-dessous)
@@ -16,6 +16,10 @@ MISE A JOUR DU CONTENU A DISTANCE (le depot GitHub doit etre PUBLIC) :
     "urgences": [ { "titre": "...", "items": [ { "nom": "...", "tel": "17", "ok": true, "src": "..." } ] } ],
     "annuaire": { "villes": [ { "nom": "Bamako", "services": [ { "t": "hopital", "nom": "...", "tel": "+223...", "ok": true } ] } ] },
     "sources":  [ { "id": "maliactu", "nom": "MaliActu", "url": "https://.../feed/" } ] }
-  Les numeros et adresses invalides sont refuses par l appli.
+      "emploi":   { "stages": [ { "titre": "...", "organisme": "...", "limite": "...", "lien": "https://..." } ], "sources": [ { "id": "x", "nom": "Site", "url": "https://.../feed/" } ] },
+    "transport": { "villes": [ { "nom": "Bamako", "lieux": [ { "t": "gare", "nom": "...", "tel": "+223...", "destinations": "...", "ok": true } ] } ] },
+    "alertes":  [ { "titre": "...", "texte": "...", "type": "transport", "niveau": "urgent", "date": "23/10" } ] }
+  niveau "urgent" = affichee en haut de l accueil. type "transport" = affichee dans la rubrique Transport.
+  Les numeros, adresses et liens invalides sont refuses par l appli.
 
 Cle debug.keystore : tests uniquement. Pour le Play Store il faudra une vraie cle secrete.

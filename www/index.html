@@ -68,7 +68,7 @@ details li{margin:7px 0}
 .chk{display:flex;gap:10px;align-items:flex-start;padding:8px 0;color:var(--corps)}
 .chk input{flex:none;width:22px;height:22px;margin:2px 0 0;accent-color:var(--bleu)}
 .prog{font-weight:700;color:var(--lien)!important}
-.appel{display:inline-flex;align-items:center;gap:8px;margin:0 0 16px;padding:11px 16px;background:var(--bleu);color:#fff;border-radius:12px;text-decoration:none;font-weight:700}
+.appel{cursor:pointer;display:inline-flex;align-items:center;gap:8px;margin:0 0 16px;padding:11px 16px;background:var(--bleu);color:#fff;border-radius:12px;text-decoration:none;font-weight:700}
 .boutons{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 16px}
 .boutons .appel{margin:0}
 .note{margin-top:18px;padding:14px 16px;border:1px dashed var(--ligne);border-radius:16px;color:var(--gris);font-size:.9rem}
@@ -126,6 +126,8 @@ nav button.on::before{content:"";position:absolute;top:-7px;width:28px;height:3p
 <script src="data/annuaire.js"></script>
 <script src="data/urgences.js"></script>
 <script src="data/actualites.js"></script>
+<script src="data/emploi.js"></script>
+<script src="data/transport.js"></script>
 <script>
 /* ===== ICÔNES ===== */
 const I={
@@ -157,7 +159,7 @@ const CATIC=["doc","bus","urg","job","doc","home","doc","doc","job","pin","doc"]
 const LOGO=`<svg viewBox="0 0 64 64" role="img" aria-label="Logo Jamana"><rect width="64" height="64" rx="18" fill="#fff"/><path d="M38 14v22c0 7-4.5 11-11 11" fill="none" stroke="#0B3FA8" stroke-width="8" stroke-linecap="round"/><rect x="14" y="52" width="12" height="4" rx="2" fill="#14B53A"/><rect x="26" y="52" width="12" height="4" rx="2" fill="#FCD116"/><rect x="38" y="52" width="12" height="4" rx="2" fill="#CE1126"/></svg>`;
 
 /* ===== CONTACT ===== */
-const VERSION="1.3";
+const VERSION="1.4";
 const WA="22373065026",TEL="+22373065026",MAIL="mamadousidibee10@gmail.com";
 const RELEASES="https://github.com/mamadoudev5/Jamana/releases/latest";
 const MAJ_URL="https://raw.githubusercontent.com/mamadoudev5/Jamana/main/www/maj.json";
@@ -167,7 +169,16 @@ const MAJ_URL="https://raw.githubusercontent.com/mamadoudev5/Jamana/main/www/maj
    ajouter ses textes dans UI.xx et l'inscrire dans LANGS. Ce qui manque retombe sur le français. */
 const LANGS=[["fr","FR"],["bm","BM"],["en","EN"]];
 const UI={fr:{
- rappels:"Mes rappels",rappelsD:"Passeport, carte d’identité… : soyez prévenu avant l’expiration",rapDoc:"Document",rapDate:"Date d’expiration",rapAvant:"Me prévenir",rapMois1:"1 mois avant",rapMois3:"3 mois avant",rapMois6:"6 mois avant",rapAjout:"Ajouter le rappel",rapVide:"Aucun rappel pour le moment.",rapNotif:"Notification programmée",rapAppli:"Rappel visible dans l’appli",rapDans:"expire dans",rapJours:"jours",rapExp:"expiré depuis",rapSupp:"Supprimer",rapPh:"Passeport, carte d’identité…",rapErr:"Indiquez le document et une date valide.",rPass:"Passeport",rCni:"Carte d’identité",rPerm:"Permis de conduire",
+ empD:"Fonction publique, travail, retraite, stages et conseils",empDem:"Démarches : fonction publique, travail et retraite",empStages:"Stages, bourses et formations",empVide:"Rien d’enregistré pour le moment. Vous connaissez une offre de stage ou de formation ? Proposez-la.",empOffres:"Offres d’emploi",empLimite:"Date limite :",empLien:"Voir l’offre",empConseils:"Conseils pratiques",empNote:"Une offre de stage, une bourse, une formation à ajouter ? Écrivez-nous.",
+ c_cv:"Rédiger un CV",c_lettre:"Écrire une lettre de motivation",c_entretien:"Préparer un entretien",c_chercher:"Où chercher un emploi ou un stage",c_arnaque:"Éviter les arnaques à l’emploi",
+ cl_cv:["Une page suffit : mettez l’essentiel et soyez clair.","En haut : nom, téléphone, adresse e-mail, ville. Utilisez une adresse e-mail sérieuse.","Classez vos expériences et vos formations de la plus récente à la plus ancienne.","Pour chaque expérience : l’employeur, les dates et ce que vous avez réalisé, avec des chiffres si possible.","Ajoutez vos compétences et les langues que vous parlez (français, bambara, anglais…).","Relisez pour éviter les fautes, et enregistrez le CV en PDF pour l’envoyer."],
+ cl_lettre:["Une page maximum, adaptée à l’offre : n’envoyez pas la même lettre partout.","Indiquez le poste visé et où vous avez vu l’offre.","Expliquez pourquoi vous, avec 2 ou 3 exemples concrets de vos réussites.","Dites pourquoi cette entreprise ou cet organisme vous intéresse.","Terminez poliment et proposez de venir à un entretien."],
+ cl_entretien:["Renseignez-vous avant : ce que fait l’employeur, le poste, les conditions.","Préparez une présentation de vous en 1 minute : parcours, points forts, projet.","Arrivez en avance, tenue soignée, avec vos documents (CV, diplômes, pièce d’identité).","Écoutez bien les questions et répondez avec des exemples, sans exagérer.","Préparez 2 questions à poser, puis remerciez à la fin."],
+ cl_chercher:["Dites autour de vous que vous cherchez : famille, amis, anciens collègues, camarades.","Consultez les sites et les pages officielles des entreprises, ONG et administrations qui recrutent.","Les agences publiques de l’emploi, comme l’ANPE et l’APEJ, peuvent vous orienter : vérifiez leurs coordonnées actuelles.","Pour la fonction publique, suivez les avis officiels de concours et de recrutement.","Gardez la liste de vos candidatures et relancez poliment après une à deux semaines."],
+ cl_arnaque:["Un vrai recrutement ne demande jamais d’argent pour « réserver » ou « garantir » un poste.","Méfiez-vous des offres trop belles, sans nom d’employeur précis, ou qui vous pressent.","Vérifiez l’employeur : adresse, site, téléphone, avis d’autres personnes.","N’envoyez pas vos pièces d’identité ni vos informations bancaires avant d’être sûr de l’employeur.","Rencontrez le recruteur dans un lieu officiel et prévenez un proche."],
+ trD:"Documents, véhicules, gares routières et sécurité routière",trDoc:"Démarches : véhicules, permis et voyages",trGares:"Gares routières et compagnies",trGaresD:"Destinations, téléphone, itinéraire",trVide:"Aucune gare ni compagnie enregistrée pour le moment.",trSecu:"Sécurité routière",trConseils:"Les bons réflexes",trAccident:"En cas d’accident",tt_gare:"Gare routière",tt_compagnie:"Compagnie de bus",
+ cl_route:["Ceinture à l’avant et à l’arrière ; casque homologué pour les deux-roues.","Pas de téléphone au volant, pas d’alcool, et reposez-vous avant un long trajet.","Adaptez votre vitesse à la route, à la pluie, à la nuit, à la poussière et aux animaux.","Avant un long trajet : pneus, freins, éclairage, niveaux, roue de secours et eau.","Ne surchargez pas le véhicule, et ne montez pas avec un chauffeur fatigué ou ivre.","Gardez les papiers du véhicule et du conducteur à portée de main."],
+ cl_accident:["Arrêtez-vous, mettez le véhicule à l’écart si possible, allumez les feux de détresse et signalez le danger.","Appelez les secours (voir la page Urgences) en donnant le lieu précis et le nombre de blessés.","Ne déplacez pas un blessé grave, sauf danger immédiat comme un incendie.","Restez avec les blessés, parlez-leur et gardez-les au chaud.","Notez les plaques, les noms et les téléphones, prenez des photos, puis faites la déclaration à la police."], rappels:"Mes rappels",rappelsD:"Passeport, carte d’identité… : soyez prévenu avant l’expiration",rapDoc:"Document",rapDate:"Date d’expiration",rapAvant:"Me prévenir",rapMois1:"1 mois avant",rapMois3:"3 mois avant",rapMois6:"6 mois avant",rapAjout:"Ajouter le rappel",rapVide:"Aucun rappel pour le moment.",rapNotif:"Notification programmée",rapAppli:"Rappel visible dans l’appli",rapDans:"expire dans",rapJours:"jours",rapExp:"expiré depuis",rapSupp:"Supprimer",rapPh:"Passeport, carte d’identité…",rapErr:"Indiquez le document et une date valide.",rPass:"Passeport",rCni:"Carte d’identité",rPerm:"Permis de conduire",
  jamana:"Jamana",partagerJ:"Partager Jamana",partagerJD:"Envoyer le lien de l’application sur WhatsApp",partagerTxt:"Jamana : démarches, urgences, annuaire et actualités du Mali. Gratuite et utilisable hors ligne. Télécharger :",
  soutenir:"Soutenir Jamana",soutenirD:"Aidez à garder l’application gratuite",souIntro:"Jamana est gratuite. Si elle vous est utile, vous pouvez soutenir son hébergement, ses mises à jour et la vérification des informations. C’est facultatif.",souOrange:"Orange Money et Wave",souNum:"73 06 50 26",souNom:"Mamadou Sidibé",souCopier:"Copier le numéro",souCopie:"Copié",souEtapes:"Comment faire",souE1:"Ouvrez Orange Money ou Wave.",souE2:"Choisissez « Envoyer de l’argent » et collez le numéro.",souE3:"Vérifiez le nom du destinataire avant de valider.",souMerci:"Merci de faire vivre Jamana.",souAvert:"Pour votre sécurité : Jamana ne vous demandera jamais d’argent par message, ni vers un autre numéro que celui affiché ici.",
  apropos:"À propos",aproposD:"Sources, avertissement, confidentialité",apVer:"Version",
@@ -210,7 +221,16 @@ en:{
  reg:"Settings",txt:"Text size",theme:"Theme",auto:"Auto",clair:"Light",sombre:"Dark",ok:"Done",
  annVide:"No city listed yet.",servN:"services",appeler:"Call",itineraire:"Directions",
  videType:"No service listed here yet.",proposer:"Suggest a service",annNote:"Know a service that is missing, or something to correct?",
- rappels:"My reminders",rappelsD:"Passport, ID card… get notified before they expire",rapDoc:"Document",rapDate:"Expiry date",rapAvant:"Remind me",rapMois1:"1 month before",rapMois3:"3 months before",rapMois6:"6 months before",rapAjout:"Add reminder",rapVide:"No reminders yet.",rapNotif:"Notification scheduled",rapAppli:"Reminder shown in the app",rapDans:"expires in",rapJours:"days",rapExp:"expired",rapSupp:"Delete",rapPh:"Passport, ID card…",rapErr:"Enter the document and a valid date.",rPass:"Passport",rCni:"ID card",rPerm:"Driving licence",
+ empD:"Civil service, work, retirement, internships and advice",empDem:"Procedures: civil service, work and retirement",empStages:"Internships, grants and training",empVide:"Nothing listed yet. Know an internship or training offer? Suggest it.",empOffres:"Job offers",empLimite:"Deadline:",empLien:"View the offer",empConseils:"Practical advice",empNote:"An internship, grant or training to add? Write to us.",
+ c_cv:"Writing a CV",c_lettre:"Writing a cover letter",c_entretien:"Preparing for an interview",c_chercher:"Where to look for a job or internship",c_arnaque:"Avoiding job scams",
+ cl_cv:["One page is enough: keep to the essentials and be clear.","At the top: name, phone, email address, city. Use a professional email address.","List your experience and education from most recent to oldest.","For each job: the employer, dates and what you achieved, with numbers if possible.","Add your skills and the languages you speak (French, Bambara, English…).","Proofread for mistakes, and save the CV as a PDF before sending it."],
+ cl_lettre:["One page at most, tailored to the offer: don’t send the same letter everywhere.","State the position you want and where you saw the offer.","Explain why you, with 2 or 3 concrete examples of your achievements.","Say why this company or organisation interests you.","End politely and offer to come for an interview."],
+ cl_entretien:["Research beforehand: what the employer does, the role, the conditions.","Prepare a 1-minute introduction: background, strengths, goals.","Arrive early, dressed smartly, with your documents (CV, diplomas, ID).","Listen carefully to the questions and answer with examples, without exaggerating.","Prepare 2 questions to ask, and say thank you at the end."],
+ cl_chercher:["Tell people around you that you are looking: family, friends, former colleagues, classmates.","Check the official sites and pages of companies, NGOs and administrations that are hiring.","Public employment agencies, such as ANPE and APEJ, can guide you: check their current contact details.","For the civil service, follow the official competition and recruitment notices.","Keep a list of your applications and follow up politely after one to two weeks."],
+ cl_arnaque:["A genuine recruiter never asks for money to “reserve” or “guarantee” a job.","Be wary of offers that look too good, name no clear employer, or rush you.","Check the employer: address, website, phone number, other people’s reviews.","Don’t send ID documents or bank details before you are sure of the employer.","Meet the recruiter in an official place and tell someone close to you."],
+ trD:"Documents, vehicles, bus stations and road safety",trDoc:"Procedures: vehicles, licences and travel",trGares:"Bus stations and companies",trGaresD:"Destinations, phone, directions",trVide:"No bus station or company listed yet.",trSecu:"Road safety",trConseils:"Good habits",trAccident:"If there is an accident",tt_gare:"Bus station",tt_compagnie:"Bus company",
+ cl_route:["Seat belt in front and back; approved helmet on two-wheelers.","No phone while driving, no alcohol, and rest before a long trip.","Adapt your speed to the road, rain, night, dust and animals.","Before a long trip: tyres, brakes, lights, fluid levels, spare wheel and water.","Don’t overload the vehicle, and don’t ride with a tired or drunk driver.","Keep the vehicle and driver documents within reach."],
+ cl_accident:["Stop, move the vehicle aside if possible, switch on the hazard lights and warn others of the danger.","Call for help (see the Emergencies page), giving the exact place and the number of injured.","Don’t move a seriously injured person, unless there is immediate danger such as a fire.","Stay with the injured, talk to them and keep them warm.","Note the plates, names and phone numbers, take photos, then report to the police."], rappels:"My reminders",rappelsD:"Passport, ID card… get notified before they expire",rapDoc:"Document",rapDate:"Expiry date",rapAvant:"Remind me",rapMois1:"1 month before",rapMois3:"3 months before",rapMois6:"6 months before",rapAjout:"Add reminder",rapVide:"No reminders yet.",rapNotif:"Notification scheduled",rapAppli:"Reminder shown in the app",rapDans:"expires in",rapJours:"days",rapExp:"expired",rapSupp:"Delete",rapPh:"Passport, ID card…",rapErr:"Enter the document and a valid date.",rPass:"Passport",rCni:"ID card",rPerm:"Driving licence",
  jamana:"Jamana",partagerJ:"Share Jamana",partagerJD:"Send the app link on WhatsApp",partagerTxt:"Jamana: procedures, emergencies, directory and news for Mali. Free and works offline. Download:",
  soutenir:"Support Jamana",soutenirD:"Help keep the app free",souIntro:"Jamana is free. If it helps you, you can support its hosting, updates and the checking of information. It is optional.",souOrange:"Orange Money and Wave",souNum:"73 06 50 26",souNom:"Mamadou Sidibé",souCopier:"Copy the number",souCopie:"Copied",souEtapes:"How to do it",souE1:"Open Orange Money or Wave.",souE2:"Choose “Send money” and paste the number.",souE3:"Check the recipient’s name before confirming.",souMerci:"Thank you for keeping Jamana alive.",souAvert:"For your safety: Jamana will never ask you for money by message, or to any number other than the one shown here.",
  apropos:"About",aproposD:"Sources, disclaimer, privacy",apVer:"Version",
@@ -296,11 +316,10 @@ function liste(q){
  if(!q){
   const soon=[["job",t("emploi")],["bus",t("transport")]];
   const favs=S.fav.map(id=>all.find(x=>x.id===id)).filter(Boolean);
-  r.innerHTML=`${echeances()}<div class="urg"><div><b>${t("urg")}</b><small>${t("urgSub")}</small></div><a href="tel:17">${svg("tel",18)}${t("police")} 17</a><a href="tel:18">${svg("tel",18)}${t("pompiers")} 18</a></div>
+  r.innerHTML=`${alertesUrgentes()}${echeances()}<div class="urg"><div><b>${t("urg")}</b><small>${t("urgSub")}</small></div><a href="tel:17">${svg("tel",18)}${t("police")} 17</a><a href="tel:18">${svg("tel",18)}${t("pompiers")} 18</a></div>
   ${favs.length?`<h2 class="st">${t("favs")}</h2>`+favs.map(x=>row(x.id,x.titre,C[x.c],"star")).join(""):""}
-  <h2 class="st">${t("services")}</h2>${row("demarches",t("demT"),t("demD"),"doc",all.length)}${row("urgences",t("urgences"),t("urgD"),"urg")}${row("annuaire",t("annuaire"),t("annD"),"pin")}${row("actualites",t("actu"),t("actuD"),"news")}${row("rappels",t("rappels"),t("rappelsD"),"bell")}
-  <h2 class="st">${t("soon")}</h2><div class="puces">${soon.map(([ic,l])=>`<span>${svg(ic,16)}${l}</span>`).join("")}</div>
-  <h2 class="st">${t("jamana")}</h2>${rowa(wa0(),t("partagerJ"),t("partagerJD"),"share")}${row("soutenir",t("soutenir"),t("soutenirD"),"heart")}${row("apropos",t("apropos"),t("aproposD"),"info")}`;
+  <h2 class="st">${t("services")}</h2>${row("demarches",t("demT"),t("demD"),"doc",all.length)}${row("urgences",t("urgences"),t("urgD"),"urg")}${row("annuaire",t("annuaire"),t("annD"),"pin")}${row("actualites",t("actu"),t("actuD"),"news")}${row("emploi",t("emploi"),t("empD"),"job")}${row("transport",t("transport"),t("trD"),"bus")}${row("rappels",t("rappels"),t("rappelsD"),"bell")}
+    <h2 class="st">${t("jamana")}</h2>${rowa(wa0(),t("partagerJ"),t("partagerJD"),"share")}${row("soutenir",t("soutenir"),t("soutenirD"),"heart")}${row("apropos",t("apropos"),t("aproposD"),"info")}`;
   return;
  }
  const A=[],B=[];
@@ -440,7 +459,7 @@ async function charger(s){
 const jour=d=>{const x=new Date(d);return isNaN(x)?"":x.toLocaleDateString(lang==="en"?"en-GB":"fr-FR",{day:"numeric",month:"short",year:"numeric"})};
 async function actualites(){
  entete(true,t("actuT"),"");
- app.innerHTML=`<div class="intro">${t("actuD")}</div><div id="nw"><p class="etat">${t("charge")}</p></div>`;
+ app.innerHTML=`<div class="intro">${t("actuD")}</div>${alertesHtml()}<div id="nw"><p class="etat">${t("charge")}</p></div>`;
  const box=document.getElementById("nw"),cache=nlire();
  const res=await Promise.all((window.SOURCES||[]).map(async s=>{
   try{const a=await charger(s);cache[s.id]={a,ts:Date.now()};return{s,a,ok:true}}
@@ -524,12 +543,19 @@ function apropos(){
 const okTel=s=>/^\+?[0-9 ]{2,16}$/.test(String(s)),okStr=s=>typeof s==="string"&&s.length<200;
 const okU=a=>Array.isArray(a)&&a.every(g=>g&&okStr(g.titre)&&Array.isArray(g.items)&&g.items.every(x=>x&&okStr(x.nom)&&okTel(x.tel)));
 const okA=a=>a&&Array.isArray(a.villes)&&a.villes.every(v=>v&&okStr(v.nom)&&Array.isArray(v.services)&&v.services.every(s=>s&&okStr(s.t)&&okStr(s.nom)&&(!s.tel||okTel(s.tel))&&(!s.autres||(Array.isArray(s.autres)&&s.autres.every(okTel)))&&(s.lat==null||typeof s.lat==="number")&&(s.lng==null||typeof s.lng==="number")));
+const okTxt=s=>typeof s==="string"&&s.length<600,okHttps=u=>!u||/^https:\/\//.test(u);
+const okT=a=>a&&Array.isArray(a.villes)&&a.villes.every(v=>v&&okStr(v.nom)&&Array.isArray(v.lieux)&&v.lieux.every(s=>s&&okStr(s.nom)&&(!s.t||okStr(s.t))&&(!s.tel||okTel(s.tel))&&(!s.autres||(Array.isArray(s.autres)&&s.autres.every(okTel)))&&(s.destinations==null||okTxt(s.destinations))&&(s.horaires==null||okTxt(s.horaires))&&(s.lat==null||typeof s.lat==="number")&&(s.lng==null||typeof s.lng==="number")));
+const okE=a=>a&&Array.isArray(a.stages||[])&&(a.stages||[]).every(s=>s&&okStr(s.titre)&&(s.organisme==null||okStr(s.organisme))&&(s.conditions==null||okTxt(s.conditions))&&(s.limite==null||okStr(s.limite))&&(s.contact==null||okStr(s.contact))&&okHttps(s.lien))&&Array.isArray(a.sources||[])&&(a.sources||[]).every(s=>s&&okStr(s.id)&&okStr(s.nom)&&/^https:\/\//.test(s.url));
+const okAl=a=>Array.isArray(a)&&a.every(x=>x&&okStr(x.titre)&&okTxt(x.texte||"")&&(x.date==null||okStr(x.date))&&(x.type==null||okStr(x.type))&&(x.niveau==null||okStr(x.niveau)));
 const okS=a=>Array.isArray(a)&&a.every(s=>s&&okStr(s.id)&&okStr(s.nom)&&/^https:\/\//.test(s.url));
 function appliquerMaj(m){
  if(!m||typeof m!=="object")return;
  if(okU(m.urgences))window.URGENCES=m.urgences;
  if(okA(m.annuaire))window.ANNUAIRE=m.annuaire;
  if(okS(m.sources))window.SOURCES=m.sources;
+ if(okT(m.transport))window.TRANSPORT=m.transport;
+ if(okE(m.emploi))window.EMPLOI=m.emploi;
+ if(okAl(m.alertes))window.ALERTES=m.alertes;
 }
 async function verifierMaj(){
  try{
@@ -540,8 +566,64 @@ async function verifierMaj(){
   if(typeof m.version!=="number"||m.version<=(cur.version||0))return;
   localStorage.setItem("jamana-maj",JSON.stringify(m));appliquerMaj(m);
   const x=location.hash.slice(1);
-  if(x===""||x==="urgences"||x==="annuaire"||x==="actualites"||/^v\d/.test(x))route();
+  if(x===""||x==="urgences"||x==="annuaire"||x==="actualites"||x==="emploi"||x==="transport"||/^[vg]\d/.test(x))route();
  }catch(e){}
+}
+
+/* ===== ALERTES (via maj.json) ===== */
+const alerteHtml=x=>`<div class="alerte" style="display:block"><b>${esc(x.titre)}</b>${x.date?` <small>· ${esc(x.date)}</small>`:""}<br>${esc(x.texte||"")}</div>`;
+const alertesHtml=type=>(window.ALERTES||[]).filter(x=>!type||x.type===type).map(alerteHtml).join("");
+const alertesUrgentes=()=>(window.ALERTES||[]).filter(x=>x.niveau==="urgent").slice(0,2).map(alerteHtml).join("");
+
+/* ===== EMPLOI ET STAGES ===== */
+const CAT_EMPLOI=3,CAT_TRANSPORT=1,EMPLOI_PLUS=["d037","d038"];
+const listeHtml=a=>"<ul>"+(a||[]).map(x=>"<li>"+esc(x)+"</li>").join("")+"</ul>";
+const lienOk=u=>/^https:\/\//.test(u||"");
+const stageHtml=s=>`<details><summary><span>${esc(s.titre)}${aconf(s.ok)}</span></summary>${s.organisme?`<p>${esc(s.organisme)}</p>`:""}${s.conditions?`<p>${esc(s.conditions)}</p>`:""}${s.limite?`<p><b>${t("empLimite")}</b> ${esc(s.limite)}</p>`:""}${s.contact?`<p>${esc(s.contact)}</p>`:""}${lienOk(s.lien)?`<a class="appel" href="${esc(s.lien)}" target="_blank" rel="noopener">${t("empLien")}</a>`:""}</details>`;
+const artHtml=a=>`<a class="art" href="${esc(a.l)}" target="_blank" rel="noopener"><b>${esc(a.t)}</b><small>${esc(a.src)}${jour(a.d)?" · "+jour(a.d):""}</small>${a.r?`<span>${esc(a.r)}</span>`:""}</a>`;
+async function fluxEmploi(box){
+ const S=(window.EMPLOI&&window.EMPLOI.sources)||[];
+ if(!box||!S.length)return;
+ box.innerHTML=`<p class="etat">${t("charge")}</p>`;
+ const cache=nlire();
+ const res=await Promise.all(S.map(async s=>{
+  try{const a=await charger(s);cache["e-"+s.id]={a,ts:Date.now()};return{s,a}}
+  catch(e){const c=cache["e-"+s.id];return{s,a:c?c.a:[]}}
+ }));
+ nsave(cache);
+ if(document.getElementById("em")!==box)return;
+ const tous=res.flatMap(r=>r.a.map(a=>({...a,src:r.s.nom}))).sort((a,b)=>(new Date(b.d)||0)-(new Date(a.d)||0));
+ box.innerHTML=`<h2 class="st">${t("empOffres")}</h2>`+(tous.length?tous.map(artHtml).join(""):`<p class="etat">${t("actuErr")}</p>`);
+}
+function emploi(){
+ entete(true,t("emploi"),"");
+ const L=items().filter(x=>x.c===CAT_EMPLOI||EMPLOI_PLUS.includes(x.id)),st=(window.EMPLOI&&window.EMPLOI.stages)||[];
+ app.innerHTML=`<div class="intro">${t("empD")}</div><h2 class="st">${t("empDem")}</h2>`+L.map(x=>row(x.id,x.titre,"","job")).join("")
+  +`<h2 class="st">${t("empStages")}</h2>`+(st.length?st.map(stageHtml).join(""):`<p class="etat">${t("empVide")}</p>`)
+  +`<div id="em"></div><h2 class="st">${t("empConseils")}</h2>`
+  +["cv","lettre","entretien","chercher","arnaque"].map(k=>`<details><summary>${t("c_"+k)}</summary>${listeHtml(t("cl_"+k))}</details>`).join("")
+  +`<div class="note"><p>${t("empNote")}</p><a class="appel" href="${wa("Jamana – emploi / stage à ajouter\n")}" target="_blank" rel="noopener">${svg("chat",18)}${t("proposer")}</a></div>`;
+ fluxEmploi(document.getElementById("em"));
+}
+
+/* ===== TRANSPORT ===== */
+const carteUrl=(s,ville)=>s.lat!=null&&s.lng!=null?`https://www.google.com/maps/dir/?api=1&destination=${s.lat},${s.lng}`:`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(s.nom+" "+ville)}`;
+const telBtn=n=>`<a class="appel" href="tel:${esc(n)}">${svg("tel",18)}${fmt(n)}</a>`;
+const VT=()=>((window.TRANSPORT&&window.TRANSPORT.villes)||[]);
+function transport(){
+ entete(true,t("transport"),"");
+ const L=items().filter(x=>x.c===CAT_TRANSPORT),V=VT();
+ app.innerHTML=`<div class="intro">${t("trD")}</div>${alertesHtml("transport")}<h2 class="st">${t("trDoc")}</h2>`+L.map(x=>row(x.id,x.titre,"","bus")).join("")
+  +`<h2 class="st">${t("trGares")}</h2>`+(V.length?V.map((v,i)=>row("g"+i,v.nom,t("trGaresD"),"bus",(v.lieux||[]).length)).join(""):`<p class="etat">${t("trVide")}</p>`)
+  +`<h2 class="st">${t("trSecu")}</h2><details><summary>${t("trConseils")}</summary>${listeHtml(t("cl_route"))}</details>`
+  +`<details><summary>${t("trAccident")}</summary>${listeHtml(t("cl_accident"))}<button class="appel" data-go="urgences" style="border:0;font:inherit">${svg("tel",18)}${t("urgences")}</button></details>`
+  +`<div class="note"><p>${t("annNote")}</p><a class="appel" href="${wa("Jamana – transport\nService / information : ")}" target="_blank" rel="noopener">${svg("chat",18)}${t("proposer")}</a></div>`;
+}
+function garesVille(i){
+ const v=VT()[i];if(!v)return transport();
+ entete(true,v.nom,"transport");
+ const L=v.lieux||[];
+ app.innerHTML=`<div class="intro">${t("trGares")}</div>`+(L.length?L.map(s=>`<details><summary><span>${esc(s.nom)}${s.t?`<span class="nb">${esc(t("tt_"+s.t)||s.t)}</span>`:""}${s.quartier?`<span class="nb">${esc(s.quartier)}</span>`:""}${aconf(s.ok)}</span></summary>${s.destinations?`<p>${esc(s.destinations)}</p>`:""}${s.horaires?`<p>${esc(s.horaires)}</p>`:""}${s.src?`<p><small>${esc(s.src)}</small></p>`:""}<div class="boutons">${[s.tel].concat(s.autres||[]).filter(Boolean).map(telBtn).join("")}<a class="appel" href="${carteUrl(s,v.nom)}" target="_blank" rel="noopener">${svg("pin",18)}${t("itineraire")}</a></div></details>`).join(""):`<p class="vide">${t("trVide")}</p>`)+proposer(v.nom+" – "+t("trGares"));
 }
 
 /* ===== NAVIGATION ===== */
@@ -561,6 +643,9 @@ function route(){
  else if(id==="annuaire"){villes();tab=id}
  else if(id==="actualites"){actualites()}
  else if(id==="actualites-r"){location.hash="actualites"}
+ else if(id==="emploi"){emploi()}
+ else if(id==="transport"){transport()}
+ else if(m=id.match(/^g(\d+)$/)){garesVille(+m[1])}
  else if(id==="rappels"){rappels()}
  else if(id==="soutenir"){soutenir()}
  else if(id==="apropos"){apropos()}
