@@ -1,4 +1,4 @@
-const V = "jamana-v9";
+const V = "jamana-v10";
 const FICHIERS = ["./", "index.html", "manifest.json", "icon.svg", "data/fr.js", "data/annuaire.js", "data/urgences.js", "data/actualites.js", "data/emploi.js", "data/transport.js", "data/en.js", "data/bm.js"];
 
 self.addEventListener("install", e => {

@@ -159,7 +159,7 @@ const CATIC=["doc","bus","urg","job","doc","home","doc","doc","job","pin","doc"]
 const LOGO=`<svg viewBox="0 0 64 64" role="img" aria-label="Logo Jamana"><rect width="64" height="64" rx="18" fill="#fff"/><path d="M38 14v22c0 7-4.5 11-11 11" fill="none" stroke="#0B3FA8" stroke-width="8" stroke-linecap="round"/><rect x="14" y="52" width="12" height="4" rx="2" fill="#14B53A"/><rect x="26" y="52" width="12" height="4" rx="2" fill="#FCD116"/><rect x="38" y="52" width="12" height="4" rx="2" fill="#CE1126"/></svg>`;
 
 /* ===== CONTACT ===== */
-const VERSION="1.4";
+const VERSION="1.5";
 const WA="22373065026",TEL="+22373065026",MAIL="mamadousidibee10@gmail.com";
 const RELEASES="https://github.com/mamadoudev5/Jamana/releases/latest";
 const MAJ_URL="https://raw.githubusercontent.com/mamadoudev5/Jamana/main/www/maj.json";
@@ -169,7 +169,7 @@ const MAJ_URL="https://raw.githubusercontent.com/mamadoudev5/Jamana/main/www/maj
    ajouter ses textes dans UI.xx et l'inscrire dans LANGS. Ce qui manque retombe sur le français. */
 const LANGS=[["fr","FR"],["bm","BM"],["en","EN"]];
 const UI={fr:{
- empD:"Fonction publique, travail, retraite, stages et conseils",empDem:"Démarches : fonction publique, travail et retraite",empStages:"Stages, bourses et formations",empVide:"Rien d’enregistré pour le moment. Vous connaissez une offre de stage ou de formation ? Proposez-la.",empOffres:"Offres d’emploi",empLimite:"Date limite :",empLien:"Voir l’offre",empConseils:"Conseils pratiques",empNote:"Une offre de stage, une bourse, une formation à ajouter ? Écrivez-nous.",
+ trDest:"Destinations :",trHor:"Horaires :", empD:"Fonction publique, travail, retraite, stages et conseils",empDem:"Démarches : fonction publique, travail et retraite",empStages:"Stages, bourses et formations",empVide:"Rien d’enregistré pour le moment. Vous connaissez une offre de stage ou de formation ? Proposez-la.",empOffres:"Offres d’emploi",empLimite:"Date limite :",empLien:"Voir l’offre",empConseils:"Conseils pratiques",empNote:"Une offre de stage, une bourse, une formation à ajouter ? Écrivez-nous.",
  c_cv:"Rédiger un CV",c_lettre:"Écrire une lettre de motivation",c_entretien:"Préparer un entretien",c_chercher:"Où chercher un emploi ou un stage",c_arnaque:"Éviter les arnaques à l’emploi",
  cl_cv:["Une page suffit : mettez l’essentiel et soyez clair.","En haut : nom, téléphone, adresse e-mail, ville. Utilisez une adresse e-mail sérieuse.","Classez vos expériences et vos formations de la plus récente à la plus ancienne.","Pour chaque expérience : l’employeur, les dates et ce que vous avez réalisé, avec des chiffres si possible.","Ajoutez vos compétences et les langues que vous parlez (français, bambara, anglais…).","Relisez pour éviter les fautes, et enregistrez le CV en PDF pour l’envoyer."],
  cl_lettre:["Une page maximum, adaptée à l’offre : n’envoyez pas la même lettre partout.","Indiquez le poste visé et où vous avez vu l’offre.","Expliquez pourquoi vous, avec 2 ou 3 exemples concrets de vos réussites.","Dites pourquoi cette entreprise ou cet organisme vous intéresse.","Terminez poliment et proposez de venir à un entretien."],
@@ -221,7 +221,7 @@ en:{
  reg:"Settings",txt:"Text size",theme:"Theme",auto:"Auto",clair:"Light",sombre:"Dark",ok:"Done",
  annVide:"No city listed yet.",servN:"services",appeler:"Call",itineraire:"Directions",
  videType:"No service listed here yet.",proposer:"Suggest a service",annNote:"Know a service that is missing, or something to correct?",
- empD:"Civil service, work, retirement, internships and advice",empDem:"Procedures: civil service, work and retirement",empStages:"Internships, grants and training",empVide:"Nothing listed yet. Know an internship or training offer? Suggest it.",empOffres:"Job offers",empLimite:"Deadline:",empLien:"View the offer",empConseils:"Practical advice",empNote:"An internship, grant or training to add? Write to us.",
+ trDest:"Destinations:",trHor:"Times:", empD:"Civil service, work, retirement, internships and advice",empDem:"Procedures: civil service, work and retirement",empStages:"Internships, grants and training",empVide:"Nothing listed yet. Know an internship or training offer? Suggest it.",empOffres:"Job offers",empLimite:"Deadline:",empLien:"View the offer",empConseils:"Practical advice",empNote:"An internship, grant or training to add? Write to us.",
  c_cv:"Writing a CV",c_lettre:"Writing a cover letter",c_entretien:"Preparing for an interview",c_chercher:"Where to look for a job or internship",c_arnaque:"Avoiding job scams",
  cl_cv:["One page is enough: keep to the essentials and be clear.","At the top: name, phone, email address, city. Use a professional email address.","List your experience and education from most recent to oldest.","For each job: the employer, dates and what you achieved, with numbers if possible.","Add your skills and the languages you speak (French, Bambara, English…).","Proofread for mistakes, and save the CV as a PDF before sending it."],
  cl_lettre:["One page at most, tailored to the offer: don’t send the same letter everywhere.","State the position you want and where you saw the offer.","Explain why you, with 2 or 3 concrete examples of your achievements.","Say why this company or organisation interests you.","End politely and offer to come for an interview."],
@@ -240,11 +240,15 @@ en:{
  apTitre4:"Privacy",apT4:"No account, no ads, no tracking. Your favourites, ticked boxes, reminders and settings stay on your phone. For news and content updates the app connects to the Internet (newspaper sites and GitHub), which can see your connection’s IP address.",
  apTitre5:"Content updates",apMaj:"Content version received:",apMajNon:"No content update received yet.",apContact:"An error to report, an idea?", actuT:"News",actuD:"Latest news from the Malian press",actuMaj:"Refresh",actuHors:"No connection: showing the latest saved articles",actuErr:"Unable to load the news right now.",actuNav:"In a browser, some sites block reading. The Android app works.",actuVide:"No articles for now.",actuNote:"Headlines provided by the newspapers’ websites. Jamana is not responsible for their content.",charge:"Loading…",aconf:"To be confirmed",ty_utilites:"Water and electricity",ty_mairie:"Town halls",ty_etatcivil:"Civil registry centres",ty_commissariat:"Police stations",ty_hopital:"Hospitals and health centres",ty_pharmacie:"On-duty pharmacies"
 },
-bm:{ /* Bambara : les mots marqués « à confirmer » dans le chat restent en français. Relire avec un locuteur natif. */
+bm:{ /* Bambara : traductions d'un traducteur malien (lots 1 et 2). Ce qui manque s'affiche en français. */
  by:"Dabɔbaga :",search:"Baara walima sɛbɛn ɲini…",home:"So",back:"Kɔsegin",services:"Baaraw",
  none:"Foyi ma sɔrɔ",call:"Wele",appeler:"Wele",itineraire:"Sira yirali",ecouter:"Lamɛn",arreter:"Jɔ",partager:"Tilatila",
- police:"Polisi",pompiers:"Pɔmpiye",dem:"Sɛbɛnw",demT:"Sɛbɛnko baaraw",annuaire:"Tɔgɔsɛbɛn",
- s_cout:"Sɔngɔ",s_delai:"Sɔrɔli tuma",s_procedure:"Sɛbɛnsɔrɔ cogo ni a bɛ sɔrɔ yɔrɔ minw",s_services:"Baarayɔrɔw",
+ police:"Polisi",pompiers:"Tasumafagabalaw",dem:"Sɛbɛnw",demT:"Sɛbɛnko baaraw",annuaire:"Tɔgɔsɛbɛn",
+ s_documents:"Sɛbɛnw minnu ka kan ka di",s_cout:"Sɔngɔ",s_delai:"Sɔrɔli tuma",s_procedure:"Sɛbɛnsɔrɔ cogo ni a bɛ sɔrɔ yɔrɔ minw",s_services:"Baarayɔrɔw",
+ favs:"N nka fɛn ɲumanw",signaler:"Fili dɔ jira",urgences:"Kógoninfanga",actu:"Kibaruw",actuT:"Kibaruw",emploi:"Baara ni staziw",transport:"Taamafɛnw",
+ rappels:"N nka hakilijagabɔw",soutenir:"Dɛmɛ dɔn Jamana na",apropos:"Jamana koo la",partagerJ:"Jamana tila",reg:"Labɛnw",ok:"A banna",
+ actuMaj:"Kura",charge:"A bɛ kuraya la…",actuHors:"Kɔnɛkisiyɔn tɛ n bɛ",soon:"A bɛ sɔrɔ sɔni",
+ tt_gare:"Otogari",tt_compagnie:"Kari marasiraw",trDest:"Taa-yɔrɔw :",trHor:"Watiw :",
  ty_mairie:"Mɛriw",ty_commissariat:"Komisariyaw",ty_hopital:"Lopitaliw",ty_pharmacie:"Farimasi min bɛ baara la su fɛ"
 }};
 let lang="fr";
@@ -300,7 +304,7 @@ function outils(){
 function entete(compact,titre,retour){
  hd.className=compact?"compact":"";
  hd.innerHTML=compact?`<button class="retour" data-go="${retour}" aria-label="${t("back")}">${svg("chev",22)}</button><h1>${esc(titre)}</h1>`
-  :`<div class="marque">${LOGO}<div><span class="salut">I ni ce</span><h1>Jamana</h1></div></div><p>${t("tag")}</p>${outils()}`;
+  :`<div class="marque">${LOGO}<div><span class="salut">I bisimila</span><h1>Jamana</h1></div></div><p>${t("tag")}</p>${outils()}`;
 }
 
 /* ===== ACCUEIL ===== */
@@ -435,7 +439,7 @@ function listeType(i,j){
  const L=(v.services||[]).filter(s=>s.t===T[0]);
  const carte=s=>s.lat!=null&&s.lng!=null?`https://www.google.com/maps/dir/?api=1&destination=${s.lat},${s.lng}`:`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(s.nom+" "+v.nom)}`;
  const tel=n=>`<a class="appel" href="tel:${esc(n)}">${svg("tel",18)}${fmt(n)}</a>`;
- app.innerHTML=`<div class="intro">${esc(v.nom)}</div>`+(L.length?L.map(s=>`<details><summary><span>${esc(s.nom)}${s.quartier?`<span class="nb">${esc(s.quartier)}</span>`:""}${aconf(s.ok)}</span></summary>${s.horaires?`<p>${esc(s.horaires)}</p>`:""}${s.src?`<p><small>${esc(s.src)}</small></p>`:""}<div class="boutons">${[s.tel].concat(s.autres||[]).filter(Boolean).map(tel).join("")}<a class="appel" href="${carte(s)}" target="_blank" rel="noopener">${svg("pin",18)}${t("itineraire")}</a></div></details>`).join(""):`<p class="vide">${t("videType")}</p>`)+proposer(v.nom+" – "+t("ty_"+T[0]));
+ app.innerHTML=`<div class="intro">${esc(v.nom)}</div>`+(L.length?L.map(s=>`<details><summary><span>${esc(s.nom)}${s.quartier?`<span class="nb">${esc(s.quartier)}</span>`:""}${aconf(s.ok)}</span></summary>${s.adresse?`<p>${esc(s.adresse)}</p>`:""}${s.horaires?`<p>${esc(s.horaires)}</p>`:""}${s.src?`<p><small>${esc(s.src)}</small></p>`:""}<div class="boutons">${[s.tel].concat(s.autres||[]).filter(Boolean).map(tel).join("")}<a class="appel" href="${carte(s)}" target="_blank" rel="noopener">${svg("pin",18)}${t("itineraire")}</a></div></details>`).join(""):`<p class="vide">${t("videType")}</p>`)+proposer(v.nom+" – "+t("ty_"+T[0]));
 }
 
 /* ===== ACTUALITÉS (flux RSS) ===== */
@@ -623,7 +627,7 @@ function garesVille(i){
  const v=VT()[i];if(!v)return transport();
  entete(true,v.nom,"transport");
  const L=v.lieux||[];
- app.innerHTML=`<div class="intro">${t("trGares")}</div>`+(L.length?L.map(s=>`<details><summary><span>${esc(s.nom)}${s.t?`<span class="nb">${esc(t("tt_"+s.t)||s.t)}</span>`:""}${s.quartier?`<span class="nb">${esc(s.quartier)}</span>`:""}${aconf(s.ok)}</span></summary>${s.destinations?`<p>${esc(s.destinations)}</p>`:""}${s.horaires?`<p>${esc(s.horaires)}</p>`:""}${s.src?`<p><small>${esc(s.src)}</small></p>`:""}<div class="boutons">${[s.tel].concat(s.autres||[]).filter(Boolean).map(telBtn).join("")}<a class="appel" href="${carteUrl(s,v.nom)}" target="_blank" rel="noopener">${svg("pin",18)}${t("itineraire")}</a></div></details>`).join(""):`<p class="vide">${t("trVide")}</p>`)+proposer(v.nom+" – "+t("trGares"));
+ app.innerHTML=`<div class="intro">${t("trGares")}</div>`+(L.length?L.map(s=>`<details><summary><span>${esc(s.nom)}${s.t?`<span class="nb">${esc(t("tt_"+s.t)||s.t)}</span>`:""}${s.quartier?`<span class="nb">${esc(s.quartier)}</span>`:""}${aconf(s.ok)}</span></summary>${s.adresse?`<p>${esc(s.adresse)}</p>`:""}${s.destinations?`<p><b>${t("trDest")}</b> ${esc(s.destinations)}</p>`:""}${s.horaires?`<p><b>${t("trHor")}</b> ${esc(s.horaires)}</p>`:""}${s.src?`<p><small>${esc(s.src)}</small></p>`:""}<div class="boutons">${[s.tel].concat(s.autres||[]).filter(Boolean).map(telBtn).join("")}<a class="appel" href="${carteUrl(s,v.nom)}" target="_blank" rel="noopener">${svg("pin",18)}${t("itineraire")}</a></div></details>`).join(""):`<p class="vide">${t("trVide")}</p>`)+proposer(v.nom+" – "+t("trGares"));
 }
 
 /* ===== NAVIGATION ===== */
