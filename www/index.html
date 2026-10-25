@@ -110,6 +110,19 @@ ol.etapes li{margin:8px 0}
 .temp{flex:none;text-align:right}
 .temp b{display:block;font-size:1.25rem}
 .temp small{color:var(--gris)}
+.ov{position:fixed;inset:0;z-index:30;display:flex;flex-direction:column;background:var(--fond)}
+.ov[hidden]{display:none}
+.cgu-h{padding:calc(env(safe-area-inset-top,0px) + 18px) 20px 12px;border-bottom:1px solid var(--ligne);background:var(--carte)}
+.cgu-b{flex:1;overflow-y:auto;padding:8px 20px 24px;-webkit-overflow-scrolling:touch}
+.cgu-b h3{margin:20px 0 6px;font-size:1.02rem}
+.cgu-b p{margin:0 0 8px;color:var(--corps)}
+.cgu-f{display:grid;gap:10px;padding:12px 20px calc(14px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--ligne);background:var(--carte)}
+.cgu-f button:disabled{opacity:.4}
+.hint{color:var(--gris);font-size:.85rem}
+.sec{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 16px;border:1px solid var(--ligne);border-radius:12px;background:var(--carte);color:var(--lien);font-weight:700}
+#dlg{align-items:center;justify-content:center;background:rgba(0,0,0,.5)}
+.dbox{width:calc(100% - 40px);max-width:420px;padding:20px;border-radius:20px;background:var(--carte);box-shadow:0 20px 50px rgba(0,0,0,.35)}
+.dbox p{margin:0;color:var(--corps)}
 nav{position:fixed;left:0;right:0;bottom:0;z-index:5;display:grid;grid-template-columns:repeat(4,1fr);padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px));background:var(--navbg);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-top:1px solid var(--ligne)}
 nav button{position:relative;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 0 4px;border:0;background:none;color:var(--gris);font-size:.72rem}
 nav button.on{color:var(--lien);font-weight:700}
@@ -129,6 +142,8 @@ nav button.on::before{content:"";position:absolute;top:-7px;width:28px;height:3p
 <main id="app"></main>
 <nav id="nav" aria-label="Navigation principale"></nav>
 <div id="reg" hidden></div>
+<div id="cgu" class="ov" hidden></div>
+<div id="dlg" class="ov" hidden></div>
 
 <script src="data/fr.js" onerror="window.FRERR=1"></script>
 <script src="data/annuaire.js"></script>
@@ -174,7 +189,7 @@ const CATIC=["doc","bus","urg","job","doc","home","doc","doc","job","pin","doc"]
 const LOGO=`<svg viewBox="0 0 64 64" role="img" aria-label="Logo Jamana"><rect width="64" height="64" rx="18" fill="#fff"/><path d="M38 14v22c0 7-4.5 11-11 11" fill="none" stroke="#0B3FA8" stroke-width="8" stroke-linecap="round"/><rect x="14" y="52" width="12" height="4" rx="2" fill="#14B53A"/><rect x="26" y="52" width="12" height="4" rx="2" fill="#FCD116"/><rect x="38" y="52" width="12" height="4" rx="2" fill="#CE1126"/></svg>`;
 
 /* ===== CONTACT ===== */
-const VERSION="1.6";
+const VERSION="1.6.1";
 const WA="22373065026",TEL="+22373065026",MAIL="mamadousidibee10@gmail.com";
 const RELEASES="https://github.com/mamadoudev5/Jamana/releases/latest";
 const MAJ_URL="https://raw.githubusercontent.com/mamadoudev5/Jamana/main/www/maj.json";
@@ -194,7 +209,17 @@ const UI={fr:{
  trD:"Documents, véhicules, gares routières et sécurité routière",trDoc:"Démarches : véhicules, permis et voyages",trGares:"Gares routières et compagnies",trGaresD:"Destinations, téléphone, itinéraire",trVide:"Aucune gare ni compagnie enregistrée pour le moment.",trSecu:"Sécurité routière",trConseils:"Les bons réflexes",trAccident:"En cas d’accident",tt_gare:"Gare routière",tt_compagnie:"Compagnie de bus",
  cl_route:["Ceinture à l’avant et à l’arrière ; casque homologué pour les deux-roues.","Pas de téléphone au volant, pas d’alcool, et reposez-vous avant un long trajet.","Adaptez votre vitesse à la route, à la pluie, à la nuit, à la poussière et aux animaux.","Avant un long trajet : pneus, freins, éclairage, niveaux, roue de secours et eau.","Ne surchargez pas le véhicule, et ne montez pas avec un chauffeur fatigué ou ivre.","Gardez les papiers du véhicule et du conducteur à portée de main."],
  cl_accident:["Arrêtez-vous, mettez le véhicule à l’écart si possible, allumez les feux de détresse et signalez le danger.","Appelez les secours (voir la page Urgences) en donnant le lieu précis et le nombre de blessés.","Ne déplacez pas un blessé grave, sauf danger immédiat comme un incendie.","Restez avec les blessés, parlez-leur et gardez-les au chaud.","Notez les plaques, les noms et les téléphones, prenez des photos, puis faites la déclaration à la police."], pratiqueH:"Au quotidien",santeH:"Santé et sécurité",
- sos:"SOS",sosT:"SOS : alerter mes proches",sosD:"Envoyer ma position à mes contacts de confiance",sosBtn:"J’ai besoin d’aide : préparer mon SOS",sosIntro:"Ajoutez jusqu’à 3 proches. En cas de danger, un appui prépare un message avec votre position pour chacun (SMS ou WhatsApp). Ce n’est pas un service de secours : en urgence, appelez d’abord les numéros d’urgence.",sosContacts:"Mes contacts de confiance",sosNom:"Nom",sosTel:"Téléphone",sosAjout:"Ajouter ce contact",sosMax:"3 contacts au maximum.",sosErr:"Indiquez un nom et un numéro valide.",sosLoc:"Recherche de votre position…",sosPos:"Position trouvée. Appuyez pour envoyer :",sosNoPos:"Position introuvable : le message sera envoyé sans position. Appuyez pour envoyer :",sosEnvoyer:"Envoyer à ce contact",sosSms:"SMS",sosWa:"WhatsApp",sosSupp:"Supprimer",sosNote:"Astuce : le SMS fonctionne sans données Internet. Votre position n’est envoyée que si vous appuyez sur un bouton d’envoi.",sosMsg:"SOS – j’ai besoin d’aide.",sosMsgPos:"Ma position :",sosMsgSans:"Je n’ai pas pu obtenir ma position.",sosMsgVia:"Envoyé depuis Jamana.",sosUrg:"Appeler les urgences",sosVide:"Aucun contact enregistré. Ajoutez au moins une personne.",
+ cgTitre:"Avant de commencer",cgIntro:"Lisez ce qui suit jusqu’en bas, puis choisissez.",cgLecture:"Conditions d’utilisation et confidentialité.",cgDefile:"Faites défiler jusqu’en bas pour continuer.",cgFin:"Si vous n’êtes pas d’accord, fermez l’application.",cgOui:"J’accepte et je continue",cgSans:"J’accepte, sans la position",
+ cgT1:"Qui est derrière Jamana",cgP1:"Jamana est une application gratuite créée par Mamadou Sidibé. Ce n’est pas un service de l’État.",
+ cgT2:"Informations indicatives",cgP2:"Les démarches, coûts, délais, numéros, horaires et conseils sont donnés à titre indicatif et peuvent changer. Vérifiez toujours auprès du service concerné. Les conseils de santé sont généraux : ils ne remplacent pas un professionnel de santé.",
+ cgT3:"Votre position (GPS)",cgP3:"La position sert uniquement pour le SOS et « Près de moi », et seulement quand vous appuyez sur le bouton. Elle n’est pas enregistrée et reste sur votre téléphone. Pour le SOS, le lien de votre position n’est envoyé à vos contacts que si vous choisissez d’envoyer le message. Vous pouvez refuser la position et utiliser le reste de l’application.",
+ cgT4:"Vos données",cgP4:"Vos contacts SOS, favoris, rappels, cases cochées et réglages restent sur votre téléphone. Il n’y a ni compte, ni publicité, ni suivi. Vous pouvez tout effacer dans Réglages.",
+ cgT5:"Connexions Internet",cgP5:"L’application fonctionne hors ligne. Quand elle se connecte (actualités, météo, mises à jour du contenu), les sites des journaux, Open-Meteo et GitHub peuvent voir l’adresse IP de votre connexion.",
+ cgT6:"Le SOS ne remplace pas les secours",cgP6:"En cas de danger, appelez d’abord les numéros d’urgence. Le SOS prépare un message pour vos proches : c’est vous qui l’envoyez, et Jamana ne garantit pas qu’il soit reçu.",
+ cgT7:"Dons et arnaques",cgP7:"Le soutien à Jamana est facultatif. Jamana ne vous demandera jamais d’argent par message, ni votre code secret.",
+ cgT8:"Contact",cgP8:"Une question, une erreur à signaler : WhatsApp ou e-mail, depuis la page À propos.",
+ posTitre:"Pourquoi la position ?",posTexte:"Jamana utilise votre position une seule fois, quand vous appuyez sur ce bouton, pour préparer votre message SOS ou trouver les services proches. Elle n’est pas enregistrée. Android va maintenant vous demander l’autorisation.",posOk:"Continuer",annuler:"Annuler",posOff:"La position est désactivée. Activez-la pour classer les services par distance.",posActiver:"Activer la position",
+ cgReglage:"Confidentialité",posReg:"Position",posAct:"activée",posDes:"désactivée",cgRelire:"Relire les conditions et la confidentialité",cgRetirer:"Retirer mon consentement et effacer mes données",cgConfirmer:"Appuyez encore pour confirmer", sos:"SOS",sosT:"SOS : alerter mes proches",sosD:"Envoyer ma position à mes contacts de confiance",sosBtn:"J’ai besoin d’aide : préparer mon SOS",sosIntro:"Ajoutez jusqu’à 3 proches. En cas de danger, un appui prépare un message avec votre position pour chacun (SMS ou WhatsApp). Ce n’est pas un service de secours : en urgence, appelez d’abord les numéros d’urgence.",sosContacts:"Mes contacts de confiance",sosNom:"Nom",sosTel:"Téléphone",sosAjout:"Ajouter ce contact",sosMax:"3 contacts au maximum.",sosErr:"Indiquez un nom et un numéro valide.",sosLoc:"Recherche de votre position…",sosPos:"Position trouvée. Appuyez pour envoyer :",sosNoPos:"Position introuvable : le message sera envoyé sans position. Appuyez pour envoyer :",sosEnvoyer:"Envoyer à ce contact",sosSms:"SMS",sosWa:"WhatsApp",sosSupp:"Supprimer",sosNote:"Astuce : le SMS fonctionne sans données Internet. Votre position n’est envoyée que si vous appuyez sur un bouton d’envoi.",sosMsg:"SOS – j’ai besoin d’aide.",sosMsgPos:"Ma position :",sosMsgSans:"Je n’ai pas pu obtenir ma position.",sosMsgVia:"Envoyé depuis Jamana.",sosUrg:"Appeler les urgences",sosVide:"Aucun contact enregistré. Ajoutez au moins une personne.",
  sante:"Santé et premiers secours",santeD:"Gestes simples et quand aller à l’hôpital",santeNote:"Informations générales : elles ne remplacent pas un médecin. En cas de danger vital, appelez les urgences sans attendre.",santeUrg:"Voir les numéros d’urgence",
  arnaques:"Arnaques et Mobile Money",arnaquesD:"Se protéger des fraudes et que faire si on est victime",arnaquesNote:"À retenir : personne ne doit jamais vous demander votre code secret, ni de payer pour recevoir un gain, un emploi ou un visa.",
  meteo:"Météo",meteoD:"Prévisions sur 5 jours par ville",meteoMaj:"Dernière mise à jour",meteoHors:"Pas de connexion : dernière prévision enregistrée",meteoErr:"Impossible de charger la météo pour le moment.",meteoPluie:"pluie",meteoAlertePluie:"Fortes pluies annoncées : attention aux inondations, aux routes coupées et aux cours d’eau.",meteoAlerteChaleur:"Forte chaleur annoncée : buvez régulièrement et évitez l’effort aux heures chaudes.",meteoSrc:"Données : Open-Meteo. Prévisions indicatives.",mc0:"Ciel dégagé",mc1:"Peu nuageux",mc2:"Nuageux",mc3:"Couvert",mc45:"Brouillard",mc51:"Bruine",mc61:"Pluie",mc80:"Averses",mc95:"Orage",
@@ -207,7 +232,7 @@ const UI={fr:{
  apTitre1:"Qu’est-ce que Jamana ?",apT1:"Jamana rassemble les démarches administratives, les numéros utiles, un annuaire et des actualités du Mali. Elle fonctionne hors ligne. Elle est créée par Mamadou Sidibé.",
  apTitre2:"Sources",apT2:"Démarches : guide des démarches administratives du Mali (document de 2021). Numéros d’urgence : plan national de numérotage (CRT, 2005) et sources indiquées dans chaque fiche. Actualités : sites des journaux concernés. Météo : Open-Meteo.",
  apTitre3:"Avertissement",apT3:"Les informations sont données à titre indicatif. Les coûts, délais, procédures et numéros peuvent changer : vérifiez toujours auprès du service concerné. Jamana n’est pas un service de l’État.",
- apTitre4:"Confidentialité",apT4:"Pas de compte, pas de publicité, pas de suivi. Vos favoris, cases cochées, rappels et réglages restent sur votre téléphone. Pour les actualités et les mises à jour du contenu, l’application se connecte à Internet (sites des journaux, GitHub et Open-Meteo), qui peuvent voir l’adresse IP de votre connexion. Votre position GPS, si vous l’autorisez, sert uniquement à « SOS » et « Près de moi » : elle n’est envoyée que lorsque vous choisissez de l’envoyer ou d’ouvrir Google Maps.",
+ apTitre4:"Confidentialité",apT4:"Pas de compte, pas de publicité, pas de suivi. Vos favoris, contacts SOS, cases cochées, rappels et réglages restent sur votre téléphone. Votre position n’est utilisée que pour le SOS et « Près de moi », quand vous appuyez, et n’est pas enregistrée. Pour les actualités, la météo et les mises à jour du contenu, l’application se connecte à Internet (journaux, Open-Meteo, GitHub), qui peuvent voir l’adresse IP de votre connexion.",
  apTitre5:"Contenu mis à jour",apMaj:"Version du contenu reçu :",apMajNon:"Aucune mise à jour de contenu reçue pour le moment.",apContact:"Une erreur à signaler, une idée ?", actuT:"Actualités",actuD:"Les dernières informations de la presse malienne",actuMaj:"Actualiser",actuHors:"Pas de connexion : derniers articles enregistrés",actuErr:"Impossible de charger les actualités pour le moment.",actuNav:"Dans un navigateur, certains sites bloquent la lecture. L’application Android fonctionne.",actuVide:"Aucun article pour le moment.",actuNote:"Titres fournis par les sites des journaux. Jamana n’est pas responsable de leur contenu.",charge:"Chargement…",aconf:"À confirmer",ty_utilites:"Eau et électricité",ty_mairie:"Mairies",ty_etatcivil:"Centres d’état civil",ty_commissariat:"Commissariats",ty_hopital:"Hôpitaux et centres de santé",ty_pharmacie:"Pharmacies de garde",
  by:"Créé par",tag:"Le Mali en poche : démarches, urgences, annuaire.",search:"Rechercher une démarche, un service…",
  urg:"En cas d’urgence",urgSub:"Appel direct",police:"Police",pompiers:"Pompiers",
@@ -253,7 +278,17 @@ en:{
  trD:"Documents, vehicles, bus stations and road safety",trDoc:"Procedures: vehicles, licences and travel",trGares:"Bus stations and companies",trGaresD:"Destinations, phone, directions",trVide:"No bus station or company listed yet.",trSecu:"Road safety",trConseils:"Good habits",trAccident:"If there is an accident",tt_gare:"Bus station",tt_compagnie:"Bus company",
  cl_route:["Seat belt in front and back; approved helmet on two-wheelers.","No phone while driving, no alcohol, and rest before a long trip.","Adapt your speed to the road, rain, night, dust and animals.","Before a long trip: tyres, brakes, lights, fluid levels, spare wheel and water.","Don’t overload the vehicle, and don’t ride with a tired or drunk driver.","Keep the vehicle and driver documents within reach."],
  cl_accident:["Stop, move the vehicle aside if possible, switch on the hazard lights and warn others of the danger.","Call for help (see the Emergencies page), giving the exact place and the number of injured.","Don’t move a seriously injured person, unless there is immediate danger such as a fire.","Stay with the injured, talk to them and keep them warm.","Note the plates, names and phone numbers, take photos, then report to the police."], pratiqueH:"Everyday",santeH:"Health and safety",
- sos:"SOS",sosT:"SOS: alert my contacts",sosD:"Send my location to my trusted contacts",sosBtn:"I need help: prepare my SOS",sosIntro:"Add up to 3 people you trust. In danger, one tap prepares a message with your location for each of them (SMS or WhatsApp). This is not a rescue service: in an emergency, call the emergency numbers first.",sosContacts:"My trusted contacts",sosNom:"Name",sosTel:"Phone",sosAjout:"Add this contact",sosMax:"3 contacts maximum.",sosErr:"Enter a name and a valid number.",sosLoc:"Finding your location…",sosPos:"Location found. Tap to send:",sosNoPos:"Location not found: the message will be sent without it. Tap to send:",sosEnvoyer:"Send to this contact",sosSms:"SMS",sosWa:"WhatsApp",sosSupp:"Delete",sosNote:"Tip: SMS works without mobile data. Your location is only sent if you tap a send button.",sosMsg:"SOS – I need help.",sosMsgPos:"My location:",sosMsgSans:"I could not get my location.",sosMsgVia:"Sent from Jamana.",sosUrg:"Call emergency services",sosVide:"No contact saved. Add at least one person.",
+ cgTitre:"Before you start",cgIntro:"Read the text below to the bottom, then choose.",cgLecture:"Terms of use and privacy.",cgDefile:"Scroll to the bottom to continue.",cgFin:"If you do not agree, close the app.",cgOui:"I accept and continue",cgSans:"I accept, without location",
+ cgT1:"Who is behind Jamana",cgP1:"Jamana is a free app created by Mamadou Sidibé. It is not a government service.",
+ cgT2:"Information is a guide only",cgP2:"Procedures, costs, timelines, numbers, hours and advice are given as a guide and may change. Always check with the relevant office. Health advice is general: it does not replace a health professional.",
+ cgT3:"Your location (GPS)",cgP3:"Location is used only for SOS and “Near me”, and only when you press the button. It is not stored and stays on your phone. For SOS, the link to your location is sent to your contacts only if you choose to send the message. You can refuse location and use the rest of the app.",
+ cgT4:"Your data",cgP4:"Your SOS contacts, favourites, reminders, ticked boxes and settings stay on your phone. There is no account, no ads and no tracking. You can erase everything in Settings.",
+ cgT5:"Internet connections",cgP5:"The app works offline. When it connects (news, weather, content updates), the newspapers’ sites, Open-Meteo and GitHub can see your connection’s IP address.",
+ cgT6:"SOS does not replace emergency services",cgP6:"In danger, call the emergency numbers first. SOS prepares a message for your relatives: you send it yourself, and Jamana cannot guarantee it is received.",
+ cgT7:"Donations and scams",cgP7:"Supporting Jamana is optional. Jamana will never ask you for money by message, or for your secret code.",
+ cgT8:"Contact",cgP8:"A question or an error to report: WhatsApp or email, from the About page.",
+ posTitre:"Why location?",posTexte:"Jamana uses your location once, when you press this button, to prepare your SOS message or find nearby services. It is not stored. Android will now ask for your permission.",posOk:"Continue",annuler:"Cancel",posOff:"Location is turned off. Turn it on to sort services by distance.",posActiver:"Turn on location",
+ cgReglage:"Privacy",posReg:"Location",posAct:"on",posDes:"off",cgRelire:"Read the terms and privacy again",cgRetirer:"Withdraw my consent and erase my data",cgConfirmer:"Tap again to confirm", sos:"SOS",sosT:"SOS: alert my contacts",sosD:"Send my location to my trusted contacts",sosBtn:"I need help: prepare my SOS",sosIntro:"Add up to 3 people you trust. In danger, one tap prepares a message with your location for each of them (SMS or WhatsApp). This is not a rescue service: in an emergency, call the emergency numbers first.",sosContacts:"My trusted contacts",sosNom:"Name",sosTel:"Phone",sosAjout:"Add this contact",sosMax:"3 contacts maximum.",sosErr:"Enter a name and a valid number.",sosLoc:"Finding your location…",sosPos:"Location found. Tap to send:",sosNoPos:"Location not found: the message will be sent without it. Tap to send:",sosEnvoyer:"Send to this contact",sosSms:"SMS",sosWa:"WhatsApp",sosSupp:"Delete",sosNote:"Tip: SMS works without mobile data. Your location is only sent if you tap a send button.",sosMsg:"SOS – I need help.",sosMsgPos:"My location:",sosMsgSans:"I could not get my location.",sosMsgVia:"Sent from Jamana.",sosUrg:"Call emergency services",sosVide:"No contact saved. Add at least one person.",
  sante:"Health and first aid",santeD:"Simple actions and when to go to hospital",santeNote:"General information: it does not replace a doctor. In a life-threatening situation, call emergency services without waiting.",santeUrg:"See emergency numbers",
  arnaques:"Scams and Mobile Money",arnaquesD:"Protect yourself from fraud and what to do if you are a victim",arnaquesNote:"Remember: nobody should ever ask for your PIN, or for payment to receive a prize, a job or a visa.",
  meteo:"Weather",meteoD:"5-day forecast by city",meteoMaj:"Last update",meteoHors:"No connection: showing the last saved forecast",meteoErr:"Unable to load the weather right now.",meteoPluie:"rain",meteoAlertePluie:"Heavy rain forecast: beware of floods, cut roads and rivers.",meteoAlerteChaleur:"Extreme heat forecast: drink regularly and avoid effort in the hot hours.",meteoSrc:"Data: Open-Meteo. Forecasts are indicative.",mc0:"Clear sky",mc1:"Mostly clear",mc2:"Partly cloudy",mc3:"Overcast",mc45:"Fog",mc51:"Drizzle",mc61:"Rain",mc80:"Showers",mc95:"Thunderstorm",
@@ -266,7 +301,7 @@ en:{
  apTitre1:"What is Jamana?",apT1:"Jamana brings together administrative procedures, useful numbers, a directory and news from Mali. It works offline. It is created by Mamadou Sidibé.",
  apTitre2:"Sources",apT2:"Procedures: guide to administrative procedures in Mali (2021 document). Emergency numbers: national numbering plan (CRT, 2005) and the sources shown on each entry. News: the newspapers’ websites. Weather: Open-Meteo.",
  apTitre3:"Disclaimer",apT3:"Information is provided as a guide only. Costs, timelines, procedures and numbers may change: always check with the relevant office. Jamana is not a government service.",
- apTitre4:"Privacy",apT4:"No account, no ads, no tracking. Your favourites, ticked boxes, reminders and settings stay on your phone. For news and content updates the app connects to the Internet (newspaper sites, GitHub and Open-Meteo), which can see your connection’s IP address. Your GPS position, if you allow it, is only used for “SOS” and “Near me”: it is only sent when you choose to send it or to open Google Maps.",
+ apTitre4:"Privacy",apT4:"No account, no ads, no tracking. Your favourites, SOS contacts, ticked boxes, reminders and settings stay on your phone. Your location is used only for SOS and “Near me”, when you press, and is not stored. For news, weather and content updates the app connects to the Internet (newspapers, Open-Meteo, GitHub), which can see your connection’s IP address.",
  apTitre5:"Content updates",apMaj:"Content version received:",apMajNon:"No content update received yet.",apContact:"An error to report, an idea?", actuT:"News",actuD:"Latest news from the Malian press",actuMaj:"Refresh",actuHors:"No connection: showing the latest saved articles",actuErr:"Unable to load the news right now.",actuNav:"In a browser, some sites block reading. The Android app works.",actuVide:"No articles for now.",actuNote:"Headlines provided by the newspapers’ websites. Jamana is not responsible for their content.",charge:"Loading…",aconf:"To be confirmed",ty_utilites:"Water and electricity",ty_mairie:"Town halls",ty_etatcivil:"Civil registry centres",ty_commissariat:"Police stations",ty_hopital:"Hospitals and health centres",ty_pharmacie:"On-duty pharmacies"
 },
 bm:{ /* Bambara : traductions d'un traducteur malien (lots 1 et 2). Ce qui manque s'affiche en français. */
@@ -314,6 +349,8 @@ function reglages(){
  r.innerHTML=`<div class="feuille" role="dialog" aria-label="${t("reg")}"><h2 style="margin:0 0 14px">${t("reg")}</h2>
  <b>${t("txt")}</b><div class="opts">${[[90,"A−"],[100,"A"],[115,"A+"],[130,"A++"]].map(([v,l])=>o("fs",v,l)).join("")}</div>
  <b>${t("theme")}</b><div class="opts">${[["auto",t("auto")],["light",t("clair")],["dark",t("sombre")]].map(([v,l])=>o("th",v,l)).join("")}</div>
+ <b>${t("cgReglage")}</b><div class="opts">${[["ok",t("posAct")],["non",t("posDes")]].map(([v,l])=>`<button data-posset="${v}" class="${(S.pos||"ok")===v?"on":""}">${t("posReg")} : ${l}</button>`).join("")}</div>
+ <div class="boutons" style="flex-direction:column;align-items:stretch;margin:0 0 14px"><button class="sec" data-cgu-lire>${t("cgRelire")}</button><button class="sec" data-cgu-retirer style="color:var(--rtx)">${t("cgRetirer")}</button></div>
  <button class="appel" data-fermer style="width:100%;justify-content:center;border:0;margin:0">${t("ok")}</button></div>`;
 }
 
@@ -571,6 +608,7 @@ function apropos(){
  const m=lireMaj(),bloc=i=>`<details${i===1?" open":""}><summary>${t("apTitre"+i)}</summary><p>${t("apT"+i)}</p></details>`;
  app.innerHTML=`<div class="intro">Jamana · ${t("apVer")} ${VERSION}</div>`+[1,2,3,4].map(bloc).join("")
   +`<details><summary>${t("apTitre5")}</summary><p>${m.version?t("apMaj")+" "+m.version:t("apMajNon")}</p></details>
+  <button class="sec" data-cgu-lire style="width:100%;margin-top:12px">${t("cgRelire")}</button>
   <div class="note"><p>${t("apContact")}</p><div class="boutons"><a class="appel" href="https://wa.me/${WA}" target="_blank" rel="noopener">${svg("chat",18)}WhatsApp</a><a class="appel" href="mailto:${MAIL}">${svg("mail",18)}E-mail</a></div></div>`;
 }
 
@@ -695,7 +733,7 @@ const sosDel=id=>{S.sos=(S.sos||[]).filter(c=>c.id!==id);save();sos()};
 async function sosGo(){
  const box=document.getElementById("sosres");if(!box)return;
  box.innerHTML=`<p class="etat">${t("sosLoc")}</p>`;
- const p=await position();
+ const p=await demanderPosition();
  if(document.getElementById("sosres")!==box)return;
  const msg=t("sosMsg")+" "+(p?t("sosMsgPos")+" https://maps.google.com/?q="+p.lat+","+p.lng+(p.acc?" (±"+p.acc+" m)":""):t("sosMsgSans"))+" "+t("sosMsgVia");
  box.innerHTML=`<p class="etat">${p?t("sosPos"):t("sosNoPos")}</p>`+(S.sos||[]).map(c=>`<div class="num"><div><b>${esc(c.nom)}</b><small>${t("sosEnvoyer")}</small></div><div class="boutons"><a class="appel" href="sms:+${intl(c.tel)}?body=${encodeURIComponent(msg)}">${t("sosSms")}</a><a class="appel" href="https://wa.me/${intl(c.tel)}?text=${encodeURIComponent(msg)}" target="_blank" rel="noopener">${t("sosWa")}</a></div></div>`).join("");
@@ -755,7 +793,8 @@ const hav=(a,b,c,d)=>{const R=6371,r=x=>x*Math.PI/180,u=r(c-a),w=r(d-b),x=Math.s
 async function presGo(){
  const box=document.getElementById("pr");if(!box)return;
  box.innerHTML=`<p class="etat">${t("presLoc")}</p>`;
- const p=await position();
+ if(S.pos==="non"){box.innerHTML=`<p class="etat">${t("posOff")}</p><button class="appel" data-pos-on style="border:0;font:inherit">${t("posActiver")}</button>`;return}
+ const p=await demanderPosition();
  if(document.getElementById("pr")!==box)return;
  if(!p){box.innerHTML=`<p class="etat">${t("presErr")}</p>`;return}
  const tous=[];
@@ -799,6 +838,49 @@ function calendrier(){
   +(P.length?P.map(x=>`<div class="num"><div><b>${esc(lg(x.titre))}</b>${aconf(x.ok)}<small>${esc(dl(x.d))}${x.approx?" · "+t("calApprox"):""}${x.note?" · "+esc(x.note):""}</small></div><span class="nb">${reste(x.j)}</span></div>`).join(""):`<p class="etat">${t("calVide")}</p>`)
   +`<h2 class="st">${t("calFixes")}</h2>`+F.map(f=>`<div class="num"><b>${esc(lg(f.titre))}</b><span>${f.j} ${new Date(2000,f.m-1,1).toLocaleDateString(loc(),{month:"long"})}</span></div>`).join("")
   +`<p class="etat">${t("calNote")}</p>`;
+}
+
+/* ===== CONSENTEMENT ET POSITION ===== */
+const CGU_V="1";
+function cguShow(lecture){
+ const el=document.getElementById("cgu");el.hidden=false;
+ el.innerHTML=`<div class="cgu-h"><h2 style="margin:0">${t("cgTitre")}</h2><p class="hint" style="margin:4px 0 0">${lecture?t("cgLecture"):t("cgIntro")}</p></div>
+ <div class="cgu-b" id="cgb">${[1,2,3,4,5,6,7,8].map(i=>`<h3>${t("cgT"+i)}</h3><p>${t("cgP"+i)}</p>`).join("")}<p class="hint">${t("cgFin")}</p></div>
+ <div class="cgu-f">${lecture?`<button class="appel" data-cgu="fermer" style="border:0;font:inherit;justify-content:center">${t("ok")}</button>`
+  :`<p class="hint" id="cgh" style="margin:0;text-align:center">${t("cgDefile")}</p><button class="appel" data-cgu="oui" disabled style="border:0;font:inherit;justify-content:center">${t("cgOui")}</button><button class="sec" data-cgu="sans" disabled>${t("cgSans")}</button>`}</div>`;
+ const b=document.getElementById("cgb");
+ const fin=()=>{try{if(b.scrollTop+b.clientHeight>=b.scrollHeight-12){document.querySelectorAll("[data-cgu]").forEach(x=>x.disabled=false);const h=document.getElementById("cgh");if(h)h.style.visibility="hidden"}}catch(e){}};
+ b.addEventListener("scroll",fin);setTimeout(fin,80);
+}
+function cguChoix(c){
+ if(c==="oui"||c==="sans"){S.cgu=CGU_V;S.pos=c==="oui"?"ok":"non";save()}
+ document.getElementById("cgu").hidden=true;
+}
+let DLGR=null;
+function dialogue(titre,texte,btns){
+ return new Promise(res=>{
+  DLGR=res;const el=document.getElementById("dlg");el.hidden=false;
+  el.innerHTML=`<div class="dbox" role="dialog" aria-modal="true"><h3 style="margin:0 0 8px">${esc(titre)}</h3><p>${esc(texte)}</p><div class="boutons" style="margin:14px 0 0">${btns.map(([id,l],i)=>`<button class="${i?"sec":"appel"}" ${i?"":'style="border:0;font:inherit"'} data-dlg="${id}">${esc(l)}</button>`).join("")}</div></div>`;
+ });
+}
+async function demanderPosition(){
+ if(S.pos==="non")return null;
+ if(!S.posVu){
+  const r=await dialogue(t("posTitre"),t("posTexte"),[["oui",t("posOk")],["non",t("annuler")]]);
+  if(r!=="oui")return null;
+  S.posVu=true;save();
+ }
+ return position();
+}
+let ARMED=false;
+function retirer(b){
+ if(!ARMED){ARMED=true;b.textContent=t("cgConfirmer");setTimeout(()=>{ARMED=false;try{b.textContent=t("cgRetirer")}catch(e){}},5000);return}
+ ARMED=false;effacerTout();
+}
+async function effacerTout(){
+ try{const ln=LN();const ids=(S.rap||[]).filter(r=>r.n).map(r=>({id:r.nid}));if(ln&&ids.length)await ln.cancel({notifications:ids})}catch(e){}
+ try{["jamana-s","jamana-news","jamana-maj"].forEach(k=>localStorage.removeItem(k))}catch(e){}
+ location.reload();
 }
 
 /* ===== NAVIGATION ===== */
@@ -857,6 +939,12 @@ document.addEventListener("click",e=>{
  if(g("[data-addr]"))return ajoutRappel();
  if(b=g("[data-delr]"))return suppRappel(b.dataset.delr);
  if(b=g("[data-copy]"))return copier(b);
+ if(b=g("[data-cgu]"))return cguChoix(b.dataset.cgu);
+ if(g("[data-cgu-lire]")){document.getElementById("reg").hidden=true;return cguShow(true)}
+ if(b=g("[data-cgu-retirer]"))return retirer(b);
+ if(b=g("[data-posset]")){S.pos=b.dataset.posset;save();return reglages()}
+ if(g("[data-pos-on]")){S.pos="ok";save();return presGo()}
+ if(b=g("[data-dlg]")){document.getElementById("dlg").hidden=true;const r=DLGR;DLGR=null;if(r)r(b.dataset.dlg);return}
  if(b=g("[data-go]"))location.hash=b.dataset.go;
 });
 document.addEventListener("input",e=>{if(e.target.closest&&e.target.closest("[data-conv]"))convCalc()});
@@ -869,6 +957,7 @@ document.addEventListener("change",e=>{
 window.addEventListener("hashchange",route);
 appliquerMaj(lireMaj());
 route();
+if(S.cgu!==CGU_V)cguShow(false);
 verifierMaj();
 if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js").catch(()=>{});
 </script>
