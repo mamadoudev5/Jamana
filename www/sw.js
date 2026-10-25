@@ -1,5 +1,5 @@
-const V = "jamana-v10";
-const FICHIERS = ["./", "index.html", "manifest.json", "icon.svg", "data/fr.js", "data/annuaire.js", "data/urgences.js", "data/actualites.js", "data/emploi.js", "data/transport.js", "data/en.js", "data/bm.js"];
+const V = "jamana-v11";
+const FICHIERS = ["./", "index.html", "manifest.json", "icon.svg", "data/fr.js", "data/annuaire.js", "data/urgences.js", "data/actualites.js", "data/emploi.js", "data/transport.js", "data/outils.js", "data/en.js", "data/bm.js"];
 
 self.addEventListener("install", e => {
   e.waitUntil(caches.open(V).then(c => Promise.all(FICHIERS.map(f => c.add(f).catch(() => {})))));

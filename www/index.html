@@ -102,6 +102,14 @@ a.row{text-decoration:none;color:inherit}
 .lienbtn{border:0;background:none;color:var(--lien);font-weight:600;padding:4px 6px}
 ol.etapes{margin:0 0 14px;padding-left:22px;color:var(--corps)}
 ol.etapes li{margin:8px 0}
+.sosbtn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:18px;border:0;border-radius:18px;background:#CE1126;color:#fff;font-size:1.1rem;font-weight:800}
+.urg .sosbtn{flex:1 1 100%;padding:12px;font-size:1rem}
+.chips{display:flex;gap:8px;margin:14px 0 4px;padding-bottom:6px;overflow-x:auto}
+.chips button{flex:none;padding:9px 14px;border:1px solid var(--ligne);border-radius:999px;background:var(--carte);color:var(--texte);font-weight:600}
+.chips button.on{background:var(--bleu);border-color:var(--bleu);color:#fff}
+.temp{flex:none;text-align:right}
+.temp b{display:block;font-size:1.25rem}
+.temp small{color:var(--gris)}
 nav{position:fixed;left:0;right:0;bottom:0;z-index:5;display:grid;grid-template-columns:repeat(4,1fr);padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px));background:var(--navbg);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-top:1px solid var(--ligne)}
 nav button{position:relative;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 0 4px;border:0;background:none;color:var(--gris);font-size:.72rem}
 nav button.on{color:var(--lien);font-weight:700}
@@ -128,6 +136,7 @@ nav button.on::before{content:"";position:absolute;top:-7px;width:28px;height:3p
 <script src="data/actualites.js"></script>
 <script src="data/emploi.js"></script>
 <script src="data/transport.js"></script>
+<script src="data/outils.js"></script>
 <script>
 /* ===== ICÔNES ===== */
 const I={
@@ -153,13 +162,19 @@ bell:'<path d="M6 17v-6a6 6 0 1112 0v6l1.5 2h-15z"/><path d="M10 21a2 2 0 004 0"
 heart:'<path d="M12 20s-7-4.4-7-10a4 4 0 017-2.5A4 4 0 0119 10c0 5.6-7 10-7 10z"/>',
 info:'<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/>',
 trash:'<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/>',
-copy:'<rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 00-2-2H6a2 2 0 00-2 2v8a2 2 0 002 2h2"/>'};
+copy:'<rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 00-2-2H6a2 2 0 00-2 2v8a2 2 0 002 2h2"/>',
+cloud:'<path d="M7 18a4 4 0 010-8 5 5 0 019.6-1A4.5 4.5 0 0117 18z"/>',
+calc:'<rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 12h.01M12 12h.01M16 12h.01M8 16h.01M12 16h.01M16 16h.01"/>',
+calendar:'<rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/>',
+shield:'<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/>',
+alert:'<path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18h.01"/>',
+locate:'<circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="8"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/>'};
 const svg=(n,s=24)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${I[n]}</svg>`;
 const CATIC=["doc","bus","urg","job","doc","home","doc","doc","job","pin","doc"];
 const LOGO=`<svg viewBox="0 0 64 64" role="img" aria-label="Logo Jamana"><rect width="64" height="64" rx="18" fill="#fff"/><path d="M38 14v22c0 7-4.5 11-11 11" fill="none" stroke="#0B3FA8" stroke-width="8" stroke-linecap="round"/><rect x="14" y="52" width="12" height="4" rx="2" fill="#14B53A"/><rect x="26" y="52" width="12" height="4" rx="2" fill="#FCD116"/><rect x="38" y="52" width="12" height="4" rx="2" fill="#CE1126"/></svg>`;
 
 /* ===== CONTACT ===== */
-const VERSION="1.5";
+const VERSION="1.6";
 const WA="22373065026",TEL="+22373065026",MAIL="mamadousidibee10@gmail.com";
 const RELEASES="https://github.com/mamadoudev5/Jamana/releases/latest";
 const MAJ_URL="https://raw.githubusercontent.com/mamadoudev5/Jamana/main/www/maj.json";
@@ -178,14 +193,21 @@ const UI={fr:{
  cl_arnaque:["Un vrai recrutement ne demande jamais d’argent pour « réserver » ou « garantir » un poste.","Méfiez-vous des offres trop belles, sans nom d’employeur précis, ou qui vous pressent.","Vérifiez l’employeur : adresse, site, téléphone, avis d’autres personnes.","N’envoyez pas vos pièces d’identité ni vos informations bancaires avant d’être sûr de l’employeur.","Rencontrez le recruteur dans un lieu officiel et prévenez un proche."],
  trD:"Documents, véhicules, gares routières et sécurité routière",trDoc:"Démarches : véhicules, permis et voyages",trGares:"Gares routières et compagnies",trGaresD:"Destinations, téléphone, itinéraire",trVide:"Aucune gare ni compagnie enregistrée pour le moment.",trSecu:"Sécurité routière",trConseils:"Les bons réflexes",trAccident:"En cas d’accident",tt_gare:"Gare routière",tt_compagnie:"Compagnie de bus",
  cl_route:["Ceinture à l’avant et à l’arrière ; casque homologué pour les deux-roues.","Pas de téléphone au volant, pas d’alcool, et reposez-vous avant un long trajet.","Adaptez votre vitesse à la route, à la pluie, à la nuit, à la poussière et aux animaux.","Avant un long trajet : pneus, freins, éclairage, niveaux, roue de secours et eau.","Ne surchargez pas le véhicule, et ne montez pas avec un chauffeur fatigué ou ivre.","Gardez les papiers du véhicule et du conducteur à portée de main."],
- cl_accident:["Arrêtez-vous, mettez le véhicule à l’écart si possible, allumez les feux de détresse et signalez le danger.","Appelez les secours (voir la page Urgences) en donnant le lieu précis et le nombre de blessés.","Ne déplacez pas un blessé grave, sauf danger immédiat comme un incendie.","Restez avec les blessés, parlez-leur et gardez-les au chaud.","Notez les plaques, les noms et les téléphones, prenez des photos, puis faites la déclaration à la police."], rappels:"Mes rappels",rappelsD:"Passeport, carte d’identité… : soyez prévenu avant l’expiration",rapDoc:"Document",rapDate:"Date d’expiration",rapAvant:"Me prévenir",rapMois1:"1 mois avant",rapMois3:"3 mois avant",rapMois6:"6 mois avant",rapAjout:"Ajouter le rappel",rapVide:"Aucun rappel pour le moment.",rapNotif:"Notification programmée",rapAppli:"Rappel visible dans l’appli",rapDans:"expire dans",rapJours:"jours",rapExp:"expiré depuis",rapSupp:"Supprimer",rapPh:"Passeport, carte d’identité…",rapErr:"Indiquez le document et une date valide.",rPass:"Passeport",rCni:"Carte d’identité",rPerm:"Permis de conduire",
+ cl_accident:["Arrêtez-vous, mettez le véhicule à l’écart si possible, allumez les feux de détresse et signalez le danger.","Appelez les secours (voir la page Urgences) en donnant le lieu précis et le nombre de blessés.","Ne déplacez pas un blessé grave, sauf danger immédiat comme un incendie.","Restez avec les blessés, parlez-leur et gardez-les au chaud.","Notez les plaques, les noms et les téléphones, prenez des photos, puis faites la déclaration à la police."], pratiqueH:"Au quotidien",santeH:"Santé et sécurité",
+ sos:"SOS",sosT:"SOS : alerter mes proches",sosD:"Envoyer ma position à mes contacts de confiance",sosBtn:"J’ai besoin d’aide : préparer mon SOS",sosIntro:"Ajoutez jusqu’à 3 proches. En cas de danger, un appui prépare un message avec votre position pour chacun (SMS ou WhatsApp). Ce n’est pas un service de secours : en urgence, appelez d’abord les numéros d’urgence.",sosContacts:"Mes contacts de confiance",sosNom:"Nom",sosTel:"Téléphone",sosAjout:"Ajouter ce contact",sosMax:"3 contacts au maximum.",sosErr:"Indiquez un nom et un numéro valide.",sosLoc:"Recherche de votre position…",sosPos:"Position trouvée. Appuyez pour envoyer :",sosNoPos:"Position introuvable : le message sera envoyé sans position. Appuyez pour envoyer :",sosEnvoyer:"Envoyer à ce contact",sosSms:"SMS",sosWa:"WhatsApp",sosSupp:"Supprimer",sosNote:"Astuce : le SMS fonctionne sans données Internet. Votre position n’est envoyée que si vous appuyez sur un bouton d’envoi.",sosMsg:"SOS – j’ai besoin d’aide.",sosMsgPos:"Ma position :",sosMsgSans:"Je n’ai pas pu obtenir ma position.",sosMsgVia:"Envoyé depuis Jamana.",sosUrg:"Appeler les urgences",sosVide:"Aucun contact enregistré. Ajoutez au moins une personne.",
+ sante:"Santé et premiers secours",santeD:"Gestes simples et quand aller à l’hôpital",santeNote:"Informations générales : elles ne remplacent pas un médecin. En cas de danger vital, appelez les urgences sans attendre.",santeUrg:"Voir les numéros d’urgence",
+ arnaques:"Arnaques et Mobile Money",arnaquesD:"Se protéger des fraudes et que faire si on est victime",arnaquesNote:"À retenir : personne ne doit jamais vous demander votre code secret, ni de payer pour recevoir un gain, un emploi ou un visa.",
+ meteo:"Météo",meteoD:"Prévisions sur 5 jours par ville",meteoMaj:"Dernière mise à jour",meteoHors:"Pas de connexion : dernière prévision enregistrée",meteoErr:"Impossible de charger la météo pour le moment.",meteoPluie:"pluie",meteoAlertePluie:"Fortes pluies annoncées : attention aux inondations, aux routes coupées et aux cours d’eau.",meteoAlerteChaleur:"Forte chaleur annoncée : buvez régulièrement et évitez l’effort aux heures chaudes.",meteoSrc:"Données : Open-Meteo. Prévisions indicatives.",mc0:"Ciel dégagé",mc1:"Peu nuageux",mc2:"Nuageux",mc3:"Couvert",mc45:"Brouillard",mc51:"Bruine",mc61:"Pluie",mc80:"Averses",mc95:"Orage",
+ pres:"Près de moi",presD:"Pharmacie, hôpital, commissariat… autour de vous",presMaps:"Chercher sur Google Maps",presAnn:"Dans l’annuaire Jamana",presGps:"Trouver les plus proches",presPas:"Aucun lieu de l’annuaire n’a encore de position GPS. Utilisez la recherche Google Maps ci-dessus.",presKm:"km",presLoc:"Recherche de votre position…",presErr:"Position introuvable. Vérifiez que la localisation est activée.",pr_pharmacie:"Pharmacie",pr_hopital:"Hôpital ou clinique",pr_police:"Commissariat",pr_mairie:"Mairie",pr_gare:"Gare routière",pr_station:"Station-service",pr_banque:"Banque ou distributeur",
+ conv:"Convertisseur FCFA ↔ euro",convD:"Taux fixe, sans Internet",convMontant:"Montant",convEx:"Exemples",convNote:"Taux fixe officiel : 1 euro = 655,957 FCFA. Les frais de change et de transfert ne sont pas inclus.",
+ cal:"Calendrier",calD:"Jours fériés et dates à retenir",calProchains:"À venir",calFixes:"Jours fériés à date fixe",calApprox:"date indicative (selon la lune)",calNote:"Les dates religieuses dépendent de la lune et sont confirmées officiellement par le gouvernement : vérifiez avant de planifier. Les examens et dates scolaires seront ajoutés dès qu’elles sont confirmées.",calJ:"jours",calAuj:"aujourd’hui",calDemain:"demain",calDans:"dans",calVide:"Rien à venir pour le moment.", rappels:"Mes rappels",rappelsD:"Passeport, carte d’identité… : soyez prévenu avant l’expiration",rapDoc:"Document",rapDate:"Date d’expiration",rapAvant:"Me prévenir",rapMois1:"1 mois avant",rapMois3:"3 mois avant",rapMois6:"6 mois avant",rapAjout:"Ajouter le rappel",rapVide:"Aucun rappel pour le moment.",rapNotif:"Notification programmée",rapAppli:"Rappel visible dans l’appli",rapDans:"expire dans",rapJours:"jours",rapExp:"expiré depuis",rapSupp:"Supprimer",rapPh:"Passeport, carte d’identité…",rapErr:"Indiquez le document et une date valide.",rPass:"Passeport",rCni:"Carte d’identité",rPerm:"Permis de conduire",
  jamana:"Jamana",partagerJ:"Partager Jamana",partagerJD:"Envoyer le lien de l’application sur WhatsApp",partagerTxt:"Jamana : démarches, urgences, annuaire et actualités du Mali. Gratuite et utilisable hors ligne. Télécharger :",
  soutenir:"Soutenir Jamana",soutenirD:"Aidez à garder l’application gratuite",souIntro:"Jamana est gratuite. Si elle vous est utile, vous pouvez soutenir son hébergement, ses mises à jour et la vérification des informations. C’est facultatif.",souOrange:"Orange Money et Wave",souNum:"73 06 50 26",souNom:"Mamadou Sidibé",souCopier:"Copier le numéro",souCopie:"Copié",souEtapes:"Comment faire",souE1:"Ouvrez Orange Money ou Wave.",souE2:"Choisissez « Envoyer de l’argent » et collez le numéro.",souE3:"Vérifiez le nom du destinataire avant de valider.",souMerci:"Merci de faire vivre Jamana.",souAvert:"Pour votre sécurité : Jamana ne vous demandera jamais d’argent par message, ni vers un autre numéro que celui affiché ici.",
  apropos:"À propos",aproposD:"Sources, avertissement, confidentialité",apVer:"Version",
  apTitre1:"Qu’est-ce que Jamana ?",apT1:"Jamana rassemble les démarches administratives, les numéros utiles, un annuaire et des actualités du Mali. Elle fonctionne hors ligne. Elle est créée par Mamadou Sidibé.",
- apTitre2:"Sources",apT2:"Démarches : guide des démarches administratives du Mali (document de 2021). Numéros d’urgence : plan national de numérotage (CRT, 2005) et sources indiquées dans chaque fiche. Actualités : sites des journaux concernés.",
+ apTitre2:"Sources",apT2:"Démarches : guide des démarches administratives du Mali (document de 2021). Numéros d’urgence : plan national de numérotage (CRT, 2005) et sources indiquées dans chaque fiche. Actualités : sites des journaux concernés. Météo : Open-Meteo.",
  apTitre3:"Avertissement",apT3:"Les informations sont données à titre indicatif. Les coûts, délais, procédures et numéros peuvent changer : vérifiez toujours auprès du service concerné. Jamana n’est pas un service de l’État.",
- apTitre4:"Confidentialité",apT4:"Pas de compte, pas de publicité, pas de suivi. Vos favoris, cases cochées, rappels et réglages restent sur votre téléphone. Pour les actualités et les mises à jour du contenu, l’application se connecte à Internet (sites des journaux et GitHub), qui peuvent voir l’adresse IP de votre connexion.",
+ apTitre4:"Confidentialité",apT4:"Pas de compte, pas de publicité, pas de suivi. Vos favoris, cases cochées, rappels et réglages restent sur votre téléphone. Pour les actualités et les mises à jour du contenu, l’application se connecte à Internet (sites des journaux, GitHub et Open-Meteo), qui peuvent voir l’adresse IP de votre connexion. Votre position GPS, si vous l’autorisez, sert uniquement à « SOS » et « Près de moi » : elle n’est envoyée que lorsque vous choisissez de l’envoyer ou d’ouvrir Google Maps.",
  apTitre5:"Contenu mis à jour",apMaj:"Version du contenu reçu :",apMajNon:"Aucune mise à jour de contenu reçue pour le moment.",apContact:"Une erreur à signaler, une idée ?", actuT:"Actualités",actuD:"Les dernières informations de la presse malienne",actuMaj:"Actualiser",actuHors:"Pas de connexion : derniers articles enregistrés",actuErr:"Impossible de charger les actualités pour le moment.",actuNav:"Dans un navigateur, certains sites bloquent la lecture. L’application Android fonctionne.",actuVide:"Aucun article pour le moment.",actuNote:"Titres fournis par les sites des journaux. Jamana n’est pas responsable de leur contenu.",charge:"Chargement…",aconf:"À confirmer",ty_utilites:"Eau et électricité",ty_mairie:"Mairies",ty_etatcivil:"Centres d’état civil",ty_commissariat:"Commissariats",ty_hopital:"Hôpitaux et centres de santé",ty_pharmacie:"Pharmacies de garde",
  by:"Créé par",tag:"Le Mali en poche : démarches, urgences, annuaire.",search:"Rechercher une démarche, un service…",
  urg:"En cas d’urgence",urgSub:"Appel direct",police:"Police",pompiers:"Pompiers",
@@ -230,14 +252,21 @@ en:{
  cl_arnaque:["A genuine recruiter never asks for money to “reserve” or “guarantee” a job.","Be wary of offers that look too good, name no clear employer, or rush you.","Check the employer: address, website, phone number, other people’s reviews.","Don’t send ID documents or bank details before you are sure of the employer.","Meet the recruiter in an official place and tell someone close to you."],
  trD:"Documents, vehicles, bus stations and road safety",trDoc:"Procedures: vehicles, licences and travel",trGares:"Bus stations and companies",trGaresD:"Destinations, phone, directions",trVide:"No bus station or company listed yet.",trSecu:"Road safety",trConseils:"Good habits",trAccident:"If there is an accident",tt_gare:"Bus station",tt_compagnie:"Bus company",
  cl_route:["Seat belt in front and back; approved helmet on two-wheelers.","No phone while driving, no alcohol, and rest before a long trip.","Adapt your speed to the road, rain, night, dust and animals.","Before a long trip: tyres, brakes, lights, fluid levels, spare wheel and water.","Don’t overload the vehicle, and don’t ride with a tired or drunk driver.","Keep the vehicle and driver documents within reach."],
- cl_accident:["Stop, move the vehicle aside if possible, switch on the hazard lights and warn others of the danger.","Call for help (see the Emergencies page), giving the exact place and the number of injured.","Don’t move a seriously injured person, unless there is immediate danger such as a fire.","Stay with the injured, talk to them and keep them warm.","Note the plates, names and phone numbers, take photos, then report to the police."], rappels:"My reminders",rappelsD:"Passport, ID card… get notified before they expire",rapDoc:"Document",rapDate:"Expiry date",rapAvant:"Remind me",rapMois1:"1 month before",rapMois3:"3 months before",rapMois6:"6 months before",rapAjout:"Add reminder",rapVide:"No reminders yet.",rapNotif:"Notification scheduled",rapAppli:"Reminder shown in the app",rapDans:"expires in",rapJours:"days",rapExp:"expired",rapSupp:"Delete",rapPh:"Passport, ID card…",rapErr:"Enter the document and a valid date.",rPass:"Passport",rCni:"ID card",rPerm:"Driving licence",
+ cl_accident:["Stop, move the vehicle aside if possible, switch on the hazard lights and warn others of the danger.","Call for help (see the Emergencies page), giving the exact place and the number of injured.","Don’t move a seriously injured person, unless there is immediate danger such as a fire.","Stay with the injured, talk to them and keep them warm.","Note the plates, names and phone numbers, take photos, then report to the police."], pratiqueH:"Everyday",santeH:"Health and safety",
+ sos:"SOS",sosT:"SOS: alert my contacts",sosD:"Send my location to my trusted contacts",sosBtn:"I need help: prepare my SOS",sosIntro:"Add up to 3 people you trust. In danger, one tap prepares a message with your location for each of them (SMS or WhatsApp). This is not a rescue service: in an emergency, call the emergency numbers first.",sosContacts:"My trusted contacts",sosNom:"Name",sosTel:"Phone",sosAjout:"Add this contact",sosMax:"3 contacts maximum.",sosErr:"Enter a name and a valid number.",sosLoc:"Finding your location…",sosPos:"Location found. Tap to send:",sosNoPos:"Location not found: the message will be sent without it. Tap to send:",sosEnvoyer:"Send to this contact",sosSms:"SMS",sosWa:"WhatsApp",sosSupp:"Delete",sosNote:"Tip: SMS works without mobile data. Your location is only sent if you tap a send button.",sosMsg:"SOS – I need help.",sosMsgPos:"My location:",sosMsgSans:"I could not get my location.",sosMsgVia:"Sent from Jamana.",sosUrg:"Call emergency services",sosVide:"No contact saved. Add at least one person.",
+ sante:"Health and first aid",santeD:"Simple actions and when to go to hospital",santeNote:"General information: it does not replace a doctor. In a life-threatening situation, call emergency services without waiting.",santeUrg:"See emergency numbers",
+ arnaques:"Scams and Mobile Money",arnaquesD:"Protect yourself from fraud and what to do if you are a victim",arnaquesNote:"Remember: nobody should ever ask for your PIN, or for payment to receive a prize, a job or a visa.",
+ meteo:"Weather",meteoD:"5-day forecast by city",meteoMaj:"Last update",meteoHors:"No connection: showing the last saved forecast",meteoErr:"Unable to load the weather right now.",meteoPluie:"rain",meteoAlertePluie:"Heavy rain forecast: beware of floods, cut roads and rivers.",meteoAlerteChaleur:"Extreme heat forecast: drink regularly and avoid effort in the hot hours.",meteoSrc:"Data: Open-Meteo. Forecasts are indicative.",mc0:"Clear sky",mc1:"Mostly clear",mc2:"Partly cloudy",mc3:"Overcast",mc45:"Fog",mc51:"Drizzle",mc61:"Rain",mc80:"Showers",mc95:"Thunderstorm",
+ pres:"Near me",presD:"Pharmacy, hospital, police station… around you",presMaps:"Search on Google Maps",presAnn:"In the Jamana directory",presGps:"Find the nearest",presPas:"No place in the directory has a GPS position yet. Use the Google Maps search above.",presKm:"km",presLoc:"Finding your location…",presErr:"Location not found. Check that location is turned on.",pr_pharmacie:"Pharmacy",pr_hopital:"Hospital or clinic",pr_police:"Police station",pr_mairie:"Town hall",pr_gare:"Bus station",pr_station:"Petrol station",pr_banque:"Bank or ATM",
+ conv:"FCFA ↔ euro converter",convD:"Fixed rate, works offline",convMontant:"Amount",convEx:"Examples",convNote:"Official fixed rate: 1 euro = 655.957 FCFA. Exchange and transfer fees are not included.",
+ cal:"Calendar",calD:"Public holidays and dates to remember",calProchains:"Coming up",calFixes:"Fixed-date public holidays",calApprox:"approximate date (moon-based)",calNote:"Religious dates depend on the moon and are officially confirmed by the government: check before planning. Exams and school dates will be added once confirmed.",calJ:"days",calAuj:"today",calDemain:"tomorrow",calDans:"in",calVide:"Nothing coming up for now.", rappels:"My reminders",rappelsD:"Passport, ID card… get notified before they expire",rapDoc:"Document",rapDate:"Expiry date",rapAvant:"Remind me",rapMois1:"1 month before",rapMois3:"3 months before",rapMois6:"6 months before",rapAjout:"Add reminder",rapVide:"No reminders yet.",rapNotif:"Notification scheduled",rapAppli:"Reminder shown in the app",rapDans:"expires in",rapJours:"days",rapExp:"expired",rapSupp:"Delete",rapPh:"Passport, ID card…",rapErr:"Enter the document and a valid date.",rPass:"Passport",rCni:"ID card",rPerm:"Driving licence",
  jamana:"Jamana",partagerJ:"Share Jamana",partagerJD:"Send the app link on WhatsApp",partagerTxt:"Jamana: procedures, emergencies, directory and news for Mali. Free and works offline. Download:",
  soutenir:"Support Jamana",soutenirD:"Help keep the app free",souIntro:"Jamana is free. If it helps you, you can support its hosting, updates and the checking of information. It is optional.",souOrange:"Orange Money and Wave",souNum:"73 06 50 26",souNom:"Mamadou Sidibé",souCopier:"Copy the number",souCopie:"Copied",souEtapes:"How to do it",souE1:"Open Orange Money or Wave.",souE2:"Choose “Send money” and paste the number.",souE3:"Check the recipient’s name before confirming.",souMerci:"Thank you for keeping Jamana alive.",souAvert:"For your safety: Jamana will never ask you for money by message, or to any number other than the one shown here.",
  apropos:"About",aproposD:"Sources, disclaimer, privacy",apVer:"Version",
  apTitre1:"What is Jamana?",apT1:"Jamana brings together administrative procedures, useful numbers, a directory and news from Mali. It works offline. It is created by Mamadou Sidibé.",
- apTitre2:"Sources",apT2:"Procedures: guide to administrative procedures in Mali (2021 document). Emergency numbers: national numbering plan (CRT, 2005) and the sources shown on each entry. News: the newspapers’ websites.",
+ apTitre2:"Sources",apT2:"Procedures: guide to administrative procedures in Mali (2021 document). Emergency numbers: national numbering plan (CRT, 2005) and the sources shown on each entry. News: the newspapers’ websites. Weather: Open-Meteo.",
  apTitre3:"Disclaimer",apT3:"Information is provided as a guide only. Costs, timelines, procedures and numbers may change: always check with the relevant office. Jamana is not a government service.",
- apTitre4:"Privacy",apT4:"No account, no ads, no tracking. Your favourites, ticked boxes, reminders and settings stay on your phone. For news and content updates the app connects to the Internet (newspaper sites and GitHub), which can see your connection’s IP address.",
+ apTitre4:"Privacy",apT4:"No account, no ads, no tracking. Your favourites, ticked boxes, reminders and settings stay on your phone. For news and content updates the app connects to the Internet (newspaper sites, GitHub and Open-Meteo), which can see your connection’s IP address. Your GPS position, if you allow it, is only used for “SOS” and “Near me”: it is only sent when you choose to send it or to open Google Maps.",
  apTitre5:"Content updates",apMaj:"Content version received:",apMajNon:"No content update received yet.",apContact:"An error to report, an idea?", actuT:"News",actuD:"Latest news from the Malian press",actuMaj:"Refresh",actuHors:"No connection: showing the latest saved articles",actuErr:"Unable to load the news right now.",actuNav:"In a browser, some sites block reading. The Android app works.",actuVide:"No articles for now.",actuNote:"Headlines provided by the newspapers’ websites. Jamana is not responsible for their content.",charge:"Loading…",aconf:"To be confirmed",ty_utilites:"Water and electricity",ty_mairie:"Town halls",ty_etatcivil:"Civil registry centres",ty_commissariat:"Police stations",ty_hopital:"Hospitals and health centres",ty_pharmacie:"On-duty pharmacies"
 },
 bm:{ /* Bambara : traductions d'un traducteur malien (lots 1 et 2). Ce qui manque s'affiche en français. */
@@ -268,7 +297,7 @@ function setLang(c){
 }
 
 /* ===== RÉGLAGES (mémorisés sur le téléphone) ===== */
-let S={fs:100,theme:"auto",fav:[],chk:{},rap:[]};
+let S={fs:100,theme:"auto",fav:[],chk:{},rap:[],sos:[],mc:"bamako"};
 try{S={...S,...JSON.parse(localStorage.getItem("jamana-s")||"{}")}}catch(e){}
 const save=()=>{try{localStorage.setItem("jamana-s",JSON.stringify(S))}catch(e){}};
 function appliquer(){
@@ -320,9 +349,11 @@ function liste(q){
  if(!q){
   const soon=[["job",t("emploi")],["bus",t("transport")]];
   const favs=S.fav.map(id=>all.find(x=>x.id===id)).filter(Boolean);
-  r.innerHTML=`${alertesUrgentes()}${echeances()}<div class="urg"><div><b>${t("urg")}</b><small>${t("urgSub")}</small></div><a href="tel:17">${svg("tel",18)}${t("police")} 17</a><a href="tel:18">${svg("tel",18)}${t("pompiers")} 18</a></div>
+  r.innerHTML=`${alertesUrgentes()}${echeances()}<div class="urg"><div><b>${t("urg")}</b><small>${t("urgSub")}</small></div><a href="tel:17">${svg("tel",18)}${t("police")} 17</a><a href="tel:18">${svg("tel",18)}${t("pompiers")} 18</a><button class="sosbtn" data-go="sos">${svg("alert",20)}${t("sosT")}</button></div>
   ${favs.length?`<h2 class="st">${t("favs")}</h2>`+favs.map(x=>row(x.id,x.titre,C[x.c],"star")).join(""):""}
   <h2 class="st">${t("services")}</h2>${row("demarches",t("demT"),t("demD"),"doc",all.length)}${row("urgences",t("urgences"),t("urgD"),"urg")}${row("annuaire",t("annuaire"),t("annD"),"pin")}${row("actualites",t("actu"),t("actuD"),"news")}${row("emploi",t("emploi"),t("empD"),"job")}${row("transport",t("transport"),t("trD"),"bus")}${row("rappels",t("rappels"),t("rappelsD"),"bell")}
+  <h2 class="st">${t("pratiqueH")}</h2>${row("meteo",t("meteo"),t("meteoD"),"cloud")}${row("pres",t("pres"),t("presD"),"locate")}${row("calendrier",t("cal"),t("calD"),"calendar")}${row("convertisseur",t("conv"),t("convD"),"calc")}
+  <h2 class="st">${t("santeH")}</h2>${row("sante",t("sante"),t("santeD"),"urg")}${row("arnaques",t("arnaques"),t("arnaquesD"),"shield")}
     <h2 class="st">${t("jamana")}</h2>${rowa(wa0(),t("partagerJ"),t("partagerJD"),"share")}${row("soutenir",t("soutenir"),t("soutenirD"),"heart")}${row("apropos",t("apropos"),t("aproposD"),"info")}`;
   return;
  }
@@ -551,6 +582,8 @@ const okTxt=s=>typeof s==="string"&&s.length<600,okHttps=u=>!u||/^https:\/\//.te
 const okT=a=>a&&Array.isArray(a.villes)&&a.villes.every(v=>v&&okStr(v.nom)&&Array.isArray(v.lieux)&&v.lieux.every(s=>s&&okStr(s.nom)&&(!s.t||okStr(s.t))&&(!s.tel||okTel(s.tel))&&(!s.autres||(Array.isArray(s.autres)&&s.autres.every(okTel)))&&(s.destinations==null||okTxt(s.destinations))&&(s.horaires==null||okTxt(s.horaires))&&(s.lat==null||typeof s.lat==="number")&&(s.lng==null||typeof s.lng==="number")));
 const okE=a=>a&&Array.isArray(a.stages||[])&&(a.stages||[]).every(s=>s&&okStr(s.titre)&&(s.organisme==null||okStr(s.organisme))&&(s.conditions==null||okTxt(s.conditions))&&(s.limite==null||okStr(s.limite))&&(s.contact==null||okStr(s.contact))&&okHttps(s.lien))&&Array.isArray(a.sources||[])&&(a.sources||[]).every(s=>s&&okStr(s.id)&&okStr(s.nom)&&/^https:\/\//.test(s.url));
 const okAl=a=>Array.isArray(a)&&a.every(x=>x&&okStr(x.titre)&&okTxt(x.texte||"")&&(x.date==null||okStr(x.date))&&(x.type==null||okStr(x.type))&&(x.niveau==null||okStr(x.niveau)));
+const okD=d=>/^\d{4}-\d{2}-\d{2}$/.test(String(d));
+const okC=c=>c&&typeof c==="object"&&["mobiles","evenements"].every(k=>c[k]==null||(Array.isArray(c[k])&&c[k].every(x=>x&&okD(x.date)&&okStr(lg(x.titre))&&(x.note==null||okStr(x.note)))));
 const okS=a=>Array.isArray(a)&&a.every(s=>s&&okStr(s.id)&&okStr(s.nom)&&/^https:\/\//.test(s.url));
 function appliquerMaj(m){
  if(!m||typeof m!=="object")return;
@@ -560,6 +593,7 @@ function appliquerMaj(m){
  if(okT(m.transport))window.TRANSPORT=m.transport;
  if(okE(m.emploi))window.EMPLOI=m.emploi;
  if(okAl(m.alertes))window.ALERTES=m.alertes;
+ if(okC(m.calendrier))window.CALENDRIER={...CAL(),...(m.calendrier.mobiles?{mobiles:m.calendrier.mobiles}:{}),...(m.calendrier.evenements?{evenements:m.calendrier.evenements}:{})};
 }
 async function verifierMaj(){
  try{
@@ -630,6 +664,143 @@ function garesVille(i){
  app.innerHTML=`<div class="intro">${t("trGares")}</div>`+(L.length?L.map(s=>`<details><summary><span>${esc(s.nom)}${s.t?`<span class="nb">${esc(t("tt_"+s.t)||s.t)}</span>`:""}${s.quartier?`<span class="nb">${esc(s.quartier)}</span>`:""}${aconf(s.ok)}</span></summary>${s.adresse?`<p>${esc(s.adresse)}</p>`:""}${s.destinations?`<p><b>${t("trDest")}</b> ${esc(s.destinations)}</p>`:""}${s.horaires?`<p><b>${t("trHor")}</b> ${esc(s.horaires)}</p>`:""}${s.src?`<p><small>${esc(s.src)}</small></p>`:""}<div class="boutons">${[s.tel].concat(s.autres||[]).filter(Boolean).map(telBtn).join("")}<a class="appel" href="${carteUrl(s,v.nom)}" target="_blank" rel="noopener">${svg("pin",18)}${t("itineraire")}</a></div></details>`).join(""):`<p class="vide">${t("trVide")}</p>`)+proposer(v.nom+" – "+t("trGares"));
 }
 
+/* ===== OUTILS : SOS, SANTÉ, ARNAQUES, MÉTÉO, PRÈS DE MOI, CALENDRIER, CONVERTISSEUR ===== */
+const lg=o=>typeof o==="string"?o:(o?(o[lang]||o.fr||""):"");
+const intl=n=>{const d=String(n).replace(/\D/g,"");return d.length===8?"223"+d:d};
+const okNum=n=>/^\+?[0-9 ]{8,16}$/.test(String(n).trim());
+function position(ms=12000){
+ return new Promise(res=>{
+  if(!navigator.geolocation)return res(null);
+  navigator.geolocation.getCurrentPosition(p=>res({lat:p.coords.latitude,lng:p.coords.longitude,acc:Math.round(p.coords.accuracy||0)}),()=>res(null),{enableHighAccuracy:true,timeout:ms,maximumAge:30000});
+ });
+}
+
+/* --- SOS --- */
+function sos(){
+ entete(true,t("sos"),"");
+ const L=S.sos||[];
+ app.innerHTML=`<div class="intro">${t("sosIntro")}</div>`
+  +(L.length?`<button class="sosbtn" data-sos-go style="margin-top:14px">${svg("alert",24)}${t("sosBtn")}</button><div id="sosres"></div>`:"")
+  +`<h2 class="st">${t("sosContacts")}</h2>`
+  +(L.length?L.map(c=>`<div class="num"><div><b>${esc(c.nom)}</b><small>${esc(c.tel)}</small></div><button class="supp" data-sos-del="${esc(c.id)}" aria-label="${t("sosSupp")}">${svg("trash",20)}</button></div>`).join(""):`<p class="etat">${t("sosVide")}</p>`)
+  +(L.length<3?`<div class="form"><label>${t("sosNom")}<input id="sn" maxlength="30"></label><label>${t("sosTel")}<input id="st" type="tel" inputmode="tel" placeholder="+223 …"></label><p class="etat" id="se" style="margin:0"></p><button class="appel" data-sos-add style="border:0;margin:0;font:inherit;justify-content:center">${t("sosAjout")}</button></div>`:`<p class="etat">${t("sosMax")}</p>`)
+  +`<p class="etat">${t("sosNote")}</p><button class="appel" data-go="urgences" style="border:0;font:inherit">${svg("tel",18)}${t("sosUrg")}</button>`;
+}
+function sosAdd(){
+ const nom=document.getElementById("sn").value.trim().slice(0,30),tel=document.getElementById("st").value.trim();
+ if(!nom||!okNum(tel)){document.getElementById("se").textContent=t("sosErr");return}
+ S.sos=(S.sos||[]).concat({id:"c"+Date.now(),nom,tel}).slice(0,3);save();sos();
+}
+const sosDel=id=>{S.sos=(S.sos||[]).filter(c=>c.id!==id);save();sos()};
+async function sosGo(){
+ const box=document.getElementById("sosres");if(!box)return;
+ box.innerHTML=`<p class="etat">${t("sosLoc")}</p>`;
+ const p=await position();
+ if(document.getElementById("sosres")!==box)return;
+ const msg=t("sosMsg")+" "+(p?t("sosMsgPos")+" https://maps.google.com/?q="+p.lat+","+p.lng+(p.acc?" (±"+p.acc+" m)":""):t("sosMsgSans"))+" "+t("sosMsgVia");
+ box.innerHTML=`<p class="etat">${p?t("sosPos"):t("sosNoPos")}</p>`+(S.sos||[]).map(c=>`<div class="num"><div><b>${esc(c.nom)}</b><small>${t("sosEnvoyer")}</small></div><div class="boutons"><a class="appel" href="sms:+${intl(c.tel)}?body=${encodeURIComponent(msg)}">${t("sosSms")}</a><a class="appel" href="https://wa.me/${intl(c.tel)}?text=${encodeURIComponent(msg)}" target="_blank" rel="noopener">${t("sosWa")}</a></div></div>`).join("");
+}
+
+/* --- Santé et arnaques --- */
+const CS=()=>window.CONSEILS||{sante:[],arnaques:[]};
+function conseils(cle,k){
+ entete(true,t(k),"");
+ app.innerHTML=`<div class="intro">${t(k+"D")}</div><div class="note" style="margin-top:14px"><p style="margin:0">${t(k+"Note")}</p></div>`
+  +(CS()[cle]||[]).map(x=>`<details><summary>${esc(lg(x.t))}</summary>${listeHtml(lg(x.l))}</details>`).join("")
+  +(cle==="sante"?`<button class="appel" data-go="urgences" style="border:0;font:inherit;margin-top:14px">${svg("tel",18)}${t("santeUrg")}</button>`:"");
+}
+const sante=()=>conseils("sante","sante"),arnaques=()=>conseils("arnaques","arnaques");
+
+/* --- Météo (Open-Meteo) --- */
+const VM=()=>window.METEO||[];
+const mcode=c=>t("mc"+(c===0?0:c<=3?c:(c===45||c===48)?45:(c>=51&&c<=57)?51:(c>=61&&c<=67)?61:(c>=80&&c<=82)?80:c>=95?95:2));
+const jourLong=d=>{const x=new Date(d+"T12:00:00");return isNaN(x)?d:x.toLocaleDateString(lang==="en"?"en-GB":"fr-FR",{weekday:"long",day:"numeric",month:"short"})};
+async function meteo(id){
+ entete(true,t("meteo"),"");
+ const V=VM(),ville=V.find(v=>v.id===(id||S.mc))||V[0];
+ if(!ville){app.innerHTML=`<p class="vide">${t("meteoErr")}</p>`;return}
+ S.mc=ville.id;save();
+ app.innerHTML=`<div class="intro">${t("meteoD")}</div><div class="chips">${V.map(v=>`<button data-mc="${v.id}" class="${v.id===ville.id?"on":""}">${esc(v.nom)}</button>`).join("")}</div><div id="mt"><p class="etat">${t("charge")}</p></div>`;
+ const box=document.getElementById("mt"),cle="m-"+ville.id,cache=nlire();
+ let d=null,ok=true;
+ try{
+  const c=new AbortController(),to=setTimeout(()=>c.abort(),10000);
+  const r=await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${ville.lat}&longitude=${ville.lng}&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum&timezone=Africa%2FBamako&forecast_days=5`,{signal:c.signal});
+  clearTimeout(to);
+  if(!r.ok)throw new Error(r.status);
+  const j=JSON.parse(await r.text());
+  if(!j.daily||!Array.isArray(j.daily.time))throw new Error("format");
+  d=j.daily;cache[cle]={d,ts:Date.now()};nsave(cache);
+ }catch(e){ok=false;const c=cache[cle];if(c)d={...c.d,_ts:c.ts}}
+ if(document.getElementById("mt")!==box)return;
+ if(!d){box.innerHTML=`<p class="etat">${t("meteoErr")}</p>`;return}
+ const n=x=>Number.isFinite(x)?x:null,pl=d.precipitation_sum||[],tx=d.temperature_2m_max||[],tn=d.temperature_2m_min||[],wc=d.weather_code||[];
+ const fortePluie=pl.some(x=>n(x)!==null&&x>=20),chaud=tx.some(x=>n(x)!==null&&x>=40);
+ box.innerHTML=(ok?"":`<p class="etat">${t("meteoHors")}${d._ts?" ("+jour(d._ts)+")":""}</p>`)
+  +(fortePluie?`<div class="alerte" style="display:block;margin-top:12px">${t("meteoAlertePluie")}</div>`:"")
+  +(chaud?`<div class="alerte" style="display:block;margin-top:12px">${t("meteoAlerteChaleur")}</div>`:"")
+  +d.time.map((j,i)=>`<div class="num" style="margin-top:10px"><div><b>${esc(jourLong(j))}</b><small>${esc(mcode(n(wc[i])===null?2:wc[i]))}${n(pl[i])>=1?" · "+t("meteoPluie")+" "+Math.round(pl[i])+" mm":""}</small></div><div class="temp"><b>${n(tx[i])===null?"–":Math.round(tx[i])+"°"}</b><small>${n(tn[i])===null?"":Math.round(tn[i])+"°"}</small></div></div>`).join("")
+  +`<p class="etat">${t("meteoSrc")}</p>`;
+}
+
+/* --- Près de moi --- */
+const PRES=[["pr_pharmacie","pharmacie"],["pr_hopital","hôpital clinique"],["pr_police","commissariat de police"],["pr_mairie","mairie"],["pr_gare","gare routière"],["pr_station","station-service"],["pr_banque","banque distributeur de billets"]];
+function pres(){
+ entete(true,t("pres"),"");
+ app.innerHTML=`<div class="intro">${t("presD")}</div><h2 class="st">${t("presMaps")}</h2>`
+  +PRES.map(([k,q])=>`<a class="row" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}" target="_blank" rel="noopener"><span class="tuile">${svg("pin",26)}</span><span class="txt"><b>${t(k)}</b></span>${svg("chev",20)}</a>`).join("")
+  +`<h2 class="st">${t("presAnn")}</h2><button class="appel" data-pres-go style="border:0;font:inherit">${svg("locate",18)}${t("presGps")}</button><div id="pr"></div>`;
+}
+const hav=(a,b,c,d)=>{const R=6371,r=x=>x*Math.PI/180,u=r(c-a),w=r(d-b),x=Math.sin(u/2)**2+Math.cos(r(a))*Math.cos(r(c))*Math.sin(w/2)**2;return 2*R*Math.asin(Math.sqrt(x))};
+async function presGo(){
+ const box=document.getElementById("pr");if(!box)return;
+ box.innerHTML=`<p class="etat">${t("presLoc")}</p>`;
+ const p=await position();
+ if(document.getElementById("pr")!==box)return;
+ if(!p){box.innerHTML=`<p class="etat">${t("presErr")}</p>`;return}
+ const tous=[];
+ VILLES().forEach(v=>(v.services||[]).forEach(s=>{if(typeof s.lat==="number"&&typeof s.lng==="number")tous.push({s,v:v.nom,d:hav(p.lat,p.lng,s.lat,s.lng)})}));
+ VT().forEach(v=>(v.lieux||[]).forEach(s=>{if(typeof s.lat==="number"&&typeof s.lng==="number")tous.push({s,v:v.nom,d:hav(p.lat,p.lng,s.lat,s.lng)})}));
+ tous.sort((a,b)=>a.d-b.d);
+ box.innerHTML=tous.length?tous.slice(0,8).map(x=>`<details><summary><span>${esc(x.s.nom)}<span class="nb">${x.d<1?Math.round(x.d*1000)+" m":x.d.toFixed(1)+" "+t("presKm")}</span>${aconf(x.s.ok)}</span></summary><div class="boutons">${[x.s.tel].concat(x.s.autres||[]).filter(Boolean).map(telBtn).join("")}<a class="appel" href="${carteUrl(x.s,x.v)}" target="_blank" rel="noopener">${svg("pin",18)}${t("itineraire")}</a></div></details>`).join(""):`<p class="etat">${t("presPas")}</p>`;
+}
+
+/* --- Convertisseur FCFA / euro (taux fixe) --- */
+const TAUX=655.957;let CONVDIR="f";
+const loc=()=>lang==="en"?"en-GB":"fr-FR";
+function convertisseur(){
+ entete(true,t("conv"),"");CONVDIR="f";
+ app.innerHTML=`<div class="intro">${t("convD")}</div><div class="form"><label>${t("convMontant")}<input id="cv" type="number" inputmode="decimal" min="0" step="any" placeholder="10000" data-conv></label>
+ <div class="opts" style="margin:0"><button data-dir="f" class="on">FCFA → €</button><button data-dir="e">€ → FCFA</button></div>
+ <div class="gros" id="cr" style="margin:0">—</div></div>
+ <h2 class="st">${t("convEx")}</h2>`+[500,1000,5000,10000,50000].map(v=>`<div class="num"><b>${v.toLocaleString(loc())} FCFA</b><span>${(v/TAUX).toLocaleString(loc(),{maximumFractionDigits:2})} €</span></div>`).join("")+`<p class="etat">${t("convNote")}</p>`;
+}
+function convCalc(){
+ const v=parseFloat(String(document.getElementById("cv").value).replace(",",".")),o=document.getElementById("cr");
+ if(!isFinite(v)||v<0){o.textContent="—";return}
+ o.textContent=CONVDIR==="f"?(v/TAUX).toLocaleString(loc(),{maximumFractionDigits:2})+" €":Math.round(v*TAUX).toLocaleString(loc())+" FCFA";
+}
+
+/* --- Calendrier --- */
+const CAL=()=>window.CALENDRIER||{fetes:[],mobiles:[],evenements:[]};
+function prochainesDates(){
+ const a=new Date();a.setHours(0,0,0,0);const C=CAL(),out=[];
+ (C.fetes||[]).forEach(f=>{for(const an of [a.getFullYear(),a.getFullYear()+1]){const d=new Date(an,f.m-1,f.j);if(d>=a){out.push({d,titre:f.titre,approx:false,ok:f.ok!==false});break}}});
+ (C.mobiles||[]).forEach(f=>{const d=new Date(f.date+"T00:00:00");if(!isNaN(d)&&d>=a)out.push({d,titre:f.titre,approx:!!f.approx,ok:true})});
+ (C.evenements||[]).forEach(f=>{const d=new Date(f.date+"T00:00:00");if(!isNaN(d)&&d>=a)out.push({d,titre:f.titre,note:f.note,approx:false,ok:true})});
+ return out.sort((x,y)=>x.d-y.d).map(x=>({...x,j:Math.round((x.d-a)/864e5)}));
+}
+function calendrier(){
+ entete(true,t("cal"),"");
+ const P=prochainesDates().slice(0,10),F=(CAL().fetes||[]).slice().sort((a,b)=>a.m-b.m||a.j-b.j);
+ const dl=d=>d.toLocaleDateString(loc(),{weekday:"long",day:"numeric",month:"long",year:"numeric"});
+ const reste=j=>j===0?t("calAuj"):j===1?t("calDemain"):t("calDans")+" "+j+" "+t("calJ");
+ app.innerHTML=`<div class="intro">${t("calD")}</div><h2 class="st">${t("calProchains")}</h2>`
+  +(P.length?P.map(x=>`<div class="num"><div><b>${esc(lg(x.titre))}</b>${aconf(x.ok)}<small>${esc(dl(x.d))}${x.approx?" · "+t("calApprox"):""}${x.note?" · "+esc(x.note):""}</small></div><span class="nb">${reste(x.j)}</span></div>`).join(""):`<p class="etat">${t("calVide")}</p>`)
+  +`<h2 class="st">${t("calFixes")}</h2>`+F.map(f=>`<div class="num"><b>${esc(lg(f.titre))}</b><span>${f.j} ${new Date(2000,f.m-1,1).toLocaleDateString(loc(),{month:"long"})}</span></div>`).join("")
+  +`<p class="etat">${t("calNote")}</p>`;
+}
+
 /* ===== NAVIGATION ===== */
 function route(){
  stopLire();
@@ -650,6 +821,13 @@ function route(){
  else if(id==="emploi"){emploi()}
  else if(id==="transport"){transport()}
  else if(m=id.match(/^g(\d+)$/)){garesVille(+m[1])}
+ else if(id==="sos"){sos()}
+ else if(id==="sante"){sante()}
+ else if(id==="arnaques"){arnaques()}
+ else if(id==="meteo"){meteo()}
+ else if(id==="pres"){pres()}
+ else if(id==="convertisseur"){convertisseur()}
+ else if(id==="calendrier"){calendrier()}
  else if(id==="rappels"){rappels()}
  else if(id==="soutenir"){soutenir()}
  else if(id==="apropos"){apropos()}
@@ -670,11 +848,18 @@ document.addEventListener("click",e=>{
  if(b=g("[data-th]")){S.theme=b.dataset.th;save();appliquer();return reglages()}
  if(b=g("[data-fav]"))return favori(b.dataset.fav);
  if(b=g("[data-lire]"))return lire(b.dataset.lire);
+ if(g("[data-sos-go]"))return sosGo();
+ if(g("[data-sos-add]"))return sosAdd();
+ if(b=g("[data-sos-del]"))return sosDel(b.dataset.sosDel);
+ if(b=g("[data-mc]"))return meteo(b.dataset.mc);
+ if(g("[data-pres-go]"))return presGo();
+ if(b=g("[data-dir]")){CONVDIR=b.dataset.dir;document.querySelectorAll("[data-dir]").forEach(x=>x.classList.toggle("on",x===b));return convCalc()}
  if(g("[data-addr]"))return ajoutRappel();
  if(b=g("[data-delr]"))return suppRappel(b.dataset.delr);
  if(b=g("[data-copy]"))return copier(b);
  if(b=g("[data-go]"))location.hash=b.dataset.go;
 });
+document.addEventListener("input",e=>{if(e.target.closest&&e.target.closest("[data-conv]"))convCalc()});
 document.addEventListener("change",e=>{
  const c=e.target.closest("[data-chk]");if(!c)return;
  const [id,i]=c.dataset.chk.split("|"),n=+i,a=S.chk[id]||[];
