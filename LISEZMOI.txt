@@ -1,4 +1,4 @@
-JAMANA v1.6.1 - projet APK (fonctionne hors ligne)
+JAMANA v1.6.2 - projet APK (fonctionne hors ligne)
 
   www/                       appli (index.html, data/, etc.)
   www/maj.json               mises a jour du contenu SANS recompiler l APK (voir ci-dessous)

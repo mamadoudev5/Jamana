@@ -189,7 +189,7 @@ const CATIC=["doc","bus","urg","job","doc","home","doc","doc","job","pin","doc"]
 const LOGO=`<svg viewBox="0 0 64 64" role="img" aria-label="Logo Jamana"><rect width="64" height="64" rx="18" fill="#fff"/><path d="M38 14v22c0 7-4.5 11-11 11" fill="none" stroke="#0B3FA8" stroke-width="8" stroke-linecap="round"/><rect x="14" y="52" width="12" height="4" rx="2" fill="#14B53A"/><rect x="26" y="52" width="12" height="4" rx="2" fill="#FCD116"/><rect x="38" y="52" width="12" height="4" rx="2" fill="#CE1126"/></svg>`;
 
 /* ===== CONTACT ===== */
-const VERSION="1.6.1";
+const VERSION="1.6.2";
 const WA="22373065026",TEL="+22373065026",MAIL="mamadousidibee10@gmail.com";
 const RELEASES="https://github.com/mamadoudev5/Jamana/releases/latest";
 const MAJ_URL="https://raw.githubusercontent.com/mamadoudev5/Jamana/main/www/maj.json";
@@ -209,7 +209,7 @@ const UI={fr:{
  trD:"Documents, véhicules, gares routières et sécurité routière",trDoc:"Démarches : véhicules, permis et voyages",trGares:"Gares routières et compagnies",trGaresD:"Destinations, téléphone, itinéraire",trVide:"Aucune gare ni compagnie enregistrée pour le moment.",trSecu:"Sécurité routière",trConseils:"Les bons réflexes",trAccident:"En cas d’accident",tt_gare:"Gare routière",tt_compagnie:"Compagnie de bus",
  cl_route:["Ceinture à l’avant et à l’arrière ; casque homologué pour les deux-roues.","Pas de téléphone au volant, pas d’alcool, et reposez-vous avant un long trajet.","Adaptez votre vitesse à la route, à la pluie, à la nuit, à la poussière et aux animaux.","Avant un long trajet : pneus, freins, éclairage, niveaux, roue de secours et eau.","Ne surchargez pas le véhicule, et ne montez pas avec un chauffeur fatigué ou ivre.","Gardez les papiers du véhicule et du conducteur à portée de main."],
  cl_accident:["Arrêtez-vous, mettez le véhicule à l’écart si possible, allumez les feux de détresse et signalez le danger.","Appelez les secours (voir la page Urgences) en donnant le lieu précis et le nombre de blessés.","Ne déplacez pas un blessé grave, sauf danger immédiat comme un incendie.","Restez avec les blessés, parlez-leur et gardez-les au chaud.","Notez les plaques, les noms et les téléphones, prenez des photos, puis faites la déclaration à la police."], pratiqueH:"Au quotidien",santeH:"Santé et sécurité",
- cgTitre:"Avant de commencer",cgIntro:"Lisez ce qui suit jusqu’en bas, puis choisissez.",cgLecture:"Conditions d’utilisation et confidentialité.",cgDefile:"Faites défiler jusqu’en bas pour continuer.",cgFin:"Si vous n’êtes pas d’accord, fermez l’application.",cgOui:"J’accepte et je continue",cgSans:"J’accepte, sans la position",
+ voixKO:"La voix n’a pas pu démarrer. Sur le téléphone : Paramètres → Système → Langues et saisie → Synthèse vocale, puis installez la voix française.",cgTitre:"Avant de commencer",cgIntro:"Lisez ce qui suit jusqu’en bas, puis choisissez.",cgLecture:"Conditions d’utilisation et confidentialité.",cgDefile:"Faites défiler jusqu’en bas pour continuer.",cgFin:"Si vous n’êtes pas d’accord, fermez l’application.",cgOui:"J’accepte et je continue",cgSans:"J’accepte, sans la position",
  cgT1:"Qui est derrière Jamana",cgP1:"Jamana est une application gratuite créée par Mamadou Sidibé. Ce n’est pas un service de l’État.",
  cgT2:"Informations indicatives",cgP2:"Les démarches, coûts, délais, numéros, horaires et conseils sont donnés à titre indicatif et peuvent changer. Vérifiez toujours auprès du service concerné. Les conseils de santé sont généraux : ils ne remplacent pas un professionnel de santé.",
  cgT3:"Votre position (GPS)",cgP3:"La position sert uniquement pour le SOS et « Près de moi », et seulement quand vous appuyez sur le bouton. Elle n’est pas enregistrée et reste sur votre téléphone. Pour le SOS, le lien de votre position n’est envoyé à vos contacts que si vous choisissez d’envoyer le message. Vous pouvez refuser la position et utiliser le reste de l’application.",
@@ -233,7 +233,7 @@ const UI={fr:{
  apTitre2:"Sources",apT2:"Démarches : guide des démarches administratives du Mali (document de 2021). Numéros d’urgence : plan national de numérotage (CRT, 2005) et sources indiquées dans chaque fiche. Actualités : sites des journaux concernés. Météo : Open-Meteo.",
  apTitre3:"Avertissement",apT3:"Les informations sont données à titre indicatif. Les coûts, délais, procédures et numéros peuvent changer : vérifiez toujours auprès du service concerné. Jamana n’est pas un service de l’État.",
  apTitre4:"Confidentialité",apT4:"Pas de compte, pas de publicité, pas de suivi. Vos favoris, contacts SOS, cases cochées, rappels et réglages restent sur votre téléphone. Votre position n’est utilisée que pour le SOS et « Près de moi », quand vous appuyez, et n’est pas enregistrée. Pour les actualités, la météo et les mises à jour du contenu, l’application se connecte à Internet (journaux, Open-Meteo, GitHub), qui peuvent voir l’adresse IP de votre connexion.",
- apTitre5:"Contenu mis à jour",apMaj:"Version du contenu reçu :",apMajNon:"Aucune mise à jour de contenu reçue pour le moment.",apContact:"Une erreur à signaler, une idée ?", actuT:"Actualités",actuD:"Les dernières informations de la presse malienne",actuMaj:"Actualiser",actuHors:"Pas de connexion : derniers articles enregistrés",actuErr:"Impossible de charger les actualités pour le moment.",actuNav:"Dans un navigateur, certains sites bloquent la lecture. L’application Android fonctionne.",actuVide:"Aucun article pour le moment.",actuNote:"Titres fournis par les sites des journaux. Jamana n’est pas responsable de leur contenu.",charge:"Chargement…",aconf:"À confirmer",ty_utilites:"Eau et électricité",ty_mairie:"Mairies",ty_etatcivil:"Centres d’état civil",ty_commissariat:"Commissariats",ty_hopital:"Hôpitaux et centres de santé",ty_pharmacie:"Pharmacies de garde",
+ apTitre5:"Contenu mis à jour",apMaj:"Version du contenu reçu :",apMajNon:"Aucune mise à jour de contenu reçue pour le moment.",apContact:"Une erreur à signaler, une idée ?", actuT:"Actualités",actuD:"Les dernières informations de la presse malienne",actuMaj:"Actualiser",actuHors:"Pas de connexion : derniers articles enregistrés",actuErr:"Impossible de charger les actualités pour le moment.",actuNav:"Dans un navigateur, certains sites bloquent la lecture. L’application Android fonctionne.",actuVide:"Aucun article pour le moment.",actuNote:"Titres fournis par les sites des journaux. Jamana n’est pas responsable de leur contenu.",charge:"Chargement…",aconf:"À confirmer",ty_utilites:"Eau et électricité",ty_mairie:"Mairies",ty_etatcivil:"Centres d’état civil",ty_commissariat:"Commissariats",ty_hopital:"Hôpitaux et centres de santé",ty_pharmacie:"Pharmacies 24h/24 et de garde",
  by:"Créé par",tag:"Le Mali en poche : démarches, urgences, annuaire.",search:"Rechercher une démarche, un service…",
  urg:"En cas d’urgence",urgSub:"Appel direct",police:"Police",pompiers:"Pompiers",
  services:"Services",soon:"Bientôt disponible",home:"Accueil",back:"Retour",none:"Aucun résultat pour",call:"Appeler le",
@@ -278,7 +278,7 @@ en:{
  trD:"Documents, vehicles, bus stations and road safety",trDoc:"Procedures: vehicles, licences and travel",trGares:"Bus stations and companies",trGaresD:"Destinations, phone, directions",trVide:"No bus station or company listed yet.",trSecu:"Road safety",trConseils:"Good habits",trAccident:"If there is an accident",tt_gare:"Bus station",tt_compagnie:"Bus company",
  cl_route:["Seat belt in front and back; approved helmet on two-wheelers.","No phone while driving, no alcohol, and rest before a long trip.","Adapt your speed to the road, rain, night, dust and animals.","Before a long trip: tyres, brakes, lights, fluid levels, spare wheel and water.","Don’t overload the vehicle, and don’t ride with a tired or drunk driver.","Keep the vehicle and driver documents within reach."],
  cl_accident:["Stop, move the vehicle aside if possible, switch on the hazard lights and warn others of the danger.","Call for help (see the Emergencies page), giving the exact place and the number of injured.","Don’t move a seriously injured person, unless there is immediate danger such as a fire.","Stay with the injured, talk to them and keep them warm.","Note the plates, names and phone numbers, take photos, then report to the police."], pratiqueH:"Everyday",santeH:"Health and safety",
- cgTitre:"Before you start",cgIntro:"Read the text below to the bottom, then choose.",cgLecture:"Terms of use and privacy.",cgDefile:"Scroll to the bottom to continue.",cgFin:"If you do not agree, close the app.",cgOui:"I accept and continue",cgSans:"I accept, without location",
+ voixKO:"The voice could not start. On the phone: Settings → System → Languages and input → Text-to-speech, then install the French voice.",cgTitre:"Before you start",cgIntro:"Read the text below to the bottom, then choose.",cgLecture:"Terms of use and privacy.",cgDefile:"Scroll to the bottom to continue.",cgFin:"If you do not agree, close the app.",cgOui:"I accept and continue",cgSans:"I accept, without location",
  cgT1:"Who is behind Jamana",cgP1:"Jamana is a free app created by Mamadou Sidibé. It is not a government service.",
  cgT2:"Information is a guide only",cgP2:"Procedures, costs, timelines, numbers, hours and advice are given as a guide and may change. Always check with the relevant office. Health advice is general: it does not replace a health professional.",
  cgT3:"Your location (GPS)",cgP3:"Location is used only for SOS and “Near me”, and only when you press the button. It is not stored and stays on your phone. For SOS, the link to your location is sent to your contacts only if you choose to send the message. You can refuse location and use the rest of the app.",
@@ -302,7 +302,7 @@ en:{
  apTitre2:"Sources",apT2:"Procedures: guide to administrative procedures in Mali (2021 document). Emergency numbers: national numbering plan (CRT, 2005) and the sources shown on each entry. News: the newspapers’ websites. Weather: Open-Meteo.",
  apTitre3:"Disclaimer",apT3:"Information is provided as a guide only. Costs, timelines, procedures and numbers may change: always check with the relevant office. Jamana is not a government service.",
  apTitre4:"Privacy",apT4:"No account, no ads, no tracking. Your favourites, SOS contacts, ticked boxes, reminders and settings stay on your phone. Your location is used only for SOS and “Near me”, when you press, and is not stored. For news, weather and content updates the app connects to the Internet (newspapers, Open-Meteo, GitHub), which can see your connection’s IP address.",
- apTitre5:"Content updates",apMaj:"Content version received:",apMajNon:"No content update received yet.",apContact:"An error to report, an idea?", actuT:"News",actuD:"Latest news from the Malian press",actuMaj:"Refresh",actuHors:"No connection: showing the latest saved articles",actuErr:"Unable to load the news right now.",actuNav:"In a browser, some sites block reading. The Android app works.",actuVide:"No articles for now.",actuNote:"Headlines provided by the newspapers’ websites. Jamana is not responsible for their content.",charge:"Loading…",aconf:"To be confirmed",ty_utilites:"Water and electricity",ty_mairie:"Town halls",ty_etatcivil:"Civil registry centres",ty_commissariat:"Police stations",ty_hopital:"Hospitals and health centres",ty_pharmacie:"On-duty pharmacies"
+ apTitre5:"Content updates",apMaj:"Content version received:",apMajNon:"No content update received yet.",apContact:"An error to report, an idea?", actuT:"News",actuD:"Latest news from the Malian press",actuMaj:"Refresh",actuHors:"No connection: showing the latest saved articles",actuErr:"Unable to load the news right now.",actuNav:"In a browser, some sites block reading. The Android app works.",actuVide:"No articles for now.",actuNote:"Headlines provided by the newspapers’ websites. Jamana is not responsible for their content.",charge:"Loading…",aconf:"To be confirmed",ty_utilites:"Water and electricity",ty_mairie:"Town halls",ty_etatcivil:"Civil registry centres",ty_commissariat:"Police stations",ty_hopital:"Hospitals and health centres",ty_pharmacie:"24-hour and on-duty pharmacies"
 },
 bm:{ /* Bambara : traductions d'un traducteur malien (lots 1 et 2). Ce qui manque s'affiche en français. */
  by:"Dabɔbaga :",search:"Baara walima sɛbɛn ɲini…",home:"So",back:"Kɔsegin",services:"Baaraw",
@@ -444,11 +444,9 @@ function detail(id){
  entete(true,it.titre,"c"+it.c);
  const taille=JSON.stringify(it.s).length,ouvre=k=>taille<5000&&["documents","cout","delai"].includes(k),fav=S.fav.includes(id);
  app.innerHTML=`<div class="intro">${esc(cats()[it.c]||"")}</div>
- <div class="actions"><button class="act${fav?" on":""}" data-fav="${id}">${favBtn(fav)}</button><button class="act" id="bl" data-lire="${id}">${svg("sound",22)}<span>${t("ecouter")}</span></button><a class="act" href="${partage(it)}" target="_blank" rel="noopener">${svg("share",22)}<span>${t("partager")}</span></a></div>`
+ <div class="actions"><button class="act${fav?" on":""}" data-fav="${id}">${favBtn(fav)}</button>${ttsOk()?`<button class="act ecoute" data-sz="22" data-ecoute="d|${id}">${svg("sound",22)}<span>${t("ecouter")}</span></button>`:""}<a class="act" href="${partage(it)}" target="_blank" rel="noopener">${svg("share",22)}<span>${t("partager")}</span></a></div>`
  +ORDRE.filter(k=>it.s[k]).map(k=>`<details${ouvre(k)?" open":""}><summary>${t("s_"+k)}</summary>${k==="documents"?docs(it):blocs(it.s[k])}</details>`).join("")
  +`<div class="note"><p>${t("noteSrc")}</p><a class="appel" href="${wa("Jamana – erreur à corriger\nDémarche : "+it.titre+"\nProblème : ")}" target="_blank" rel="noopener">${svg("flag",18)}${t("signaler")}</a></div>`;
- const b=document.getElementById("bl");
- if(b&&b.style&&!("speechSynthesis" in window))b.style.display="none";
 }
 function favori(id){
  S.fav=S.fav.includes(id)?S.fav.filter(x=>x!==id):[id,...S.fav];save();
@@ -457,25 +455,48 @@ function favori(id){
 }
 
 /* ===== LECTURE À VOIX HAUTE ===== */
-function stopLire(){
- try{if("speechSynthesis" in window)speechSynthesis.cancel()}catch(e){}
- const b=document.getElementById("bl");
- if(b&&b.querySelector)b.innerHTML=svg("sound",22)+`<span>${t("ecouter")}</span>`;
+/* ===== LECTURE À VOIX HAUTE : voix native d'Android (plugin), sinon voix du navigateur ===== */
+const TTSN=()=>window.Capacitor&&Capacitor.Plugins&&Capacitor.Plugins.TextToSpeech;
+const ttsOk=()=>!!(TTSN()||("speechSynthesis" in window));
+let LECT=0,LECTB=null,LECTID=0;
+function majEcoute(){
+ try{document.querySelectorAll(".ecoute").forEach(b=>{const on=LECT&&b===LECTB,z=+(b.dataset.sz||18);b.innerHTML=svg(on?"stop":"sound",z)+`<span>${t(on?"arreter":"ecouter")}</span>`})}catch(e){}
 }
-function lire(id){
- if(!("speechSynthesis" in window))return;
- if(speechSynthesis.speaking){stopLire();return}
- const it=items().find(x=>x.id===id);if(!it)return;
- const txt=[it.titre].concat(["documents","cout","delai","procedure"].flatMap(k=>it.s[k]?[t("s_"+k)].concat(it.s[k].map(x=>x.replace(/^• /,""))):[])).join(". ");
- const parts=(txt.match(/[^.!?]+[.!?]?/g)||[txt]).map(x=>x.trim()).filter(Boolean);
- const trad=LD()&&LD().items&&LD().items.find(x=>x.id===id&&x.s&&x.s.documents),voix=(lang==="en"&&trad)?"en-US":"fr-FR";
- const b=document.getElementById("bl");
- if(b)b.innerHTML=svg("stop",22)+`<span>${t("arreter")}</span>`;
- parts.forEach((p,i)=>{
-  const u=new SpeechSynthesisUtterance(p.slice(0,220));u.lang=voix;
-  if(i===parts.length-1)u.onend=()=>stopLire();
-  speechSynthesis.speak(u);
- });
+function stopLire(){
+ LECT=0;LECTB=null;
+ try{const n=TTSN();if(n){n.stop()}else if("speechSynthesis" in window)speechSynthesis.cancel()}catch(e){}
+ majEcoute();
+}
+function decouper(txt){
+ return (String(txt).match(/[^.!?;\n]+[.!?;]?/g)||[String(txt)]).map(x=>x.trim()).filter(Boolean)
+  .flatMap(x=>x.length>200?(x.match(/.{1,180}(\s|$)/g)||[x]).map(y=>y.trim()).filter(Boolean):[x]);
+}
+async function parler(txt,lg2,btn){
+ if(!ttsOk())return;
+ if(LECT){stopLire();return}
+ const id=++LECTID;LECT=id;LECTB=btn||null;majEcoute();
+ const parts=decouper(txt),n=TTSN();let erreur=false;
+ try{
+  if(n){for(const p of parts){if(LECT!==id)break;await n.speak({text:p,lang:lg2,rate:1.0,pitch:1.0,volume:1.0})}}
+  else await new Promise(res=>{let i=0;const suite=()=>{if(LECT!==id||i>=parts.length)return res();const u=new SpeechSynthesisUtterance(parts[i++]);u.lang=lg2;u.onend=suite;u.onerror=()=>{erreur=true;res()};speechSynthesis.speak(u)};suite()});
+ }catch(e){erreur=true}
+ if(LECT===id){LECT=0;LECTB=null;majEcoute();if(erreur){try{alert(t("voixKO"))}catch(e){}}}
+}
+function ecoute(spec,btn){
+ const [k,a,b]=spec.split("|");
+ if(LECT)return stopLire();
+ const vx=lang==="en"?"en-US":"fr-FR";
+ if(k==="d"){
+  const it=items().find(x=>x.id===a);if(!it)return;
+  const txt=[it.titre].concat(["documents","cout","delai","procedure"].flatMap(s=>it.s[s]?[t("s_"+s)].concat(it.s[s].map(x=>x.replace(/^• /,""))):[])).join(". ");
+  const trad=LD()&&LD().items&&LD().items.find(x=>x.id===a&&x.s&&x.s.documents);
+  return parler(txt,(lang==="en"&&trad)?"en-US":"fr-FR",btn);
+ }
+ if(k==="c"){const x=(CS()[a]||[])[+b];if(!x)return;return parler(lg(x.t)+". "+lg(x.l).join(". "),vx,btn)}
+ if(k==="u"){
+  const L=[];(window.URGENCES||[]).forEach(g=>g.items.forEach(x=>{if(x.ok)L.push(x.nom+", "+fmt(x.tel))}));
+  if(L.length)return parler(t("urgences")+". "+L.join(". "),vx,btn);
+ }
 }
 
 /* ===== URGENCES ===== */
@@ -484,7 +505,7 @@ const aconf=ok=>ok?"":`<span class="aconf">${t("aconf")}</span>`;
 function urgences(){
  entete(true,t("urgences"),"");
  const G=window.URGENCES||[];
- app.innerHTML=`<div class="intro">${t("urgD")}</div>`+G.map(g=>`<h2 class="st">${esc(g.titre)}</h2>${g.note?`<p class="gn">${esc(g.note)}</p>`:""}`+g.items.map(x=>`<div class="num"><div><b>${esc(x.nom)}</b>${aconf(x.ok)}${x.src?`<small>${esc(x.src)}</small>`:""}</div><a class="appel" href="tel:${esc(x.tel)}">${svg("tel",18)}${fmt(x.tel)}</a></div>`).join("")).join("");
+ app.innerHTML=`<div class="intro">${t("urgD")}</div>${ttsOk()?`<button class="sec ecoute" data-sz="18" data-ecoute="u" style="margin-top:12px">${svg("sound",18)}<span>${t("ecouter")}</span></button>`:""}`+G.map(g=>`<h2 class="st">${esc(g.titre)}</h2>${g.note?`<p class="gn">${esc(g.note)}</p>`:""}`+g.items.map(x=>`<div class="num"><div><b>${esc(x.nom)}</b>${aconf(x.ok)}${x.src?`<small>${esc(x.src)}</small>`:""}</div><a class="appel" href="tel:${esc(x.tel)}">${svg("tel",18)}${fmt(x.tel)}</a></div>`).join("")).join("");
 }
 
 /* ===== ANNUAIRE ===== */
@@ -744,7 +765,7 @@ const CS=()=>window.CONSEILS||{sante:[],arnaques:[]};
 function conseils(cle,k){
  entete(true,t(k),"");
  app.innerHTML=`<div class="intro">${t(k+"D")}</div><div class="note" style="margin-top:14px"><p style="margin:0">${t(k+"Note")}</p></div>`
-  +(CS()[cle]||[]).map(x=>`<details><summary>${esc(lg(x.t))}</summary>${listeHtml(lg(x.l))}</details>`).join("")
+  +(CS()[cle]||[]).map((x,i)=>`<details><summary>${esc(lg(x.t))}</summary>${listeHtml(lg(x.l))}${ttsOk()?`<button class="sec ecoute" data-sz="18" data-ecoute="c|${cle}|${i}" style="margin:0 0 14px">${svg("sound",18)}<span>${t("ecouter")}</span></button>`:""}</details>`).join("")
   +(cle==="sante"?`<button class="appel" data-go="urgences" style="border:0;font:inherit;margin-top:14px">${svg("tel",18)}${t("santeUrg")}</button>`:"");
 }
 const sante=()=>conseils("sante","sante"),arnaques=()=>conseils("arnaques","arnaques");
@@ -929,7 +950,7 @@ document.addEventListener("click",e=>{
  if(b=g("[data-fs]")){S.fs=+b.dataset.fs;save();appliquer();return reglages()}
  if(b=g("[data-th]")){S.theme=b.dataset.th;save();appliquer();return reglages()}
  if(b=g("[data-fav]"))return favori(b.dataset.fav);
- if(b=g("[data-lire]"))return lire(b.dataset.lire);
+ if(b=g("[data-ecoute]"))return ecoute(b.dataset.ecoute,b);
  if(g("[data-sos-go]"))return sosGo();
  if(g("[data-sos-add]"))return sosAdd();
  if(b=g("[data-sos-del]"))return sosDel(b.dataset.sosDel);

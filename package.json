@@ -1,11 +1,12 @@
 {
   "name": "jamana",
-  "version": "1.6.1",
+  "version": "1.6.2",
   "private": true,
   "dependencies": {
     "@capacitor/android": "^6.2.0",
     "@capacitor/core": "^6.2.0",
-    "@capacitor/local-notifications": "^6.1.0"
+    "@capacitor/local-notifications": "^6.1.0",
+    "@capacitor-community/text-to-speech": "^5.1.0"
   },
   "devDependencies": {
     "@capacitor/assets": "^3.0.5",

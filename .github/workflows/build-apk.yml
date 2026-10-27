@@ -12,7 +12,7 @@ permissions:
   contents: write
 
 env:
-  APP_VERSION: "1.6.1"
+  APP_VERSION: "1.6.2"
 
 jobs:
   build:
@@ -30,14 +30,14 @@ jobs:
           java-version: 17
 
       - name: Installer les dependances
-        run: npm install
+        run: npm install --legacy-peer-deps
 
       - name: Creer le projet Android
         run: npx cap add android
 
-      - name: Permissions notifications et position
+      - name: Permissions notifications position et voix
         run: |
-          sed -i "s#</manifest>#    <uses-permission android:name=\"android.permission.POST_NOTIFICATIONS\" />\n    <uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\" />\n    <uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\" />\n</manifest>#" android/app/src/main/AndroidManifest.xml
+          sed -i "s#</manifest>#    <uses-permission android:name=\"android.permission.POST_NOTIFICATIONS\" />\n    <uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\" />\n    <uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\" />\n    <queries><intent><action android:name=\"android.intent.action.TTS_SERVICE\" /></intent></queries>\n</manifest>#" android/app/src/main/AndroidManifest.xml
           grep -n "uses-permission" android/app/src/main/AndroidManifest.xml
 
       - name: Generer les icones
