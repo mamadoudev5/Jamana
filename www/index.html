@@ -151,6 +151,9 @@ nav button.on::before{content:"";position:absolute;top:-7px;width:28px;height:3p
 <script src="data/actualites.js"></script>
 <script src="data/emploi.js"></script>
 <script src="data/transport.js"></script>
+<script src="data/examens.js"></script>
+<script src="data/opportunites.js"></script>
+<script src="data/disparition.js"></script>
 <script src="data/outils.js"></script>
 <script>
 /* ===== ICÔNES ===== */
@@ -189,7 +192,7 @@ const CATIC=["doc","bus","urg","job","doc","home","doc","doc","job","pin","doc"]
 const LOGO=`<svg viewBox="0 0 64 64" role="img" aria-label="Logo Jamana"><rect width="64" height="64" rx="18" fill="#fff"/><path d="M38 14v22c0 7-4.5 11-11 11" fill="none" stroke="#0B3FA8" stroke-width="8" stroke-linecap="round"/><rect x="14" y="52" width="12" height="4" rx="2" fill="#14B53A"/><rect x="26" y="52" width="12" height="4" rx="2" fill="#FCD116"/><rect x="38" y="52" width="12" height="4" rx="2" fill="#CE1126"/></svg>`;
 
 /* ===== CONTACT ===== */
-const VERSION="1.6.2";
+const VERSION="1.7";
 const WA="22373065026",TEL="+22373065026",MAIL="mamadousidibee10@gmail.com";
 const RELEASES="https://github.com/mamadoudev5/Jamana/releases/latest";
 const MAJ_URL="https://raw.githubusercontent.com/mamadoudev5/Jamana/main/www/maj.json";
@@ -209,7 +212,13 @@ const UI={fr:{
  trD:"Documents, véhicules, gares routières et sécurité routière",trDoc:"Démarches : véhicules, permis et voyages",trGares:"Gares routières et compagnies",trGaresD:"Destinations, téléphone, itinéraire",trVide:"Aucune gare ni compagnie enregistrée pour le moment.",trSecu:"Sécurité routière",trConseils:"Les bons réflexes",trAccident:"En cas d’accident",tt_gare:"Gare routière",tt_compagnie:"Compagnie de bus",
  cl_route:["Ceinture à l’avant et à l’arrière ; casque homologué pour les deux-roues.","Pas de téléphone au volant, pas d’alcool, et reposez-vous avant un long trajet.","Adaptez votre vitesse à la route, à la pluie, à la nuit, à la poussière et aux animaux.","Avant un long trajet : pneus, freins, éclairage, niveaux, roue de secours et eau.","Ne surchargez pas le véhicule, et ne montez pas avec un chauffeur fatigué ou ivre.","Gardez les papiers du véhicule et du conducteur à portée de main."],
  cl_accident:["Arrêtez-vous, mettez le véhicule à l’écart si possible, allumez les feux de détresse et signalez le danger.","Appelez les secours (voir la page Urgences) en donnant le lieu précis et le nombre de blessés.","Ne déplacez pas un blessé grave, sauf danger immédiat comme un incendie.","Restez avec les blessés, parlez-leur et gardez-les au chaud.","Notez les plaques, les noms et les téléphones, prenez des photos, puis faites la déclaration à la police."], pratiqueH:"Au quotidien",santeH:"Santé et sécurité",
- voixKO:"La voix n’a pas pu démarrer. Sur le téléphone : Paramètres → Système → Langues et saisie → Synthèse vocale, puis installez la voix française.",cgTitre:"Avant de commencer",cgIntro:"Lisez ce qui suit jusqu’en bas, puis choisissez.",cgLecture:"Conditions d’utilisation et confidentialité.",cgDefile:"Faites défiler jusqu’en bas pour continuer.",cgFin:"Si vous n’êtes pas d’accord, fermez l’application.",cgOui:"J’accepte et je continue",cgSans:"J’accepte, sans la position",
+ exT:"Examens et résultats",exD:"DEF, BAC, BT : dates, résultats, démarches et conseils",exProch:"Prochaines épreuves",exAnn:"Les dates de la prochaine session ne sont pas encore publiées. Elles seront annoncées par le Ministère de l’Éducation nationale.",exPasse:"Rappel de la session précédente (indicatif)",exRes:"Consulter ses résultats",
+ exResG:["Attendez le communiqué officiel du Ministère : il indique la date, l’heure et le site de publication.","Consultez le site officiel du CNECE indiqué dans ce communiqué.","Préparez votre nom et votre numéro de candidat (ou de place), tels qu’ils figurent sur votre convocation.","Ne payez jamais un inconnu pour « obtenir » ou « modifier » des résultats : c’est une arnaque."],
+ exLienAnn:"Le lien officiel du CNECE sera ajouté dès qu’il est confirmé.",exDem:"Démarches liées aux diplômes et aux études",exConseils:"Conseils de préparation",exEpr:"Épreuves",exResu:"Résultats",exDans:"dans",
+ exCons:["Faites un planning de révision réaliste, matière par matière, avec des pauses.","Travaillez sur d’anciens sujets en temps réel pour vous habituer au format.","Révisez d’abord les matières à gros coefficient et les points que vous maîtrisez le moins.","Dormez assez, mangez et buvez de l’eau : un cerveau fatigué retient mal.","Révisez à plusieurs : expliquer une leçon à un camarade aide à la retenir.","La veille : préparez la convocation, la pièce d’identité, les stylos, la règle et de l’eau.","Le jour J : arrivez en avance, lisez tout le sujet et gérez votre temps.","Ne trichez pas : les sanctions peuvent être lourdes. Faites confiance à votre travail."],
+ coT:"Concours et bourses",coD:"Avis de concours et offres de bourses, avec les dates limites",coVide:"Aucun avis enregistré pour le moment. Vous en connaissez un ? Proposez-le avec sa source officielle.",co_concours:"Concours",co_bourse:"Bourse",coLimite:"Date limite :",coVoir:"Voir l’avis",coNote:"Seuls les avis issus de sources officielles sont publiés. Vérifiez toujours sur le site de l’organisme avant de postuler ou de payer des frais.",
+ dsT:"Personne disparue",dsD:"Que faire dans les premières heures, et une fiche à partager",dsFaire:"Que faire tout de suite",dsPrep:"Informations à préparer",dsPrud:"Partager avec prudence",dsFiche:"Préparer une fiche à partager",dsNom:"Nom et prénom",dsAge:"Âge",dsDesc:"Description (taille, vêtements, signes particuliers)",dsLieu:"Vu pour la dernière fois (quartier, heure)",dsTel:"Téléphone de contact",dsConf:"J’ai signalé la disparition à la police ou à la gendarmerie.",dsGen:"Préparer la fiche",dsErr:"Indiquez le nom, un téléphone valide, et confirmez le signalement à la police ou à la gendarmerie.",dsPret:"Fiche prête",dsPhoto:"Joignez une photo récente dans WhatsApp. N’écrivez pas l’adresse du domicile. Supprimez la fiche dès que la personne est retrouvée.",dsWa:"Partager sur WhatsApp",
+ dsMsgT:"PERSONNE DISPARUE",dsMsgNom:"Nom",dsMsgAge:"Âge",dsMsgAns:"ans",dsMsgDesc:"Description",dsMsgLieu:"Vue pour la dernière fois",dsMsgTel:"Contact",dsMsgPol:"Disparition signalée à la police ou à la gendarmerie.",dsMsgFin:"Si vous avez une information, appelez le contact ou la police. Merci de ne pas diffuser de rumeurs.",dsNote:"Jamana ne publie rien : la fiche reste sur votre téléphone et c’est vous qui la partagez. Elle ne remplace pas le signalement officiel.", voixKO:"La voix n’a pas pu démarrer. Sur le téléphone : Paramètres → Système → Langues et saisie → Synthèse vocale, puis installez la voix française.",cgTitre:"Avant de commencer",cgIntro:"Lisez ce qui suit jusqu’en bas, puis choisissez.",cgLecture:"Conditions d’utilisation et confidentialité.",cgDefile:"Faites défiler jusqu’en bas pour continuer.",cgFin:"Si vous n’êtes pas d’accord, fermez l’application.",cgOui:"J’accepte et je continue",cgSans:"J’accepte, sans la position",
  cgT1:"Qui est derrière Jamana",cgP1:"Jamana est une application gratuite créée par Mamadou Sidibé. Ce n’est pas un service de l’État.",
  cgT2:"Informations indicatives",cgP2:"Les démarches, coûts, délais, numéros, horaires et conseils sont donnés à titre indicatif et peuvent changer. Vérifiez toujours auprès du service concerné. Les conseils de santé sont généraux : ils ne remplacent pas un professionnel de santé.",
  cgT3:"Votre position (GPS)",cgP3:"La position sert uniquement pour le SOS et « Près de moi », et seulement quand vous appuyez sur le bouton. Elle n’est pas enregistrée et reste sur votre téléphone. Pour le SOS, le lien de votre position n’est envoyé à vos contacts que si vous choisissez d’envoyer le message. Vous pouvez refuser la position et utiliser le reste de l’application.",
@@ -278,7 +287,13 @@ en:{
  trD:"Documents, vehicles, bus stations and road safety",trDoc:"Procedures: vehicles, licences and travel",trGares:"Bus stations and companies",trGaresD:"Destinations, phone, directions",trVide:"No bus station or company listed yet.",trSecu:"Road safety",trConseils:"Good habits",trAccident:"If there is an accident",tt_gare:"Bus station",tt_compagnie:"Bus company",
  cl_route:["Seat belt in front and back; approved helmet on two-wheelers.","No phone while driving, no alcohol, and rest before a long trip.","Adapt your speed to the road, rain, night, dust and animals.","Before a long trip: tyres, brakes, lights, fluid levels, spare wheel and water.","Don’t overload the vehicle, and don’t ride with a tired or drunk driver.","Keep the vehicle and driver documents within reach."],
  cl_accident:["Stop, move the vehicle aside if possible, switch on the hazard lights and warn others of the danger.","Call for help (see the Emergencies page), giving the exact place and the number of injured.","Don’t move a seriously injured person, unless there is immediate danger such as a fire.","Stay with the injured, talk to them and keep them warm.","Note the plates, names and phone numbers, take photos, then report to the police."], pratiqueH:"Everyday",santeH:"Health and safety",
- voixKO:"The voice could not start. On the phone: Settings → System → Languages and input → Text-to-speech, then install the French voice.",cgTitre:"Before you start",cgIntro:"Read the text below to the bottom, then choose.",cgLecture:"Terms of use and privacy.",cgDefile:"Scroll to the bottom to continue.",cgFin:"If you do not agree, close the app.",cgOui:"I accept and continue",cgSans:"I accept, without location",
+ exT:"Exams and results",exD:"DEF, BAC, BT: dates, results, procedures and advice",exProch:"Upcoming exams",exAnn:"The dates of the next session have not been published yet. They will be announced by the Ministry of National Education.",exPasse:"Previous session (for reference)",exRes:"Checking your results",
+ exResG:["Wait for the Ministry’s official announcement: it gives the date, time and website of publication.","Visit the official CNECE website given in that announcement.","Have your name and candidate (or seat) number ready, as shown on your exam notice.","Never pay a stranger to “get” or “change” results: it is a scam."],
+ exLienAnn:"The official CNECE link will be added once it is confirmed.",exDem:"Procedures linked to diplomas and studies",exConseils:"Preparation advice",exEpr:"Exams",exResu:"Results",exDans:"in",
+ exCons:["Make a realistic revision plan, subject by subject, with breaks.","Practise on past papers under real time limits to get used to the format.","Revise high-weighting subjects first, and the points you know least.","Sleep enough, eat and drink water: a tired brain remembers badly.","Revise with others: explaining a lesson to a classmate helps you remember it.","The day before: prepare your exam notice, ID, pens, ruler and water.","On the day: arrive early, read the whole paper and manage your time.","Do not cheat: penalties can be severe. Trust your own work."],
+ coT:"Competitions and scholarships",coD:"Competition notices and scholarship offers, with deadlines",coVide:"No notice listed yet. Know one? Suggest it with its official source.",co_concours:"Competition",co_bourse:"Scholarship",coLimite:"Deadline:",coVoir:"View the notice",coNote:"Only notices from official sources are published. Always check the organisation’s website before applying or paying any fee.",
+ dsT:"Missing person",dsD:"What to do in the first hours, and a notice to share",dsFaire:"What to do right away",dsPrep:"Information to prepare",dsPrud:"Share carefully",dsFiche:"Prepare a notice to share",dsNom:"Full name",dsAge:"Age",dsDesc:"Description (height, clothes, distinguishing marks)",dsLieu:"Last seen (area, time)",dsTel:"Contact phone",dsConf:"I have reported the disappearance to the police or gendarmerie.",dsGen:"Prepare the notice",dsErr:"Enter the name and a valid phone number, and confirm the report to the police or gendarmerie.",dsPret:"Notice ready",dsPhoto:"Attach a recent photo in WhatsApp. Do not write the home address. Delete the notice as soon as the person is found.",dsWa:"Share on WhatsApp",
+ dsMsgT:"MISSING PERSON",dsMsgNom:"Name",dsMsgAge:"Age",dsMsgAns:"years old",dsMsgDesc:"Description",dsMsgLieu:"Last seen",dsMsgTel:"Contact",dsMsgPol:"Disappearance reported to the police or gendarmerie.",dsMsgFin:"If you have information, call the contact or the police. Please do not spread rumours.",dsNote:"Jamana publishes nothing: the notice stays on your phone and you share it yourself. It does not replace the official report.", voixKO:"The voice could not start. On the phone: Settings → System → Languages and input → Text-to-speech, then install the French voice.",cgTitre:"Before you start",cgIntro:"Read the text below to the bottom, then choose.",cgLecture:"Terms of use and privacy.",cgDefile:"Scroll to the bottom to continue.",cgFin:"If you do not agree, close the app.",cgOui:"I accept and continue",cgSans:"I accept, without location",
  cgT1:"Who is behind Jamana",cgP1:"Jamana is a free app created by Mamadou Sidibé. It is not a government service.",
  cgT2:"Information is a guide only",cgP2:"Procedures, costs, timelines, numbers, hours and advice are given as a guide and may change. Always check with the relevant office. Health advice is general: it does not replace a health professional.",
  cgT3:"Your location (GPS)",cgP3:"Location is used only for SOS and “Near me”, and only when you press the button. It is not stored and stays on your phone. For SOS, the link to your location is sent to your contacts only if you choose to send the message. You can refuse location and use the rest of the app.",
@@ -388,7 +403,7 @@ function liste(q){
   const favs=S.fav.map(id=>all.find(x=>x.id===id)).filter(Boolean);
   r.innerHTML=`${alertesUrgentes()}${echeances()}<div class="urg"><div><b>${t("urg")}</b><small>${t("urgSub")}</small></div><a href="tel:17">${svg("tel",18)}${t("police")} 17</a><a href="tel:18">${svg("tel",18)}${t("pompiers")} 18</a><button class="sosbtn" data-go="sos">${svg("alert",20)}${t("sosT")}</button></div>
   ${favs.length?`<h2 class="st">${t("favs")}</h2>`+favs.map(x=>row(x.id,x.titre,C[x.c],"star")).join(""):""}
-  <h2 class="st">${t("services")}</h2>${row("demarches",t("demT"),t("demD"),"doc",all.length)}${row("urgences",t("urgences"),t("urgD"),"urg")}${row("annuaire",t("annuaire"),t("annD"),"pin")}${row("actualites",t("actu"),t("actuD"),"news")}${row("emploi",t("emploi"),t("empD"),"job")}${row("transport",t("transport"),t("trD"),"bus")}${row("rappels",t("rappels"),t("rappelsD"),"bell")}
+  <h2 class="st">${t("services")}</h2>${row("demarches",t("demT"),t("demD"),"doc",all.length)}${row("urgences",t("urgences"),t("urgD"),"urg")}${row("annuaire",t("annuaire"),t("annD"),"pin")}${row("actualites",t("actu"),t("actuD"),"news")}${row("emploi",t("emploi"),t("empD"),"job")}${row("examens",t("exT"),t("exD"),"doc")}${row("concours",t("coT"),t("coD"),"job")}${row("transport",t("transport"),t("trD"),"bus")}${row("disparition",t("dsT"),t("dsD"),"alert")}${row("rappels",t("rappels"),t("rappelsD"),"bell")}
   <h2 class="st">${t("pratiqueH")}</h2>${row("meteo",t("meteo"),t("meteoD"),"cloud")}${row("pres",t("pres"),t("presD"),"locate")}${row("calendrier",t("cal"),t("calD"),"calendar")}${row("convertisseur",t("conv"),t("convD"),"calc")}
   <h2 class="st">${t("santeH")}</h2>${row("sante",t("sante"),t("santeD"),"urg")}${row("arnaques",t("arnaques"),t("arnaquesD"),"shield")}
     <h2 class="st">${t("jamana")}</h2>${rowa(wa0(),t("partagerJ"),t("partagerJD"),"share")}${row("soutenir",t("soutenir"),t("soutenirD"),"heart")}${row("apropos",t("apropos"),t("aproposD"),"info")}`;
@@ -643,6 +658,8 @@ const okE=a=>a&&Array.isArray(a.stages||[])&&(a.stages||[]).every(s=>s&&okStr(s.
 const okAl=a=>Array.isArray(a)&&a.every(x=>x&&okStr(x.titre)&&okTxt(x.texte||"")&&(x.date==null||okStr(x.date))&&(x.type==null||okStr(x.type))&&(x.niveau==null||okStr(x.niveau)));
 const okD=d=>/^\d{4}-\d{2}-\d{2}$/.test(String(d));
 const okC=c=>c&&typeof c==="object"&&["mobiles","evenements"].every(k=>c[k]==null||(Array.isArray(c[k])&&c[k].every(x=>x&&okD(x.date)&&okStr(lg(x.titre))&&(x.note==null||okStr(x.note)))));
+const okEx=a=>a&&Array.isArray(a.dates||[])&&(a.dates||[]).every(x=>x&&okStr(x.nom)&&(!x.debut||reD.test(x.debut))&&(!x.fin||reD.test(x.fin))&&(!x.resultats||reD.test(x.resultats))&&(x.note==null||okStr(x.note)))&&Array.isArray(a.liens||[])&&(a.liens||[]).every(l=>l&&okStr(l.nom)&&/^https:\/\//.test(l.url))&&(a.passes==null||Array.isArray(a.passes));
+const okOp=a=>Array.isArray(a)&&a.every(x=>x&&okStr(x.titre)&&(x.type==null||okStr(x.type))&&(x.organisme==null||okStr(x.organisme))&&(!x.limite||reD.test(x.limite))&&(x.note==null||okTxt(x.note))&&okHttps(x.lien));
 const okS=a=>Array.isArray(a)&&a.every(s=>s&&okStr(s.id)&&okStr(s.nom)&&/^https:\/\//.test(s.url));
 function appliquerMaj(m){
  if(!m||typeof m!=="object")return;
@@ -652,6 +669,8 @@ function appliquerMaj(m){
  if(okT(m.transport))window.TRANSPORT=m.transport;
  if(okE(m.emploi))window.EMPLOI=m.emploi;
  if(okAl(m.alertes))window.ALERTES=m.alertes;
+ if(okEx(m.examens))window.EXAMENS={...EX(),...m.examens};
+ if(okOp(m.opportunites))window.OPPORTUNITES=m.opportunites;
  if(okC(m.calendrier))window.CALENDRIER={...CAL(),...(m.calendrier.mobiles?{mobiles:m.calendrier.mobiles}:{}),...(m.calendrier.evenements?{evenements:m.calendrier.evenements}:{})};
 }
 async function verifierMaj(){
@@ -663,7 +682,7 @@ async function verifierMaj(){
   if(typeof m.version!=="number"||m.version<=(cur.version||0))return;
   localStorage.setItem("jamana-maj",JSON.stringify(m));appliquerMaj(m);
   const x=location.hash.slice(1);
-  if(x===""||x==="urgences"||x==="annuaire"||x==="actualites"||x==="emploi"||x==="transport"||/^[vg]\d/.test(x))route();
+  if(x===""||x==="urgences"||x==="annuaire"||x==="actualites"||x==="emploi"||x==="transport"||x==="examens"||x==="concours"||x==="disparition"||/^[vg]\d/.test(x))route();
  }catch(e){}
 }
 
@@ -904,6 +923,57 @@ async function effacerTout(){
  location.reload();
 }
 
+/* ===== EXAMENS, CONCOURS ET BOURSES, PERSONNE DISPARUE ===== */
+const EXAMEN_DEM=["d066","d067","d068","d069","d070"];
+const reD=/^\d{4}-\d{2}-\d{2}$/;
+const EX=()=>window.EXAMENS||{dates:[],passes:[],liens:[]};
+function dateExHtml(x){
+ const j=x.debut?jrs(x.debut):null;
+ return `<div class="num"><div><b>${esc(x.nom)}</b>${x.debut?`<small>${t("exEpr")} : ${jour(x.debut)}${x.fin?" → "+jour(x.fin):""}${j!==null&&j>=0?" · "+t("exDans")+" "+j+" "+t("rapJours"):""}</small>`:""}${x.resultats?`<small>${t("exResu")} : ${jour(x.resultats)}</small>`:""}${x.note?`<small>${esc(x.note)}</small>`:""}</div></div>`;
+}
+const passeHtml=p=>`<div class="num"><div><b>${esc(p.annee)}</b>${(p.items||[]).map(i=>`<small>${esc(i.nom)} : ${t("exEpr")} ${esc(i.epreuves)} · ${t("exResu")} ${esc(i.resultats)}</small>`).join("")}${p.src?`<small>${esc(p.src)}</small>`:""}</div></div>`;
+function examens(){
+ entete(true,t("exT"),"");
+ const E=EX(),D=E.dates||[],P=E.passes||[],Ls=(E.liens||[]).filter(l=>lienOk(l.url)),L=items().filter(x=>EXAMEN_DEM.includes(x.id));
+ app.innerHTML=`<div class="intro">${t("exD")}</div>${alertesHtml("examens")}<h2 class="st">${t("exProch")}</h2>`
+  +(D.length?D.map(dateExHtml).join(""):`<p class="etat">${t("exAnn")}</p>`)
+  +(P.length?`<h2 class="st">${t("exPasse")}</h2>`+P.map(passeHtml).join(""):"")
+  +`<h2 class="st">${t("exRes")}</h2><details open><summary>${t("exRes")}</summary>${listeHtml(t("exResG"))}`
+  +(Ls.length?`<div class="boutons" style="margin-bottom:16px">${Ls.map(l=>`<a class="appel" href="${esc(l.url)}" target="_blank" rel="noopener">${svg("chev",18)}${esc(l.nom)}</a>`).join("")}</div>`:`<p class="etat">${t("exLienAnn")}</p>`)+`</details>`
+  +`<h2 class="st">${t("exDem")}</h2>`+L.map(x=>row(x.id,x.titre,"","doc")).join("")
+  +`<h2 class="st">${t("exConseils")}</h2><details><summary>${t("exConseils")}</summary>${listeHtml(t("exCons"))}</details>`
+  +`<div class="note"><p>${t("annNote")}</p><a class="appel" href="${wa("Jamana – examens\nInformation à ajouter (source officielle) : ")}" target="_blank" rel="noopener">${svg("chat",18)}${t("proposer")}</a></div>`;
+}
+function concours(){
+ entete(true,t("coT"),"");
+ const O=(window.OPPORTUNITES||[]).filter(x=>!x.limite||jrs(x.limite)>=0).sort((a,b)=>String(a.limite||"9999").localeCompare(String(b.limite||"9999")));
+ app.innerHTML=`<div class="intro">${t("coD")}</div>`
+  +(O.length?O.map(x=>`<details><summary><span>${esc(x.titre)}${x.type?`<span class="nb">${esc(t("co_"+x.type)||x.type)}</span>`:""}${aconf(x.ok)}</span></summary>${x.organisme?`<p>${esc(x.organisme)}</p>`:""}${x.limite?`<p><b>${t("coLimite")}</b> ${jour(x.limite)} · ${t("exDans")} ${jrs(x.limite)} ${t("rapJours")}</p>`:""}${x.note?`<p>${esc(x.note)}</p>`:""}${lienOk(x.lien)?`<a class="appel" href="${esc(x.lien)}" target="_blank" rel="noopener">${t("coVoir")}</a>`:""}</details>`).join(""):`<p class="vide">${t("coVide")}</p>`)
+  +`<div class="note"><p>${t("coNote")}</p><a class="appel" href="${wa("Jamana – concours / bourse à ajouter (source officielle) : ")}" target="_blank" rel="noopener">${svg("chat",18)}${t("proposer")}</a></div>`;
+}
+function disparition(){
+ entete(true,t("dsT"),"");
+ const G=(window.DISPARITION||{})[lang==="en"?"en":"fr"]||(window.DISPARITION||{}).fr||{etapes:[],preparer:[],prudence:[]};
+ app.innerHTML=`<div class="intro">${t("dsD")}</div>${alertesHtml("disparition")}<h2 class="st">${t("dsFaire")}</h2><ol class="etapes">${G.etapes.map(x=>"<li>"+esc(x)+"</li>").join("")}</ol>`
+  +`<h2 class="st">${t("dsPrep")}</h2>${listeHtml(G.preparer)}<h2 class="st">${t("dsPrud")}</h2>${listeHtml(G.prudence)}<h2 class="st">${t("dsFiche")}</h2>`
+  +`<div class="form"><label>${t("dsNom")}<input id="dn" maxlength="60"></label><label>${t("dsAge")}<input id="da" maxlength="10" inputmode="numeric"></label><label>${t("dsDesc")}<input id="dd" maxlength="220"></label><label>${t("dsLieu")}<input id="dl" maxlength="120"></label><label>${t("dsTel")}<input id="dt" type="tel" maxlength="20"></label>`
+  +`<label style="display:flex;gap:10px;align-items:flex-start;font-weight:600"><input type="checkbox" id="dok" style="flex:none;width:22px;height:22px;min-height:0;margin-top:2px">${t("dsConf")}</label><button class="appel" data-ds-gen style="border:0;margin:0;font:inherit;justify-content:center">${t("dsGen")}</button><div id="dres"></div></div>`
+  +`<div class="note"><p>${t("dsNote")}</p></div>`;
+}
+function dsGen(){
+ const v=id=>((document.getElementById(id)||{}).value||"").trim();
+ const nom=v("dn").slice(0,60),age=v("da").slice(0,10),desc=v("dd").slice(0,220),lieu=v("dl").slice(0,120),tel=v("dt").slice(0,20);
+ const conf=!!(document.getElementById("dok")&&document.getElementById("dok").checked),box=document.getElementById("dres");
+ if(!nom||!okNum(tel)||!conf){box.innerHTML=`<p class="etat" style="color:var(--rtx)">${t("dsErr")}</p>`;return}
+ const L=["🚨 "+t("dsMsgT"),t("dsMsgNom")+" : "+nom];
+ if(age)L.push(t("dsMsgAge")+" : "+age+(/^\d+$/.test(age)?" "+t("dsMsgAns"):""));
+ if(desc)L.push(t("dsMsgDesc")+" : "+desc);
+ if(lieu)L.push(t("dsMsgLieu")+" : "+lieu);
+ L.push(t("dsMsgTel")+" : "+tel,"",t("dsMsgPol"),t("dsMsgFin"));
+ const msg=L.join("\n");
+ box.innerHTML=`<div class="note"><p><b>${t("dsPret")}</b></p><pre style="white-space:pre-wrap;font:inherit;margin:0 0 12px;color:var(--texte)">${esc(msg)}</pre><div class="boutons"><a class="appel" href="https://wa.me/?text=${encodeURIComponent(msg)}" target="_blank" rel="noopener">${svg("share",18)}${t("dsWa")}</a><button class="sec" data-copy="${esc(msg).replace(/\n/g,"&#10;")}">${svg("copy",18)}${t("souCopier")}</button></div><p style="margin:12px 0 0">${t("dsPhoto")}</p></div>`;
+}
+
 /* ===== NAVIGATION ===== */
 function route(){
  stopLire();
@@ -930,6 +1000,9 @@ function route(){
  else if(id==="meteo"){meteo()}
  else if(id==="pres"){pres()}
  else if(id==="convertisseur"){convertisseur()}
+ else if(id==="examens"){examens()}
+ else if(id==="concours"){concours()}
+ else if(id==="disparition"){disparition()}
  else if(id==="calendrier"){calendrier()}
  else if(id==="rappels"){rappels()}
  else if(id==="soutenir"){soutenir()}
@@ -966,6 +1039,7 @@ document.addEventListener("click",e=>{
  if(b=g("[data-posset]")){S.pos=b.dataset.posset;save();return reglages()}
  if(g("[data-pos-on]")){S.pos="ok";save();return presGo()}
  if(b=g("[data-dlg]")){document.getElementById("dlg").hidden=true;const r=DLGR;DLGR=null;if(r)r(b.dataset.dlg);return}
+ if(g("[data-ds-gen]"))return dsGen();
  if(b=g("[data-go]"))location.hash=b.dataset.go;
 });
 document.addEventListener("input",e=>{if(e.target.closest&&e.target.closest("[data-conv]"))convCalc()});
