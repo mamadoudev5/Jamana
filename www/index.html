@@ -133,14 +133,59 @@ nav button.on::before{content:"";position:absolute;top:-7px;width:28px;height:3p
 .opts{display:flex;gap:8px;margin:8px 0 18px}
 .opts button{flex:1;padding:12px 4px;border:1px solid var(--ligne);border-radius:12px;background:var(--fond);color:var(--texte);font-weight:600}
 .opts button.on{background:var(--bleu);border-color:var(--bleu);color:#fff}
+.rech:focus-within{box-shadow:0 12px 32px var(--ombre),0 0 0 3px var(--elec)}
+.grille{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 4px}
+.tg{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:10px;min-height:118px;padding:14px;text-align:left;background:var(--carte);border:1px solid var(--ligne);border-radius:18px;transition:transform .12s,border-color .12s}
+.tg:active{transform:scale(.97);border-color:var(--elec)}
+.tg:last-child:nth-child(odd){grid-column:1/-1;min-height:0;flex-direction:row;align-items:center}
+.tg .tuile{width:44px;height:44px;border-radius:13px;flex:none}
+.tg b{display:block;font-size:.98rem;line-height:1.2}
+.tg small{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-top:3px;color:var(--gris);font-size:.78rem;line-height:1.3}
+.tg>.nb{position:absolute;top:12px;right:12px;margin:0}
+.st{display:flex;align-items:center;gap:8px}
+.st .nb{margin:0}
+#off{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(78px + env(safe-area-inset-bottom,0px));z-index:6;max-width:calc(100% - 28px);padding:8px 16px;border-radius:999px;background:var(--nuit);color:#fff;font-size:.82rem;font-weight:600;text-align:center;box-shadow:0 6px 20px rgba(0,0,0,.3)}
+#off[hidden]{display:none}
+@keyframes ap{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+main>*{animation:ap .24s ease both}
+/* ===== STYLE « LIQUID GLASS » : verre translucide, flou, reflets ===== */
+:root{--gv:rgba(255,255,255,.52);--gv2:rgba(255,255,255,.72);--gb:rgba(255,255,255,.85);--gh:rgba(255,255,255,.95);--gs:rgba(11,63,168,.14);--fl:blur(18px) saturate(180%)}
+:root[data-theme=dark]{--gv:rgba(26,42,92,.42);--gv2:rgba(22,36,80,.66);--gb:rgba(255,255,255,.16);--gh:rgba(255,255,255,.22);--gs:rgba(0,0,0,.4)}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+background:radial-gradient(60vmax 60vmax at 0% 18%,rgba(29,91,255,.30),transparent 60%),radial-gradient(50vmax 50vmax at 105% 42%,rgba(34,195,230,.26),transparent 60%),radial-gradient(46vmax 46vmax at 10% 78%,rgba(255,196,0,.16),transparent 60%),radial-gradient(52vmax 52vmax at 100% 100%,rgba(20,170,90,.18),transparent 60%),radial-gradient(40vmax 40vmax at 60% 66%,rgba(206,17,38,.07),transparent 60%)}
+:root[data-theme=dark] body::before{background:radial-gradient(60vmax 60vmax at 0% 18%,rgba(29,91,255,.40),transparent 60%),radial-gradient(50vmax 50vmax at 105% 42%,rgba(34,195,230,.20),transparent 60%),radial-gradient(46vmax 46vmax at 10% 78%,rgba(255,196,0,.10),transparent 60%),radial-gradient(52vmax 52vmax at 100% 100%,rgba(20,170,90,.14),transparent 60%)}
+.rech,.intro,.urg,.tg,.row,.num,details,.form,.art,.note,.sec,.act,.chips button,.opts button,.dbox{background:var(--gv);border:1px solid var(--gb);box-shadow:inset 0 1px 1px var(--gh),inset 0 -1px 1px rgba(255,255,255,.12),0 8px 24px var(--gs)}
+.rech,.intro,.urg,.tg,.dbox,.sec,.act{-webkit-backdrop-filter:var(--fl);backdrop-filter:var(--fl)}
+.rech{background:var(--gv2)}
+.note{background:var(--gv);border-style:solid}
+.opts button.on,.chips button.on,.act.on{background:linear-gradient(145deg,var(--elec),var(--bleu));border-color:rgba(255,255,255,.35);color:#fff}
+.tuile{background:linear-gradient(145deg,#4C86FF,var(--bleu));box-shadow:inset 0 1px 1px rgba(255,255,255,.55),0 6px 14px rgba(29,91,255,.35)}
+.appel,.sosbtn{box-shadow:inset 0 1px 1px rgba(255,255,255,.4),0 6px 16px rgba(11,63,168,.28)}
+.sosbtn{box-shadow:inset 0 1px 1px rgba(255,255,255,.4),0 6px 16px rgba(206,17,38,.35)}
+.urg a{background:rgba(255,241,242,.6);box-shadow:inset 0 1px 1px rgba(255,255,255,.8)}
+:root[data-theme=dark] .urg a{background:rgba(120,20,30,.35)}
+.alerte{box-shadow:inset 0 1px 1px rgba(255,255,255,.6),0 6px 18px rgba(176,16,31,.12)}
+.reglage,.langues,.retour{-webkit-backdrop-filter:blur(14px) saturate(160%);backdrop-filter:blur(14px) saturate(160%);border:1px solid rgba(255,255,255,.3);box-shadow:inset 0 1px 1px rgba(255,255,255,.35)}
+.reglage,.retour{background:rgba(255,255,255,.18)}
+nav{left:14px;right:14px;bottom:calc(10px + env(safe-area-inset-bottom,0px));padding:6px;background:var(--gv2);-webkit-backdrop-filter:blur(24px) saturate(190%);backdrop-filter:blur(24px) saturate(190%);border:1px solid var(--gb);border-radius:28px;box-shadow:inset 0 1px 1px var(--gh),0 14px 34px var(--gs),0 2px 8px rgba(0,0,0,.06)}
+nav button{border-radius:22px;padding:8px 0 6px;transition:background .15s}
+nav button.on{background:rgba(29,91,255,.16);box-shadow:inset 0 1px 1px var(--gh)}
+nav button.on::before{display:none}
+#off{bottom:calc(92px + env(safe-area-inset-bottom,0px));background:rgba(8,25,77,.72);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.25)}
+#reg{background:rgba(8,16,40,.28);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.feuille{background:var(--gv2);-webkit-backdrop-filter:blur(30px) saturate(190%);backdrop-filter:blur(30px) saturate(190%);border:1px solid var(--gb);border-bottom:0;box-shadow:inset 0 1px 1px var(--gh),0 -10px 40px rgba(0,0,0,.2)}
+main{padding-bottom:130px}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){:root{--gv:rgba(255,255,255,.9);--gv2:rgba(255,255,255,.96)}:root[data-theme=dark]{--gv:rgba(22,36,80,.92);--gv2:rgba(18,30,68,.96)}}
+@media (prefers-reduced-transparency:reduce){:root{--gv:#fff;--gv2:#fff;--fl:none}:root[data-theme=dark]{--gv:#101B3E;--gv2:#101B3E}body::before{display:none}}
 :focus-visible{outline:3px solid var(--elec);outline-offset:2px}
-@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 </head>
 <body>
 <header id="hd"></header>
 <main id="app"></main>
 <nav id="nav" aria-label="Navigation principale"></nav>
+<div id="off" role="status" hidden></div>
 <div id="reg" hidden></div>
 <div id="cgu" class="ov" hidden></div>
 <div id="dlg" class="ov" hidden></div>
@@ -186,13 +231,14 @@ calc:'<rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 12h.01M
 calendar:'<rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/>',
 shield:'<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/>',
 alert:'<path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18h.01"/>',
+clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
 locate:'<circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="8"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/>'};
 const svg=(n,s=24)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${I[n]}</svg>`;
 const CATIC=["doc","bus","urg","job","doc","home","doc","doc","job","pin","doc"];
 const LOGO=`<svg viewBox="0 0 64 64" role="img" aria-label="Logo Jamana"><rect width="64" height="64" rx="18" fill="#fff"/><path d="M38 14v22c0 7-4.5 11-11 11" fill="none" stroke="#0B3FA8" stroke-width="8" stroke-linecap="round"/><rect x="14" y="52" width="12" height="4" rx="2" fill="#14B53A"/><rect x="26" y="52" width="12" height="4" rx="2" fill="#FCD116"/><rect x="38" y="52" width="12" height="4" rx="2" fill="#CE1126"/></svg>`;
 
 /* ===== CONTACT ===== */
-const VERSION="1.7";
+const VERSION="1.8";
 const WA="22373065026",TEL="+22373065026",MAIL="mamadousidibee10@gmail.com";
 const RELEASES="https://github.com/mamadoudev5/Jamana/releases/latest";
 const MAJ_URL="https://raw.githubusercontent.com/mamadoudev5/Jamana/main/www/maj.json";
@@ -243,7 +289,8 @@ const UI={fr:{
  apTitre3:"Avertissement",apT3:"Les informations sont données à titre indicatif. Les coûts, délais, procédures et numéros peuvent changer : vérifiez toujours auprès du service concerné. Jamana n’est pas un service de l’État.",
  apTitre4:"Confidentialité",apT4:"Pas de compte, pas de publicité, pas de suivi. Vos favoris, contacts SOS, cases cochées, rappels et réglages restent sur votre téléphone. Votre position n’est utilisée que pour le SOS et « Près de moi », quand vous appuyez, et n’est pas enregistrée. Pour les actualités, la météo et les mises à jour du contenu, l’application se connecte à Internet (journaux, Open-Meteo, GitHub), qui peuvent voir l’adresse IP de votre connexion.",
  apTitre5:"Contenu mis à jour",apMaj:"Version du contenu reçu :",apMajNon:"Aucune mise à jour de contenu reçue pour le moment.",apContact:"Une erreur à signaler, une idée ?", actuT:"Actualités",actuD:"Les dernières informations de la presse malienne",actuMaj:"Actualiser",actuHors:"Pas de connexion : derniers articles enregistrés",actuErr:"Impossible de charger les actualités pour le moment.",actuNav:"Dans un navigateur, certains sites bloquent la lecture. L’application Android fonctionne.",actuVide:"Aucun article pour le moment.",actuNote:"Titres fournis par les sites des journaux. Jamana n’est pas responsable de leur contenu.",charge:"Chargement…",aconf:"À confirmer",ty_utilites:"Eau et électricité",ty_mairie:"Mairies",ty_etatcivil:"Centres d’état civil",ty_commissariat:"Commissariats",ty_hopital:"Hôpitaux et centres de santé",ty_pharmacie:"Pharmacies 24h/24 et de garde",
- by:"Créé par",tag:"Le Mali en poche : démarches, urgences, annuaire.",search:"Rechercher une démarche, un service…",
+ recent:"Récemment consulté",hors:"Hors ligne : le contenu enregistré reste disponible",
+ by:"Créé par",tag:"Le Mali en poche : démarches, urgences, annuaire.",search:"Rechercher une démarche, un numéro, un lieu…",
  urg:"En cas d’urgence",urgSub:"Appel direct",police:"Police",pompiers:"Pompiers",
  services:"Services",soon:"Bientôt disponible",home:"Accueil",back:"Retour",none:"Aucun résultat pour",call:"Appeler le",
  dem:"Démarches",demT:"Démarches administratives",demD:"Pièces, coûts, lieux et délais",nb:"démarches",
@@ -261,7 +308,8 @@ const UI={fr:{
  videType:"Aucun service enregistré ici pour le moment.",proposer:"Proposer un service",annNote:"Vous connaissez un service qui manque ou une information à corriger ?"
 },
 en:{
- by:"Created by",tag:"Mali in your pocket: procedures, emergencies, directory.",search:"Search for a procedure or service…",
+ recent:"Recently viewed",hors:"Offline: saved content is still available",
+ by:"Created by",tag:"Mali in your pocket: procedures, emergencies, directory.",search:"Search a procedure, a number, a place…",
  urg:"In an emergency",urgSub:"Direct call",police:"Police",pompiers:"Fire brigade",
  services:"Services",soon:"Coming soon",home:"Home",back:"Back",none:"No results for",call:"Call",
  dem:"Procedures",demT:"Administrative procedures",demD:"Documents, costs, places and timelines",nb:"procedures",
@@ -347,7 +395,7 @@ function setLang(c){
 }
 
 /* ===== RÉGLAGES (mémorisés sur le téléphone) ===== */
-let S={fs:100,theme:"auto",fav:[],chk:{},rap:[],sos:[],mc:"bamako"};
+let S={fs:100,theme:"auto",fav:[],rec:[],chk:{},rap:[],sos:[],mc:"bamako"};
 try{S={...S,...JSON.parse(localStorage.getItem("jamana-s")||"{}")}}catch(e){}
 const save=()=>{try{localStorage.setItem("jamana-s",JSON.stringify(S))}catch(e){}};
 function appliquer(){
@@ -391,31 +439,53 @@ function entete(compact,titre,retour){
 /* ===== ACCUEIL ===== */
 function accueil(){
  entete(false);
- app.innerHTML=`<label class="rech">${svg("search",20)}<input id="q" type="search" placeholder="${t("search")}" aria-label="${t("search")}"></label><div id="res"></div>`;
+ app.innerHTML=`<label class="rech">${svg("search",20)}<input id="q" type="search" enterkeyhint="search" autocomplete="off" placeholder="${t("search")}" aria-label="${t("search")}"></label><div id="res"></div>`;
  document.getElementById("q").addEventListener("input",e=>liste(e.target.value));
  liste("");
+}
+const tg=(go,ti,de,ic,nb)=>`<button class="tg" data-go="${go}"><span class="tuile">${svg(ic,24)}</span><span><b>${esc(ti)}</b>${de?`<small>${esc(de)}</small>`:""}</span>${nb!==undefined&&nb!==""?`<span class="nb">${nb}</span>`:""}</button>`;
+const nbDocs=it=>(it.s.documents||[]).filter(x=>x[0]==="•").length;
+const avance=it=>{const n=nbDocs(it),d=(S.chk[it.id]||[]).length;return n&&d?d+"/"+n:""};
+const RUBRIQUES=()=>[["demarches","demT","demD","doc"],["urgences","urgences","urgD","urg"],["annuaire","annuaire","annD","pin"],["actualites","actu","actuD","news"],["emploi","emploi","empD","job"],["examens","exT","exD","doc"],["concours","coT","coD","job"],["transport","transport","trD","bus"],["disparition","dsT","dsD","alert"],["rappels","rappels","rappelsD","bell"],["meteo","meteo","meteoD","cloud"],["pres","pres","presD","locate"],["calendrier","cal","calD","calendar"],["convertisseur","conv","convD","calc"],["sante","sante","santeD","urg"],["arnaques","arnaques","arnaquesD","shield"],["sos","sosT","sosD","alert"],["soutenir","soutenir","soutenirD","heart"],["apropos","apropos","aproposD","info"]];
+const numLigne=(nom,de,tel)=>`<div class="num"><div><b>${esc(nom)}</b>${de?`<small>${esc(de)}</small>`:""}</div>${telBtn(tel)}</div>`;
+function rechercheGlobale(q){
+ const C=cats(),all=items(),w=q.split(/\s+/).filter(Boolean),ok=h=>w.every(m=>norm(h).includes(m));
+ const A=[],B=[];
+ all.forEach(it=>{if(ok(it.titre))A.push(it);else if(ok(Object.values(it.s).flat().join(" ")))B.push(it)});
+ const dem=A.concat(B).slice(0,20);
+ const rub=RUBRIQUES().filter(([,k,d])=>ok(t(k)+" "+t(d)));
+ const urg=[];(window.URGENCES||[]).forEach(g=>g.items.forEach(x=>{if(ok(x.nom+" "+g.titre+" "+x.tel))urg.push(x)}));
+ const ann=[];VILLES().forEach((v,i)=>(v.services||[]).forEach(s=>{const j=TYPES.findIndex(T=>T[0]===s.t);if(j>=0&&ok([s.nom,s.quartier,s.adresse,v.nom,t("ty_"+s.t)].filter(Boolean).join(" ")))ann.push({s,v,i,j})}));
+ const gar=[];VT().forEach((v,i)=>(v.lieux||[]).forEach(s=>{if(ok([s.nom,s.destinations,v.nom].filter(Boolean).join(" ")))gar.push({s,v,i})}));
+ const emp=((window.EMPLOI&&window.EMPLOI.stages)||[]).filter(s=>ok([s.titre,s.organisme].filter(Boolean).join(" ")));
+ const opp=(window.OPPORTUNITES||[]).filter(s=>ok([s.titre,s.organisme].filter(Boolean).join(" ")));
+ const h=(titre,n)=>`<h2 class="st">${esc(titre)}<span class="nb">${n}</span></h2>`;
+ let out="";
+ if(rub.length)out+=h(t("services"),rub.length)+rub.slice(0,6).map(([go,k,d,ic])=>row(go,t(k),t(d),ic)).join("");
+ if(dem.length)out+=h(t("dem"),dem.length)+dem.map(it=>row(it.id,it.titre,C[it.c],CATIC[it.c]||"doc")).join("");
+ if(urg.length)out+=h(t("urgences"),urg.length)+urg.slice(0,10).map(x=>numLigne(x.nom,"",x.tel)).join("");
+ if(ann.length)out+=h(t("annuaire"),ann.length)+ann.slice(0,15).map(({s,v,i,j})=>s.tel?numLigne(s.nom,v.nom+" · "+t("ty_"+s.t),s.tel):row("v"+i+"t"+j,s.nom,v.nom+" · "+t("ty_"+s.t),"pin")).join("");
+ if(gar.length)out+=h(t("trGares"),gar.length)+gar.slice(0,10).map(({s,v,i})=>s.tel?numLigne(s.nom,v.nom+(s.destinations?" · "+s.destinations:""),s.tel):row("g"+i,s.nom,v.nom,"bus")).join("");
+ if(emp.length)out+=h(t("empStages"),emp.length)+emp.slice(0,5).map(s=>row("emploi",s.titre,s.organisme||"","job")).join("");
+ if(opp.length)out+=h(t("coT"),opp.length)+opp.slice(0,5).map(s=>row("concours",s.titre,s.organisme||"","job")).join("");
+ return out;
 }
 function liste(q){
  const r=document.getElementById("res");q=norm(q.trim());
  const all=items(),C=cats();
  if(!q){
-  const soon=[["job",t("emploi")],["bus",t("transport")]];
   const favs=S.fav.map(id=>all.find(x=>x.id===id)).filter(Boolean);
+  const rec=(S.rec||[]).map(id=>all.find(x=>x.id===id)).filter(x=>x&&!S.fav.includes(x.id)).slice(0,4);
   r.innerHTML=`${alertesUrgentes()}${echeances()}<div class="urg"><div><b>${t("urg")}</b><small>${t("urgSub")}</small></div><a href="tel:17">${svg("tel",18)}${t("police")} 17</a><a href="tel:18">${svg("tel",18)}${t("pompiers")} 18</a><button class="sosbtn" data-go="sos">${svg("alert",20)}${t("sosT")}</button></div>
-  ${favs.length?`<h2 class="st">${t("favs")}</h2>`+favs.map(x=>row(x.id,x.titre,C[x.c],"star")).join(""):""}
-  <h2 class="st">${t("services")}</h2>${row("demarches",t("demT"),t("demD"),"doc",all.length)}${row("urgences",t("urgences"),t("urgD"),"urg")}${row("annuaire",t("annuaire"),t("annD"),"pin")}${row("actualites",t("actu"),t("actuD"),"news")}${row("emploi",t("emploi"),t("empD"),"job")}${row("examens",t("exT"),t("exD"),"doc")}${row("concours",t("coT"),t("coD"),"job")}${row("transport",t("transport"),t("trD"),"bus")}${row("disparition",t("dsT"),t("dsD"),"alert")}${row("rappels",t("rappels"),t("rappelsD"),"bell")}
-  <h2 class="st">${t("pratiqueH")}</h2>${row("meteo",t("meteo"),t("meteoD"),"cloud")}${row("pres",t("pres"),t("presD"),"locate")}${row("calendrier",t("cal"),t("calD"),"calendar")}${row("convertisseur",t("conv"),t("convD"),"calc")}
-  <h2 class="st">${t("santeH")}</h2>${row("sante",t("sante"),t("santeD"),"urg")}${row("arnaques",t("arnaques"),t("arnaquesD"),"shield")}
-    <h2 class="st">${t("jamana")}</h2>${rowa(wa0(),t("partagerJ"),t("partagerJD"),"share")}${row("soutenir",t("soutenir"),t("soutenirD"),"heart")}${row("apropos",t("apropos"),t("aproposD"),"info")}`;
+  ${favs.length?`<h2 class="st">${t("favs")}</h2>`+favs.map(x=>row(x.id,x.titre,C[x.c],"star",avance(x))).join(""):""}
+  ${rec.length?`<h2 class="st">${t("recent")}</h2>`+rec.map(x=>row(x.id,x.titre,C[x.c],"clock",avance(x))).join(""):""}
+  <h2 class="st">${t("services")}</h2><div class="grille">${tg("demarches",t("demT"),t("demD"),"doc",all.length)}${tg("urgences",t("urgences"),t("urgD"),"urg")}${tg("annuaire",t("annuaire"),t("annD"),"pin")}${tg("actualites",t("actu"),t("actuD"),"news")}${tg("emploi",t("emploi"),t("empD"),"job")}${tg("examens",t("exT"),t("exD"),"doc")}${tg("concours",t("coT"),t("coD"),"job")}${tg("transport",t("transport"),t("trD"),"bus")}${tg("disparition",t("dsT"),t("dsD"),"alert")}${tg("rappels",t("rappels"),t("rappelsD"),"bell")}</div>
+  <h2 class="st">${t("pratiqueH")}</h2><div class="grille">${tg("meteo",t("meteo"),t("meteoD"),"cloud")}${tg("pres",t("pres"),t("presD"),"locate")}${tg("calendrier",t("cal"),t("calD"),"calendar")}${tg("convertisseur",t("conv"),t("convD"),"calc")}</div>
+  <h2 class="st">${t("santeH")}</h2><div class="grille">${tg("sante",t("sante"),t("santeD"),"urg")}${tg("arnaques",t("arnaques"),t("arnaquesD"),"shield")}</div>
+  <h2 class="st">${t("jamana")}</h2>${rowa(wa0(),t("partagerJ"),t("partagerJD"),"share")}${row("soutenir",t("soutenir"),t("soutenirD"),"heart")}${row("apropos",t("apropos"),t("aproposD"),"info")}`;
   return;
  }
- const A=[],B=[];
- all.forEach(it=>{
-  if(norm(it.titre).includes(q))A.push(it);
-  else if(norm(Object.values(it.s).flat().join(" ")).includes(q))B.push(it);
- });
- const res=A.concat(B).slice(0,40);
- r.innerHTML=res.length?`<div style="margin-top:18px">${res.map(it=>row(it.id,it.titre,C[it.c],CATIC[it.c]||"doc")).join("")}</div>`:`<p class="vide">${t("none")} « ${esc(q)} ».</p>`;
+ r.innerHTML=`<div style="margin-top:6px">${rechercheGlobale(q)||`<p class="vide">${t("none")} « ${esc(q)} ».</p>`}</div>`;
 }
 
 /* ===== DÉMARCHES ===== */
@@ -456,6 +526,7 @@ const ORDRE=["intro","description","documents","cout","delai","procedure","servi
 function detail(id){
  const it=items().find(x=>x.id===id);
  if(!it)return accueil();
+ S.rec=[id,...(S.rec||[]).filter(x=>x!==id)].slice(0,8);save();
  entete(true,it.titre,"c"+it.c);
  const taille=JSON.stringify(it.s).length,ouvre=k=>taille<5000&&["documents","cout","delai"].includes(k),fav=S.fav.includes(id);
  app.innerHTML=`<div class="intro">${esc(cats()[it.c]||"")}</div>
@@ -1013,7 +1084,14 @@ function route(){
  app.insertAdjacentHTML("beforeend",pied());
  nav.innerHTML=[["","home",t("home")],["demarches","doc",t("dem")],["urgences","urg",t("urgences")],["annuaire","pin",t("annuaire")]].map(([h,ic,l])=>`<button data-go="${h}" class="${h===tab?"on":""}">${svg(ic,24)}<span>${l}</span></button>`).join("");
  window.scrollTo(0,0);
+ majHors();
 }
+function majHors(){
+ const o=document.getElementById("off");if(!o)return;
+ o.textContent=t("hors");o.hidden=navigator.onLine!==false;
+}
+window.addEventListener("offline",majHors);
+window.addEventListener("online",()=>{majHors();verifierMaj()});
 
 document.addEventListener("click",e=>{
  const g=s=>e.target.closest(s);let b;
