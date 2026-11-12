@@ -1,7 +1,11 @@
 {
   "name": "Jamana – Le Mali en poche",
   "short_name": "Jamana",
+  "id": "./",
+  "scope": "./",
   "start_url": "./index.html",
+  "orientation": "portrait",
+  "categories": ["utilities","government"],
   "display": "standalone",
   "background_color": "#FFFFFF",
   "theme_color": "#0B3FA8",
